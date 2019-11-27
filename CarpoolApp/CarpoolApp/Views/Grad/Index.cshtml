@@ -1,0 +1,51 @@
+﻿@model IEnumerable<CarpoolApp.Models.Grad>
+
+    @{
+    ViewData["Title"] = "Index";
+    List<Grad> gradovi = (List<Grad>)ViewData["gradovi"];
+    }
+
+    <h1>Index</h1>
+
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Naziv)
+                </th>
+                <th>
+                 Drzava
+                </th>
+                <th>
+                   Postanski broj
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in gradovi)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Naziv)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Drzava.Skracenica)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PostanskiBroj)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.GradID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.GradID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.GradID })
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>

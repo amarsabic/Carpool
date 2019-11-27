@@ -1,0 +1,43 @@
+﻿@model IEnumerable<CarpoolApp.Models.Drzava>
+@{
+    ViewData["Title"] = "Index";
+    List<Drzava> drzave = (List<Drzava>)ViewData["drzave"];
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+     
+            <th>
+                @Html.DisplayNameFor(model => model.Naziv)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Skracenica)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in drzave)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Naziv)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Skracenica)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new {  id=item.DrzavaID  }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.DrzavaID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.DrzavaID })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
