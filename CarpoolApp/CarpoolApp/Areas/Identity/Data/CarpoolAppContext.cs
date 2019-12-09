@@ -16,8 +16,12 @@ namespace CarpoolApp.Models
         {
         }
 
+
         public DbSet<Drzava> Drzave { get; set; }
         public DbSet<Grad> Gradovi { get; set; }
+        public DbSet<Automobil> Autmobili { get; set; }
+        public DbSet<Vozac> Vozaci { get; set; }
+        public DbSet<Korisnik> Korisnici { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

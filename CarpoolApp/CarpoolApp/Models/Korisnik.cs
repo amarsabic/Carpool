@@ -10,7 +10,12 @@ namespace CarpoolApp.Models
     {
         public string Ime { get; set; }
         public string Prezime { get; set; }
+        public string BrojTelefona { get; set; }
+        public string KratkaBiografija { get; set; }
+        public string Spol { get; set; }
+        public DateTime DatumRodjenja { get; set; }
+        public string Adresa { get; set; }
 
-
+        public Vozac Vozac { get; set; }
     }
 }

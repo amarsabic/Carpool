@@ -4,14 +4,16 @@ using CarpoolApp.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CarpoolApp.Migrations
 {
     [DbContext(typeof(CarpoolAppContext))]
-    partial class CarpoolAppContextModelSnapshot : ModelSnapshot
+    [Migration("20191209110038_VozacKorisnikAutomobil")]
+    partial class VozacKorisnikAutomobil
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,7 +53,7 @@ namespace CarpoolApp.Migrations
 
                     b.HasIndex("VozacID");
 
-                    b.ToTable("Autmobili");
+                    b.ToTable("Automobil");
                 });
 
             modelBuilder.Entity("CarpoolApp.Models.Drzava", b =>
@@ -204,7 +206,7 @@ namespace CarpoolApp.Migrations
                     b.HasIndex("KorisnikID")
                         .IsUnique();
 
-                    b.ToTable("Vozaci");
+                    b.ToTable("Vozac");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<int>", b =>

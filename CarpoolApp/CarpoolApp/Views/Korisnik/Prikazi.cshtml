@@ -1,0 +1,39 @@
+﻿@using Microsoft.AspNetCore.Razor.Language.Extensions
+
+@{
+    ViewData["Title"] = "ListaKorisnika";
+    var podaci = (List <Korisnik>) ViewData["podaci"];
+}
+
+<h1>Korisnici</h1>
+
+<table class="table table-dark">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Ime</th>
+            <th scope="col">Prezime</th>
+            <th scope="col">Broj mobitela</th>
+            <th scope="col">Spol</th>
+            <th scope="col">Datum rođenja</th>
+            <th scope="col">Adresa</th>
+            <th scope="col">Kratka biografija</th>
+        </tr>
+    </thead>
+    @foreach (var x in podaci)
+    {
+        <tbody>
+            <tr>
+                <th scope="row">@x.Id</th>
+                <th scope="row">@x.Ime</th>
+                <th scope="row">@x.Prezime</th>
+                <th scope="row">@x.BrojTelefona</th>
+                <th scope="row">@x.Spol</th>
+                <th scope="row">@x.DatumRodjenja</th>
+                <th scope="row">@x.Adresa</th>
+                <th scope="row">@x.KratkaBiografija</th>
+                <th scope="row"><a href="/Korisnik/Obrisi?KorisnikID=@x.Id">Obrisi</a></th>
+            </tr>
+        </tbody>
+    }
+</table>
