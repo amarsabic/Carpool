@@ -1,0 +1,22 @@
+﻿/*homePage*/
+.homePage {
+    background-image: url('/emptyvehicle.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* background-position: center; */
+    height: 100vh;
+    position: relative;
+    margin-top: -17px;
+}
+
+#mojaForma {
+    width: 900px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.form-row input {
+    padding: 25px;
+}
