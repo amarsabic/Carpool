@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using CarpoolApp.Models;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace CarpoolApp.Controllers
 {
@@ -16,6 +17,7 @@ namespace CarpoolApp.Controllers
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+            
         }
 
         public IActionResult Index()
