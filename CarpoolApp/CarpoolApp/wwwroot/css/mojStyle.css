@@ -1,6 +1,6 @@
 ﻿/*homePage*/
 .homePage {
-    background-image: url('/emptyvehicle.jpg');
+    background-image: url('/car3.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     /* background-position: center; */
@@ -10,7 +10,7 @@
 }
 
 #mojaForma {
-    width: 900px;
+    width: 1000px;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -18,5 +18,48 @@
 }
 
 .form-row input {
-    padding: 25px;
+    padding: 22px;
+    width: 100%;
+    border-radius: .25rem;
+    line-height: 1.25;
+    /* border: 1px solid #212529;*/
+    border: none;
+}
+
+.btn-primary {
+    padding: 9px 25px;
+    background-color: #212529;
+    border: none;
+    cursor: pointer;
+    border-radius: 50px;
+}
+.btn-primary:hover {
+    background-color: #212529 !important;
+    color: white;
+    opacity: 95%;
+}
+
+.btn-light {
+    padding: 9px 25px;
+    background-color: rgba(0, 136, 169, 1);
+    border: none;
+    cursor: pointer;
+    border-radius: 50px;
+    color: white;
+}
+    .btn-light:hover {
+        background-color: rgba(0, 136, 169, 1) !important;
+        color: white;
+        opacity: 95%;
+    }
+
+#naslovPretrazi {
+    text-transform: uppercase;
+    font-size: 53px;
+    font-weight: 400;
+    letter-spacing: 5px;
+    font-family: 'Saira Extra Condensed', sans-serif;
+    color: white;
+    width: 100%;
+    text-align: center;
 }
