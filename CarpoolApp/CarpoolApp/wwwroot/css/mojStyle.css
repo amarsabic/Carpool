@@ -20,7 +20,8 @@
 .form-row input {
     padding: 22px;
     width: 100%;
-    border-radius: .25rem;
+    /* border-radius: .25rem;*/
+    border-radius: 50px;
     line-height: 1.25;
     /* border: 1px solid #212529;*/
     border: none;
@@ -63,3 +64,4 @@
     width: 100%;
     text-align: center;
 }
+/*homePage END*/

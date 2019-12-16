@@ -5,45 +5,46 @@
     ViewData["Title"] = "Prijavi se";
 }
 
-
-<div class="row justify-content-center align-content-center">
+<link rel="stylesheet" href="~/css/LoginPage.css"  asp-append-version="true"/>
+<div class="row justify-content-center align-content-center loginPage">
     <div class="col-md-4">
-        <h1>@ViewData["Title"]</h1>
+     
         <section>
-            <form id="account" method="post">
-                <h4>Use a local account to log in.</h4>
+            <form id="account"  method="post">
+                <h1 id="loginDescription">@ViewData["Title"]</h1>
+                <h4 id="loginDescription">Već ste korisnik? Prijavite se.</h4>
                 <hr/>
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
-                    <label asp-for="Input.Email"></label>
+                    <label id="PassRegForgot" asp-for="Input.Email"></label>
                     <input asp-for="Input.Email" class="form-control"/>
                     <span asp-validation-for="Input.Email" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Input.Password"></label>
+                    <label id="PassRegForgot" asp-for="Input.Password"></label>
                     <input asp-for="Input.Password" class="form-control"/>
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <div class="checkbox">
-                        <label asp-for="Input.RememberMe">
+                        <label id="PassRegForgot" asp-for="Input.RememberMe">
                             <input asp-for="Input.RememberMe"/>
                             @Html.DisplayNameFor(m => m.Input.RememberMe)
                         </label>
                     </div>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Prijavi se</button>
+                    <button type="submit" class="btn btn-primary loginButton">Prijavi se</button>
                 </div>
                 <div class="form-group">
                     <p>
                         <a id="forgot-password" asp-page="./ForgotPassword">Zaboravili ste password?</a>
                     </p>
                     <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Registriraj se</a>
+                        <a id="PassRegForgot" asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Registriraj se</a>
                     </p>
                     <p>
-                        <button type="submit" asp-page-handler="SendVerificationEmail" class="btn-link" style="padding: 0px; margin: 0px; border: 0px">Pošalji email konfirmaciju</button>
+                        <a id="PassRegForgot" type="submit" asp-page-handler="SendVerificationEmail" style="padding: 0px; margin: 0px; border: 0px">Pošalji email konfirmaciju</a>
                     </p>
                 </div>
             </form>
