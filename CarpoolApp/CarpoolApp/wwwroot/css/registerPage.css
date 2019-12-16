@@ -1,0 +1,42 @@
+﻿#registerAccount {
+    background-color: rgba(33, 37, 41, 0.9);
+    padding: 20px;
+    border-radius: 20px;
+    margin-bottom: 0px;
+    color: white;
+    font-weight: bold;
+}
+
+
+.registerHome {
+    background-image: url('/car.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* background-position: center; */
+    height: 100vh;
+    position: relative;
+    margin-top: -17px;
+}
+
+/*#registerNaslov { font-weight: bold; }*/
+
+.registerButton {
+    background-color: rgba(0, 136, 169, 1) !important;
+}
+
+    .registerButton:hover {
+        background-color: rgba(0, 136, 169, 0.95) !important;
+    }
+
+
+.form-control {
+    padding: 10px;
+    width: 100%;
+    border-radius: 50px;
+    line-height: 1.25;
+    border: none;
+}
+
+hr {
+    border-top: 1px solid rgba(0, 136, 169,.2);
+}

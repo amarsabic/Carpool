@@ -3,13 +3,14 @@
 @{
     ViewData["Title"] = "Registracija";
 }
+<link rel="stylesheet" href="~/css/registerPage.css" asp-append-version="true" />
 
 
-<div class="row justify-content-center align-content-center">
+<div class="row justify-content-center align-content-center registerHome">
     <div class="col-md-4">
-        <h1>@ViewData["Title"]</h1>
-        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h4>Kreirajte Vaš Carpool profil.</h4>
+        <form id="registerAccount" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <h1 id="registerNaslov">@ViewData["Title"]</h1>
+            <h4 id="registerOpis">Kreirajte Vaš Carpool profil.</h4>
             <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
 
@@ -40,7 +41,7 @@
                 <input asp-for="Input.ConfirmPassword" class="form-control" />
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-primary">Registriraj se</button>
+            <button type="submit" class="btn btn-primary registerButton">Registriraj se</button>
         </form>
     </div>
 </div>
