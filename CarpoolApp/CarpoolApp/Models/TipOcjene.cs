@@ -5,13 +5,9 @@ using System.Threading.Tasks;
 
 namespace CarpoolApp.Models
 {
-    public class Drzava
-    {
-        public int DrzavaID { get; set; }
+    public class TipOcjene
+    { 
+        public int TipOcjeneID { get; set; }
         public string Naziv { get; set; }
-        public string Skracenica { get; set; }
-
-        public List<Grad> Gradovi { get; set; }
-
     }
 }

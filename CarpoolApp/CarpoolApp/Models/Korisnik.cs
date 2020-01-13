@@ -16,6 +16,14 @@ namespace CarpoolApp.Models
         public DateTime DatumRodjenja { get; set; }
         public string Adresa { get; set; }
 
-        public Vozac Vozac { get; set; }
+        public int GradID { get; set; }
+        public Grad Grad { get; set; }
+        public virtual Vozac Vozac { get; set; }
+        public int? PreferencijeID { get; set; }
+        public Preferencije Preferencije { get; set; }
+
+        public List<Rezervacija> Rezervacije { get; set; }
+
+        
     }
 }

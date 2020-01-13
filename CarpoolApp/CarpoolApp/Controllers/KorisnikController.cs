@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using CarpoolApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace CarpoolApp.Controllers
 {
@@ -32,8 +33,6 @@ namespace CarpoolApp.Controllers
         public IActionResult Obrisi(int KorisnikID)
         {
             Korisnik k = _db.Korisnici.Find(KorisnikID);
-
-            TempData["imeKorisnika"] = k.Ime + " " + k.Prezime;
 
             _db.Remove(k);
             _db.SaveChanges();

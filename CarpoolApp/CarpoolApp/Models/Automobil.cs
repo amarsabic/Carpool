@@ -8,13 +8,15 @@ namespace CarpoolApp.Models
     public class Automobil
     {
         public int AutomobilID { get; set; }
-        public Vozac Vozac { get; set; }
         public int VozacID { get; set; }
+        public Vozac Vozac { get; set; }
         public string Naziv { get; set; }
         public string Model { get; set; }
         public string Godiste { get; set; }
         public string BrojRegOznaka { get; set; }
         public DateTime DatumIstekaRegistracije { get; set; }
-        public byte[] Slika { get; set; }
+        public string Slika { get; set; }
+
+        public List<Voznja> Voznje { get; set; }
     }
 }
