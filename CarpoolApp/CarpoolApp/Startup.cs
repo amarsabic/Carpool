@@ -72,6 +72,12 @@ namespace CarpoolApp
 
             app.UseEndpoints(endpoints =>
             {
+
+
+                endpoints.MapAreaControllerRoute(
+                    name: "area","User",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

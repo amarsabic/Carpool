@@ -23,7 +23,5 @@ namespace CarpoolApp.Models
         public Preferencije Preferencije { get; set; }
 
         public List<Rezervacija> Rezervacije { get; set; }
-
-        
     }
 }

@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 
@@ -24,31 +25,43 @@ namespace CarpoolApp.Areas.Identity.Pages.Account
         private readonly UserManager<Korisnik> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private CarpoolAppContext _db;
 
         public RegisterModel(
             UserManager<Korisnik> userManager,
             SignInManager<Korisnik> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender, CarpoolAppContext db)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
-
+            _db = db;
         }
 
         [BindProperty]
         public InputModel Input { get; set; }
 
         public string ReturnUrl { get; set; }
+        public List<SelectListItem> Gradovi { get; set; }
 
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
         public class InputModel
         {
 
-            public Korisnik korisnik { get; set; }
+
+            [Required]
+            [Display(Name = "Ime")]
+            public string Ime { get; set; }
+
+            [Required]
+            [Display(Name = "Prezime")]
+            public string Prezime { get; set; }
+
+            public int GradID { get; set; }
+           
 
             [Required]
             [EmailAddress]
@@ -71,6 +84,13 @@ namespace CarpoolApp.Areas.Identity.Pages.Account
         {
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            Gradovi = new List<SelectListItem>();
+            Gradovi = _db.Gradovi.Select(x => new SelectListItem
+            {
+                Text = x.Naziv,
+                Value = x.GradID.ToString()
+            }).ToList();
+
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
@@ -79,7 +99,7 @@ namespace CarpoolApp.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new Korisnik { UserName = Input.Email, Email = Input.Email, Ime=Input.korisnik.Ime, Prezime = Input.korisnik.Prezime};
+                var user = new Korisnik { UserName = Input.Email, Email = Input.Email, Ime=Input.Ime, Prezime = Input.Prezime, GradID=Input.GradID};
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)

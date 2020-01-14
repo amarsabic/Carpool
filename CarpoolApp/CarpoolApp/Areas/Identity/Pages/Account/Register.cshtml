@@ -15,17 +15,23 @@
             <div asp-validation-summary="All" class="text-danger"></div>
 
             <div class="form-group">
-                <label asp-for="Input.korisnik.Ime"></label>
-                <input asp-for="Input.korisnik.Ime" class="form-control" />
-                <span asp-validation-for="Input.korisnik.Ime" class="text-danger"></span>
+                <label asp-for="Input.Ime"></label>
+                <input asp-for="Input.Ime" class="form-control" />
+                <span asp-validation-for="Input.Ime" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Input.korisnik.Prezime"></label>
-                <input asp-for="Input.korisnik.Prezime" class="form-control" />
-                <span asp-validation-for="Input.korisnik.Prezime" class="text-danger"></span>
+                <label asp-for="Input.Prezime"></label>
+                <input asp-for="Input.Prezime" class="form-control" />
+                <span asp-validation-for="Input.Prezime" class="text-danger"></span>
             </div>
-
+            <div class="form-group">
+                <label asp-for="Gradovi"></label>
+                <select asp-for="Input.GradID" asp-items="Model.Gradovi" class="form-control">
+                    <option disabled="disabled">Gradovi</option>
+                </select>
+                <span asp-validation-for="Input.Prezime" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="Input.Email"></label>
                 <input asp-for="Input.Email" class="form-control" />

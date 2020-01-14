@@ -87,6 +87,12 @@ namespace CarpoolApp.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+
+                    if (returnUrl.Equals("~/") || returnUrl.Equals("/"))
+                    {
+                        return RedirectToAction("Index", "Profil", new {area = "User"});
+                    }
+
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
