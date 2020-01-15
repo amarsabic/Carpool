@@ -6,16 +6,14 @@ using CarpoolApp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CarpoolApp.Controllers
+namespace CarpoolApp.Areas.Driver.Controllers
 {
     [Authorize(Roles = "Vozac")]
-    public class VozacController : Controller
+    public class VozacController : BaseController
     {
-        private readonly CarpoolAppContext _db;
 
-        public VozacController(CarpoolAppContext db)
+        public VozacController(CarpoolAppContext db) : base(db)
         {
-            _db = db;
         }
         public IActionResult Index()
         {
@@ -24,7 +22,7 @@ namespace CarpoolApp.Controllers
 
         public IActionResult Prikazi()
         {
-            List<Vozac> podaci = _db.Vozaci.ToList();
+            List<Models.Vozac> podaci = _db.Vozaci.ToList();
 
             ViewData["podaci"] = podaci;
             return View();
@@ -50,5 +48,6 @@ namespace CarpoolApp.Controllers
             return Redirect("/Vozac/Prikazi");
         }
 
+      
     }
 }

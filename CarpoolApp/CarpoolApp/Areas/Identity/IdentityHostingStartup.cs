@@ -19,7 +19,8 @@ namespace CarpoolApp.Areas.Identity
                     options.UseSqlServer(
                         context.Configuration.GetConnectionString("CarpoolAppContextConnection")));
 
-                services.AddDefaultIdentity<Korisnik>(options => options.SignIn.RequireConfirmedAccount = true)
+                services.AddIdentity<Korisnik, IdentityRole<int>>(options => options.SignIn.RequireConfirmedAccount = true)
+                    .AddDefaultTokenProviders()
                     .AddEntityFrameworkStores<CarpoolAppContext>();
             });
         }

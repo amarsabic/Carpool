@@ -24,13 +24,16 @@ namespace CarpoolApp.Areas.Identity.Pages.Account
         private readonly SignInManager<Korisnik> _signInManager;
         private readonly UserManager<Korisnik> _userManager;
         private readonly ILogger<RegisterModel> _logger;
+        private RoleManager<IdentityRole<int>> _roleManager;
+
         private readonly IEmailSender _emailSender;
         private CarpoolAppContext _db;
 
         public RegisterModel(
             UserManager<Korisnik> userManager,
             SignInManager<Korisnik> signInManager,
-            ILogger<RegisterModel> logger,
+         RoleManager<IdentityRole<int>> roleManager,
+        ILogger<RegisterModel> logger,
             IEmailSender emailSender, CarpoolAppContext db)
         {
             _userManager = userManager;
@@ -38,6 +41,7 @@ namespace CarpoolApp.Areas.Identity.Pages.Account
             _logger = logger;
             _emailSender = emailSender;
             _db = db;
+            _roleManager = roleManager;
         }
 
         [BindProperty]
@@ -104,6 +108,10 @@ namespace CarpoolApp.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
+                    await _roleManager.CreateAsync(new IdentityRole<int> { Name = "Korisnik", NormalizedName = "KORISNIK" }); //Kreiranje role u bazi
+
+                    await _userManager.AddToRoleAsync(user, "Korisnik");
+
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

@@ -20,7 +20,7 @@
 </head>
 <body>
 <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+@*<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -47,9 +47,9 @@
             </div>
         </div>
     </div>
-</div>
-<a style="visibility: hidden" asp-action="Prikazi" asp-controller="Vozac" asp-area="Driver" id="goToVozac" >Link</a>
-<script>
+</div>*@
+
+@*<script>
     function Spremi() {
         var form = $("#spremiForma");
 
@@ -67,7 +67,7 @@
             }
         });
     }
-</script>
+</script>*@
     
 <div class="profilKorisnik">
             @if (SignInManager.IsSignedIn(User))
@@ -88,8 +88,8 @@
                             <li><a style="display: block;" class="text-light" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Uredi profil</a></li>
                             <p>|</p>
                             <li><a href="#education-title">Historija vožnji</a></li>
-                            <p>|</p>
-                            <li><a style="border-radius: 50px; margin-top: -7px;" class="btn btn-primary"  href="#skill-title" data-toggle="modal" data-target="#exampleModalCenter" type="button">Postani vozač</a></li>
+                            @*<p>|</p>*@
+                          @*  <li><a style="border-radius: 50px; margin-top: -7px;" class="btn btn-primary"  href="#skill-title" data-toggle="modal" data-target="#exampleModalCenter" type="button">Postani vozač</a></li>*@
                         </ul>
                     </div>
                 </div>

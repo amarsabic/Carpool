@@ -28,6 +28,9 @@
   <ItemGroup>
     <Folder Include="Areas\User\Data\" />
     <Folder Include="Areas\User\Models\" />
+    <Folder Include="Areas\User\ViewModels\" />
+    <Folder Include="Areas\Driver\Data\" />
+    <Folder Include="Areas\Driver\Models\" />
     <Folder Include="Data\" />
   </ItemGroup>
 
