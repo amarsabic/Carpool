@@ -90,7 +90,18 @@ namespace CarpoolApp.Areas.Identity.Pages.Account
 
                     if (returnUrl.Equals("~/") || returnUrl.Equals("/"))
                     {
-                        return RedirectToAction("Index", "Profil", new {area = "User"});
+                        if (User.IsInRole("Korisnik"))
+                        {
+                            return RedirectToAction("Index", "Profil", new { area = "User" });
+                        }
+                        else if (User.IsInRole("Vozac"))
+                        {
+                            return RedirectToAction("Index", "Profil", new { area = "Driver" });
+                        }
+                        else
+                        {
+
+                        }
                     }
 
                     return LocalRedirect(returnUrl);

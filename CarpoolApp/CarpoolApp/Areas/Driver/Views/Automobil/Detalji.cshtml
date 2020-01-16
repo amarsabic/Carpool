@@ -1,0 +1,64 @@
+﻿@model AutomobilDetaljiVM
+
+@{
+    ViewData["Title"] = "Detalji";
+}
+    <link rel="stylesheet" href="~/css/driver.css" asp-append-version="true" />
+<a class="btn btn-primary" id="btnDodajVozilo" asp-area="Driver" asp-controller="Automobil" asp-action="Dodaj">Dodaj vozilo</a></li>
+
+<table id="tabelaVozila" class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                Naziv
+            </th>
+            <th>
+                Model
+            </th>
+            <th>
+                Godiste
+            </th>
+            <th>
+                Registracija
+            </th>
+            <th>
+                Datum isteka
+            </th>
+            <th>
+                Slika
+            </th>
+            @*<th>
+                    Akcija
+                </th>*@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.automobili)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Naziv)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Model)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Godiste)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BrojRegOznaka)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DatumIstekaRegistracije)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Slika)
+                </td>
+                <td>
+                    <a href="/Driver/Automobil/Obrisi?AutomobilID=@item.AutomobilID" class="btn btn-danger">Ukloni</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

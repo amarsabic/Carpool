@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CarpoolApp.Areas.Driver.Controllers
 {
-    [Authorize(Roles = "Vozac")]
     public class VozacController : BaseController
     {
 

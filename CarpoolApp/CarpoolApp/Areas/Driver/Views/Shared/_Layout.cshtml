@@ -87,37 +87,21 @@
                             <p>|</p>
                             <li><a style="display: block;" class="text-light" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Uredi profil</a></li>
                             <p>|</p>
-                            <li><a href="#education-title">Historija vožnji</a></li>
-                            @*<p>|</p>*@
-                          @*  <li><a style="border-radius: 50px; margin-top: -7px;" class="btn btn-primary"  href="#skill-title" data-toggle="modal" data-target="#exampleModalCenter" type="button">Postani vozač</a></li>*@
+                            <li><a asp-area="Driver" asp-controller="Automobil" asp-action="Detalji">Automobili</a></li>
+                            <p>|</p>
+                            <li><a href="#education-title">Vožnje</a></li>
+                            <p>|</p>
+                            <li><a href="#education-title">Obavijesti</a></li>
                         </ul>
                     </div>
                 </div>
 
             }
         </div>
-        @*<div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CarpoolApp AREA</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <partial name="_LoginPartial" />
-                </div>
-            </div>*@
-   
-   
 
-    @*<div class="container">
-            <main role="main" class="pb-3">
+@RenderBody()
 
-            </main>
-        </div>*@
-
-    @RenderBody()
-
-    @if (!ViewData["Title"].Equals("Prijavi se") && !ViewData["Title"].Equals("Registracija"))
+    @*@if (!ViewData["Title"].Equals("Prijavi se") && !ViewData["Title"].Equals("Registracija"))
     {
         <footer class="border-top footer text-muted" style="background-color: #edf0f1;">
             <div class="container">
@@ -133,7 +117,7 @@
                 margin-bottom: 0px !important;
             }
         </style>
-    }
+    }*@
     <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
     <script src="~/js/mojJs.js" asp-append-version="true"></script>

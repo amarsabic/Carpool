@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CarpoolApp.Areas.Driver.Controllers
 {
     [Area("Driver")]
-    [Authorize] // ne može pristupiti kontroleru ako nije logiran
+    [Authorize(Roles = "Vozac")]// ne može pristupiti kontroleru ako nije logiran
     public class BaseController : Controller
     {
         public CarpoolAppContext _db;

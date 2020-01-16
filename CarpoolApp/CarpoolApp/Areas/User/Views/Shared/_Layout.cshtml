@@ -48,7 +48,7 @@
         </div>
     </div>
 </div>
-<a style="visibility: hidden" asp-action="Prikazi" asp-controller="Vozac" asp-area="Driver" id="goToVozac" >Link</a>
+<a style="visibility: hidden; position:absolute" asp-action="Prikazi" asp-controller="Vozac" asp-area="Driver" id="goToVozac" >Link</a>
 <script>
     function Spremi() {
         var form = $("#spremiForma");
@@ -60,7 +60,7 @@
             success: function (res) {
                 $("#close").click();
                 if (res) {
-                    alert("Brao majstore posto si vozac!!!!!!!");
+                    alert("Uspješno ste se registrovali kao vozač !");
                     
                 }
                 $('a#goToVozac')[0].click();

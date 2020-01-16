@@ -82,6 +82,10 @@ namespace CarpoolApp
                     name: "area", "Driver",
                     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
                 );
+                endpoints.MapAreaControllerRoute(
+                    name: "area", "Identity",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
