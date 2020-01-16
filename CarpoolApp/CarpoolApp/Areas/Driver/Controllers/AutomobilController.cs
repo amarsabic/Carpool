@@ -62,7 +62,7 @@ namespace CarpoolApp.Areas.Driver.Controllers
             _db.Add(auto);
             _db.SaveChanges();
 
-            return View(new AutomobilDodajVM());
+            return RedirectToActionPermanent(nameof(Detalji));
         }
 
         public IActionResult Obrisi(int automobilID)
@@ -72,7 +72,8 @@ namespace CarpoolApp.Areas.Driver.Controllers
             _db.SaveChanges();
 
 
-            return Redirect("/Driver/Automobil/Detalji");
+            return Redirect(nameof(Detalji));
+            //return Redirect("/Driver/Automobil/Detalji");          
         }
     }
 }
