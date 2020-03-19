@@ -3,62 +3,29 @@
 @{
     ViewData["Title"] = "Detalji";
 }
-    <link rel="stylesheet" href="~/css/driver.css" asp-append-version="true" />
-<a class="btn btn-primary" id="btnDodajVozilo" asp-area="Driver" asp-controller="Automobil" asp-action="Dodaj">Dodaj vozilo</a>
+<link rel="stylesheet" href="~/css/driver.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/jsFIT.js" asp-append-version="true" />
+<a ajax-poziv="da" ajax-rezultat="tabelaAutomobili" href="/Driver/Automobil/Dodaj" class="btn btn-primary" id="btnDodajVozilo" @*asp-area="Driver" asp-controller="Automobil" asp-action="Dodaj"*@>Dodaj vozilo</a>
+<br />
+<br />
 
-<table id="tabelaVozila" class="table table-bordered">
-    <thead>
-        <tr>
-            <th>
-                Naziv
-            </th>
-            <th>
-                Model
-            </th>
-            <th>
-                Godiste
-            </th>
-            <th>
-                Registracija
-            </th>
-            <th>
-                Datum isteka
-            </th>
-            <th>
-                Slika
-            </th>
-            @*<th>
-                    Akcija
-                </th>*@
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.automobili)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Naziv)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Model)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Godiste)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BrojRegOznaka)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DatumIstekaRegistracije)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Slika)
-                </td>
-                <td>
-                    <a href="/Driver/Automobil/Obrisi?AutomobilID=@item.AutomobilID" class="btn btn-danger">Ukloni</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+
+<div class="automobilContainer">
+    @foreach (var item in Model.automobili)
+    {
+        string slikaPath = "~/imgs/" + (item.Slika ?? "carnotfound.jpg");
+        <div class="card">
+            <img class="card-img-top" src="@slikaPath" alt="Card image cap" asp-append-version="true">
+            <div class="card-body">
+                <h5 class="car-title">@item.Naziv  @item.Model</h5>
+                <h6 class="car-title">@item.Godiste</h6>
+                <h6 class="car-title">@item.BrojRegOznaka</h6>
+                <h6 class="car-title">@item.DatumIstekaRegistracije.ToString("dd-mm-yyyy")</h6>
+                <a asp-controller="Automobil" asp-action="Obrisi" asp-route-automobilId="@item.AutomobilID" class="btn btn-danger btn-obrisi">Ukloni</a>
+                <a asp-controller="Automobil" asp-action="Uredi" asp-route-automobilId="@item.AutomobilID" class="btn btn-primary btn-obrisi">Uredi</a>
+            </div>
+        </div>
+    }
+</div>
+
+

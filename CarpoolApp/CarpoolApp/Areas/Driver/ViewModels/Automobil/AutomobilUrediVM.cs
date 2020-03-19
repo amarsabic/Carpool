@@ -1,22 +1,22 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CarpoolApp.Models
+namespace CarpoolApp.Areas.Driver.ViewModels.Automobil
 {
-    public class Automobil
+    public class AutomobilUrediVM
     {
-        public int AutomobilID { get; set; }
-        public int VozacID { get; set; }
-        public Vozac Vozac { get; set; }
+        public int AutomobilId { get; set; }
         public string Naziv { get; set; }
         public string Model { get; set; }
         public string Godiste { get; set; }
         public string BrojRegOznaka { get; set; }
+        [DataType(DataType.Date)]
         public DateTime DatumIstekaRegistracije { get; set; }
+        public IFormFile Slika { get; set; }
         public string SlikaPath { get; set; }
-
-        public List<Voznja> Voznje { get; set; }
     }
 }

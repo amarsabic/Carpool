@@ -19,9 +19,44 @@
     line-height: 1.25;
 }
 body {
-    background-color: rgb(245, 245, 245);
+    /*background-color: rgb(245, 245, 245);*/
+    background-color: #F8F8F8;
 }
 
 #tabelaVozila, #tabelaObavijesti {
     background-color: white;
+}
+
+.automobilContainer {
+    /*margin-top: 30px;*/
+    display: inline-grid;
+    grid-column-gap: 30px;
+    grid-row-gap: 20px;
+    padding: 10px;
+    text-align: center;
+    /*grid-template-columns: 1fr 1fr 1fr;*/
+    grid-template-columns:repeat(4,1fr);
+    margin:30px 20px 0px 20px;
+   
+}
+
+.card {
+    border-radius: 8px;
+    transition:0.5s ease;
+    cursor:pointer;
+}
+    .card:hover {
+       transform:scale(1.05);
+       box-shadow:5px 5px 15px rgba(0,0,0,0.6);
+    }
+
+
+.btn-obrisi {
+    width: 30%;
+    margin-top:10px;
+    border-radius:50px;
+}
+
+.card-img-top{
+    height:246px;
 }

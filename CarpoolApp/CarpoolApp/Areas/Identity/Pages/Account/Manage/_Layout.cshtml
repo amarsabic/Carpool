@@ -1,21 +1,22 @@
 ﻿@{
     Layout = "/Views/Shared/_Layout.cshtml";
 }
+    <link rel="stylesheet" href="~/css/urediProfil.css" asp-append-version="true" />
 
-<h1>Uredite vaš profil</h1>
 
-<div>
-    <h4>Promijenite postavke vašeg profila</h4>
-    <hr />
-    <div class="row">
-        <div class="col-md-3">
-            <partial name="_ManageNav" />
-        </div>
-        <div class="col-md-9">
-            @RenderBody()
+    <div class="bod">
+        <h1>Uredite vaš profil</h1>
+        <h4>Promijenite postavke vašeg profila</h4>
+        <hr />
+        <div class="row">
+            <div class="col-md-3">
+                <partial name="_ManageNav" />
+            </div>
+            <div class="col-md-9 bod">
+                @RenderBody()
+            </div>
         </div>
     </div>
-</div>
 
 @section Scripts {
     @RenderSection("Scripts", required: false)

@@ -1,0 +1,16 @@
+﻿.bod {
+   margin: 20px 0px 0px 50px;
+   width:1000px;
+}
+.prof{
+    margin-bottom:20px;
+}
+
+body {
+    background-color: #F8F8F8;
+}
+
+.form-group input {
+    border-radius: 50px;
+    line-height: 1.25;
+}

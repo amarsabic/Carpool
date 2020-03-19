@@ -14,12 +14,22 @@ namespace CarpoolApp.Areas.Identity
     {
         public void Configure(IWebHostBuilder builder)
         {
+#if DEBUG
+
             builder.ConfigureServices((context, services) => {
                 services.AddDbContext<CarpoolAppContext>(options =>
                     options.UseSqlServer(
                         context.Configuration.GetConnectionString("CarpoolAppContextConnection")));
+#endif
+#if RELEASE
 
-                services.AddIdentity<Korisnik, IdentityRole<int>>(options => options.SignIn.RequireConfirmedAccount = true)
+                builder.ConfigureServices((context, services) => {
+                    services.AddDbContext<CarpoolAppContext>(options =>
+                        options.UseSqlServer(
+                            context.Configuration.GetConnectionString("Plesk")));
+#endif
+
+                    services.AddIdentity<Korisnik, IdentityRole<int>>(options => options.SignIn.RequireConfirmedAccount = true)
                     .AddDefaultTokenProviders()
                     .AddEntityFrameworkStores<CarpoolAppContext>();
             });
