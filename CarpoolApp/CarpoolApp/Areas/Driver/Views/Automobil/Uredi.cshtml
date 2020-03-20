@@ -1,13 +1,15 @@
 ﻿@model AutomobilUrediVM
 @{
     ViewData["Title"] = "Uredi";
+    var slikaPath = "~/imgs/" + (Model.PostojecaSlikaPath ?? "carnotfound.jpg");
 }
 
 <link rel="stylesheet" href="~/css/driver.css" asp-append-version="true" />
 <div class="row justify-content-center align-content-center">
     <form enctype="multipart/form-data" id="formaDodajVozilo" action="Uredi" method="post">
         <h2>Uredi vozilo</h2>
-        <input asp-for="AutomobilId" hidden="hidden"/>
+        <input asp-for="AutomobilId" hidden="hidden" />
+        <input asp-for="PostojecaSlikaPath" hidden="hidden" />
         <div class="form-group">
             <label asp-for="Naziv" class="control-label"></label>
             <input asp-for="Naziv" class="form-control" placeholder="@Model.Naziv" />
@@ -37,10 +39,12 @@
             <label asp-for="Slika" class="control-label"></label>
             <div class="custom-file">
                 <input asp-for="Slika" class="form-control custom-file-input" />
-                <label class="custom-file-label">Odaberite sliku...</label>
+                <label class="custom-file-label">Kliknite ovdje da promijenite sliku...</label>
             </div>
         </div>
-        <button class="btn btn-primary" type="submit">Dodaj</button>
+        <div class="form-group urediAutoSlika"> <img src="@slikaPath" class="slikaAuto" alt="Alternate Text" asp-append-version="true" /></div>
+        <button class="btn btn-primary" type="submit">Sačuvaj</button>
+        <a asp-action="Detalji" asp-controller="Automobil" asp-area="Driver" class="btn btn-primary" type="submit">Prekini</a>
 
         @section Scripts{
             <script>

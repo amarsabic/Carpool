@@ -20,7 +20,7 @@
 }
 body {
     /*background-color: rgb(245, 245, 245);*/
-    background-color: #F8F8F8;
+    background-color: #D1D7E0;
 }
 
 #tabelaVozila, #tabelaObavijesti {
@@ -59,4 +59,21 @@ body {
 
 .card-img-top{
     height:246px;
+}
+
+.card-body{
+  
+}
+
+.slikaAuto{
+    height:250px;
+    width:400px;
+}
+
+.urediAutoSlika{
+    text-align:center;
+}
+
+.nazivAuta{
+    font-weight:bold;
 }

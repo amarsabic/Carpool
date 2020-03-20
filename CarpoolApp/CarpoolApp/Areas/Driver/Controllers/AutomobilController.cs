@@ -55,14 +55,7 @@ namespace CarpoolApp.Areas.Driver.Controllers
         {
             if (ModelState.IsValid)
             {
-                string uniqueFileName = null;
-                if (mod.Slika != null)
-                {
-                    string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "imgs");
-                    uniqueFileName = Guid.NewGuid().ToString() + "_" + mod.Slika.FileName;
-                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                    mod.Slika.CopyTo(new FileStream(filePath, FileMode.Create));
-                }
+                string uniqueFileName = slikaRootFolder(mod);
                 Automobil auto = new Automobil()
                 {
                     VozacID = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)),
@@ -81,54 +74,68 @@ namespace CarpoolApp.Areas.Driver.Controllers
             return RedirectToActionPermanent(nameof(Detalji));
         }
 
-        //public IActionResult Uredi(int automobilID)
-        //{
-        //    AutomobilUrediVM model = new AutomobilUrediVM();
+        public IActionResult Uredi(int automobilID)
+        {
+            Automobil a = _db.Autmobili.Find(automobilID);
+            AutomobilUrediVM model = new AutomobilUrediVM
+            {
+                AutomobilId = a.AutomobilID,
+                Naziv = a.Naziv,
+                Model = a.Model,
+                BrojRegOznaka = a.BrojRegOznaka,
+                DatumIstekaRegistracije = a.DatumIstekaRegistracije,
+                Godiste = a.Godiste,
+                PostojecaSlikaPath = a.SlikaPath
+            };
 
-        //    model = _db.Autmobili.Where(a => a.AutomobilID == automobilID).Select(a => new AutomobilUrediVM
-        //    {
-        //        BrojRegOznaka=a.BrojRegOznaka,
-        //        DatumIstekaRegistracije=a.DatumIstekaRegistracije,
-        //        Godiste=a.Godiste,
-        //        Model=a.Model,
-        //        Naziv=a.Naziv,
-        //        AutomobilId=automobilID,
-        //        SlikaPath=a.SlikaPath
-        //    }).FirstOrDefault();
+            return View(model);
+        }
+        [HttpPost]
+        public IActionResult Uredi(AutomobilUrediVM mod)
+        {
 
-        //    return View(model);
-        //    //return Redirect("/Driver/Automobil/Detalji");          
-        //}
-        //[HttpPost]
-        //public IActionResult Uredi(AutomobilUrediVM mod)
-        //{
+            if (ModelState.IsValid)
+            {
+                Automobil auto = _db.Autmobili.Find(mod.AutomobilId);
+                auto.BrojRegOznaka = mod.BrojRegOznaka;
+                auto.DatumIstekaRegistracije = mod.DatumIstekaRegistracije;
+                auto.Godiste = mod.Godiste;
+                auto.Naziv = mod.Naziv;
+                auto.Model = mod.Model;
 
-        //    if (ModelState.IsValid)
-        //    {
-        //        string uniqueFileName = null;
-        //        if (mod.Slika != null)
-        //        {
-        //            string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "imgs");
-        //            uniqueFileName = Guid.NewGuid().ToString() + "_" + mod.Slika.FileName;
-        //            string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-        //            mod.Slika.CopyTo(new FileStream(filePath, FileMode.Create));
-        //        }
+                if (mod.Slika != null)
+                {
+                    if (mod.PostojecaSlikaPath != null)
+                    {
+                        string putanjaSlike = Path.Combine(hostingEnvironment.WebRootPath, "imgs", mod.PostojecaSlikaPath);
+                        System.IO.File.Delete(putanjaSlike);
+                    }
+                    auto.SlikaPath = slikaRootFolder(mod);
+                }
 
-        //        Automobil auto = _db.Autmobili.Find(mod.AutomobilId);
+                _db.Autmobili.Update(auto);
+                _db.SaveChanges();
+            }
 
-        //        auto.BrojRegOznaka = mod.BrojRegOznaka;
-        //        auto.DatumIstekaRegistracije = mod.DatumIstekaRegistracije;
-        //        auto.Godiste = mod.Godiste;
-        //        auto.Naziv = mod.Naziv;
-        //        auto.Model = mod.Model;
-                
-                
-        //        _db.SaveChanges();
-        //    }
+            return Redirect("/Driver/Automobil/Detalji");
+        }
 
+        private string slikaRootFolder(AutomobilDodajVM mod)
+        {
+            string uniqueFileName = null;
+            if (mod.Slika != null)
+            {
+                string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "imgs");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + mod.Slika.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using(var fileStraem= new FileStream(filePath, FileMode.Create))
+                {
+                    mod.Slika.CopyTo(fileStraem);
+                }
+            }
 
-        //    return Redirect("/Driver/Automobil/Detalji");          
-        //}
+            return uniqueFileName;
+        }
 
         public IActionResult Obrisi(int automobilID)
         {
