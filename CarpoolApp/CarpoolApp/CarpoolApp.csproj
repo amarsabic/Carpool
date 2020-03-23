@@ -34,4 +34,49 @@
     <Folder Include="Data\" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <None Include="wwwroot\bootstrapTheme\img\avataaars.svg" />
+    <None Include="wwwroot\bootstrapTheme\js\contact_me.js" />
+    <None Include="wwwroot\bootstrapTheme\js\contact_me.min.js" />
+    <None Include="wwwroot\bootstrapTheme\js\freelancer.js" />
+    <None Include="wwwroot\bootstrapTheme\js\freelancer.min.js" />
+    <None Include="wwwroot\bootstrapTheme\js\jqBootstrapValidation.js" />
+    <None Include="wwwroot\bootstrapTheme\js\jqBootstrapValidation.min.js" />
+    <None Include="wwwroot\bootstrapTheme\mail\contact_me.php" />
+    <None Include="wwwroot\bootstrapTheme\scss\base\_page.scss" />
+    <None Include="wwwroot\bootstrapTheme\scss\base\_variables.scss" />
+    <None Include="wwwroot\bootstrapTheme\scss\components\_buttons.scss" />
+    <None Include="wwwroot\bootstrapTheme\scss\components\_divider.scss" />
+    <None Include="wwwroot\bootstrapTheme\scss\freelancer.scss" />
+    <None Include="wwwroot\bootstrapTheme\scss\layout\_contact.scss" />
+    <None Include="wwwroot\bootstrapTheme\scss\layout\_footer.scss" />
+    <None Include="wwwroot\bootstrapTheme\scss\layout\_masthead.scss" />
+    <None Include="wwwroot\bootstrapTheme\scss\layout\_navbar.scss" />
+    <None Include="wwwroot\bootstrapTheme\scss\layout\_portfolio.scss" />
+    <None Include="wwwroot\bootstrapTheme\vendor\bootstrap\js\bootstrap.bundle.js" />
+    <None Include="wwwroot\bootstrapTheme\vendor\bootstrap\js\bootstrap.bundle.js.map" />
+    <None Include="wwwroot\bootstrapTheme\vendor\bootstrap\js\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\bootstrapTheme\vendor\bootstrap\js\bootstrap.bundle.min.js.map" />
+    <None Include="wwwroot\bootstrapTheme\vendor\bootstrap\js\bootstrap.js" />
+    <None Include="wwwroot\bootstrapTheme\vendor\bootstrap\js\bootstrap.js.map" />
+    <None Include="wwwroot\bootstrapTheme\vendor\bootstrap\js\bootstrap.min.js" />
+    <None Include="wwwroot\bootstrapTheme\vendor\bootstrap\js\bootstrap.min.js.map" />
+    <None Include="wwwroot\bootstrapTheme\vendor\fontawesome-free\webfonts\fa-brands-400.svg" />
+    <None Include="wwwroot\bootstrapTheme\vendor\fontawesome-free\webfonts\fa-brands-400.woff2" />
+    <None Include="wwwroot\bootstrapTheme\vendor\fontawesome-free\webfonts\fa-regular-400.svg" />
+    <None Include="wwwroot\bootstrapTheme\vendor\fontawesome-free\webfonts\fa-regular-400.woff2" />
+    <None Include="wwwroot\bootstrapTheme\vendor\fontawesome-free\webfonts\fa-solid-900.svg" />
+    <None Include="wwwroot\bootstrapTheme\vendor\fontawesome-free\webfonts\fa-solid-900.woff2" />
+    <None Include="wwwroot\bootstrapTheme\vendor\jquery-easing\jquery.easing.compatibility.js" />
+    <None Include="wwwroot\bootstrapTheme\vendor\jquery-easing\jquery.easing.js" />
+    <None Include="wwwroot\bootstrapTheme\vendor\jquery-easing\jquery.easing.min.js" />
+    <None Include="wwwroot\bootstrapTheme\vendor\jquery\jquery.js" />
+    <None Include="wwwroot\bootstrapTheme\vendor\jquery\jquery.min.js" />
+    <None Include="wwwroot\bootstrapTheme\vendor\jquery\jquery.min.map" />
+    <None Include="wwwroot\bootstrapTheme\vendor\jquery\jquery.slim.js" />
+    <None Include="wwwroot\bootstrapTheme\vendor\jquery\jquery.slim.min.js" />
+    <None Include="wwwroot\bootstrapTheme\vendor\jquery\jquery.slim.min.map" />
+  </ItemGroup>
+
 </Project>

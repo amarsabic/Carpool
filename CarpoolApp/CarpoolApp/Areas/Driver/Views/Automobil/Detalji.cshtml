@@ -5,27 +5,117 @@
 }
 <link rel="stylesheet" href="~/css/driver.css" asp-append-version="true" />
 <link rel="stylesheet" href="~/jsFIT.js" asp-append-version="true" />
-<a ajax-poziv="da" ajax-rezultat="tabelaAutomobili" href="/Driver/Automobil/Dodaj" class="btn btn-primary" id="btnDodajVozilo" @*asp-area="Driver" asp-controller="Automobil" asp-action="Dodaj"*@>Dodaj vozilo</a>
-<br />
-<br />
 
 
-<div class="automobilContainer">
-    @foreach (var item in Model.automobili)
-    {
-        string slikaPath = "~/imgs/" + (item.Slika ?? "carnotfound.jpg");
-        <div class="card">
-            <img class="card-img-top" src="@slikaPath" alt="Card image cap" asp-append-version="true">
-            <div class="card-body">
-                <h5 class="car-title nazivAuta">@item.Naziv  @item.Model</h5>
-                <h6 class="car-title">@item.Godiste</h6>
-                <h6 class="car-title">@item.BrojRegOznaka</h6>
-                <h6 class="car-title">@item.DatumIstekaRegistracije.ToString("dd-mm-yyyy")</h6>
-                <a asp-controller="Automobil" asp-action="Obrisi" asp-route-automobilId="@item.AutomobilID" class="btn btn-danger btn-obrisi">Ukloni</a>
-                <a asp-controller="Automobil" asp-action="Uredi" asp-route-automobilId="@item.AutomobilID" class="btn btn-primary btn-obrisi">Uredi</a>
+
+
+@*<div class="automobilContainer">
+        @foreach (var item in Model.automobili)
+        {
+            string slikaPath = "~/imgs/" + (item.Slika ?? "carnotfound.jpg");
+            <div class="card">
+                <img class="card-img-top" src="@slikaPath" alt="Card image cap" asp-append-version="true">
+                <div class="card-body">
+                    <h5 class="car-title nazivAuta">@item.Naziv  @item.Model</h5>
+                    <h6 class="car-title">@item.Godiste</h6>
+                    <h6 class="car-title">@item.BrojRegOznaka</h6>
+                    <h6 class="car-title">@item.DatumIstekaRegistracije.ToString("dd-mm-yyyy")</h6>
+                    <a asp-controller="Automobil" asp-action="Obrisi" asp-route-automobilId="@item.AutomobilID" class="btn btn-danger btn-obrisi">Ukloni</a>
+                    <a asp-controller="Automobil" asp-action="Uredi" asp-route-automobilId="@item.AutomobilID" class="btn btn-primary btn-obrisi">Uredi</a>
+                </div>
+            </div>
+        }
+    </div>*@
+
+<section class="page-section portfolio" id="portfolio">
+    <div class="container">
+        <div>
+            <a ajax-poziv="da" ajax-rezultat="tabelaAutomobili" href="/Driver/Automobil/Dodaj" class="btn btn-primary" id="btnDodajVozilo" @*asp-area="Driver" asp-controller="Automobil" asp-action="Dodaj"*@><i class="fas fa-plus fa-2x"></i></a>
+            <br />
+            <br />
+        </div>
+
+        <!-- Portfolio Section Heading -->
+        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Automobili</h2>
+
+        <!-- Icon Divider -->
+        <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon">
+                <i class="fas fa-car"></i>
+            </div>
+            <div class="divider-custom-line"></div>
+        </div>
+
+        <!-- Portfolio Grid Items -->
+        <div class="row">
+            @foreach (var item in Model.automobili)
+            {
+
+                @*<div class="card">
+                    <img class="card-img-top" src="@slikaPath" alt="Card image cap" asp-append-version="true">
+                    <div class="card-body">
+                        <h5 class="car-title nazivAuta">@item.Naziv  @item.Model</h5>
+                        <h6 class="car-title">@item.Godiste</h6>
+                        <h6 class="car-title">@item.BrojRegOznaka</h6>
+                        <h6 class="car-title">@item.DatumIstekaRegistracije.ToString("dd-mm-yyyy")</h6>
+                        <a asp-controller="Automobil" asp-action="Obrisi" asp-route-automobilId="@item.AutomobilID" class="btn btn-danger btn-obrisi">Ukloni</a>
+                        <a asp-controller="Automobil" asp-action="Uredi" asp-route-automobilId="@item.AutomobilID" class="btn btn-primary btn-obrisi">Uredi</a>
+                    </div>
+                </div>*@
+                string slikaPath = "~/imgs/" + (item.Slika ?? "carnotfound.jpg");
+                <div class="col-md-6 col-lg-4">
+                    <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal1">
+                        <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                            <div class="portfolio-item-caption-content text-center text-white">
+                                <i class="fas fa-plus fa-3x"></i>
+                            </div>
+                        </div>
+                        <img style="height:250px; width:100%;" class="img-fluid" src="@slikaPath" alt="" asp-append-version="true">
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- Portfolio Modals -->
+<!-- Portfolio Modal 1 -->
+<div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-labelledby="portfolioModal1Label" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">
+                    <i class="fas fa-times"></i>
+                </span>
+            </button>
+            <div class="modal-body text-center">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8">
+                            <!-- Portfolio Modal - Title -->
+                            <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Log Cabin</h2>
+                            <!-- Icon Divider -->
+                            <div class="divider-custom">
+                                <div class="divider-custom-line"></div>
+                                <div class="divider-custom-icon">
+                                    <i class="fas fa-car"></i>
+                                </div>
+                                <div class="divider-custom-line"></div>
+                            </div>
+                            <!-- Portfolio Modal - Image -->
+                            <img class="img-fluid rounded mb-5" src="~/bootstrapTheme/img/portfolio/cabin.png" alt="">
+                            <!-- Portfolio Modal - Text -->
+                            <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
+                            <button class="btn btn-primary" href="#" data-dismiss="modal">
+                                <i class="fas fa-times fa-fw"></i>
+                                Close Window
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    }
+    </div>
 </div>
-
 

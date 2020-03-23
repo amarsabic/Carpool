@@ -65,3 +65,15 @@
     }
 
 /*FOOTER-LAST END*/
+
+.homeButton{
+    height:30px;
+    width:30px;
+    cursor:pointer;
+}
+
+.odjaviSe {
+    background: none;
+    padding: 0px;
+    border: none;
+}
