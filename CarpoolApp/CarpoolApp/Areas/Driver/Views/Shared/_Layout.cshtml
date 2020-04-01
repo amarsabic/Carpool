@@ -21,7 +21,7 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 
     <!-- Theme CSS -->
-    <link href="~/bootstrapTheme/css/freelancer.min.css" rel="stylesheet">
+    <link href="~/bootstrapTheme/css/freelancer.css" rel="stylesheet" asp-append-version="true">
 
     @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
     @*<link rel="stylesheet" href="~/css/korisnickiProfil.css" asp-append-version="true" />*@
@@ -41,9 +41,10 @@
     <script src="~/bootstrapTheme/js/freelancer.min.js" asp-append-version="true"></script>
 
     <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
-        <script src="~/js/mojJs.js" asp-append-version="true"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
+    <script src="~/js/mojJs.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/jsFIT.js" asp-append-version="true"></script>
 
 </head>
 
@@ -61,13 +62,13 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item mx-0 mx-lg-1">
-                            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#about">Vožnje</a>
+                            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"  href="#about">Vožnje</a>
                         </li>
                         <li class="nav-item mx-0 mx-lg-1">
-                            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" asp-area="Driver" asp-controller="Automobil" asp-action="Detalji">Automobili</a>
+                            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"  asp-area="Driver" asp-controller="Automobil" asp-action="Detalji">Automobili</a>
                         </li>
                         <li class="nav-item mx-0 mx-lg-1">
-                            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" asp-area="Driver" asp-controller="Obavijesti" asp-action="Detalji">Obavijesti</a>
+                            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"  asp-area="Driver" asp-controller="Obavijesti" asp-action="Detalji">Obavijesti</a>
                         </li>
                         <li class="nav-item mx-0 mx-lg-1">
                             <a asp-area="Driver" asp-controller="Automobil" asp-action="Index" class="navbar-brand js-scroll-trigger"><i class="fas fa-user"></i></a>
@@ -85,33 +86,69 @@
             </div>
         </nav>
 
-        <!-- Masthead -->
-        <header class="masthead bg-primary text-white text-center">
-            <div class="container d-flex align-items-center flex-column">
 
-                <!-- Masthead Avatar Image -->
-                <img class="masthead-avatar mb-5" src="~/bootstrapTheme/img/avataaars.svg" alt="">
 
-                <!-- Masthead Heading -->
-                <h1 class="masthead-heading text-uppercase mb-0">Dobrodošli @User.Identity.Name!</h1>
-
-                <!-- Icon Divider -->
-                <div class="divider-custom divider-light">
-                    <div class="divider-custom-line"></div>
-                    <div class="divider-custom-icon">
-                        <i class="fas fa-car"></i>
-                    </div>
-                    <div class="divider-custom-line"></div>
-                </div>
-
-                <!-- Masthead Subheading -->
-                @*<p class="masthead-subheading font-weight-light mb-0">Graphic Artist - Web Designer - Illustrator</p>*@
-            </div>
-        </header>
-       
 
         @RenderBody()
+
+        <!-- Footer -->
+        <footer class="footer text-center">
+            <div class="container">
+                <div class="row">
+
+                    <!-- Footer Location -->
+                    <div class="col-lg-4 mb-5 mb-lg-0">
+                        <h4 class="text-uppercase mb-4">Lokacija</h4>
+                        <p class="lead mb-0">
+                            Sjeverni Logor bb
+                            <br>Mostar
+                        </p>
+                    </div>
+
+                    <!-- Footer Social Icons -->
+                    <div class="col-lg-4 mb-5 mb-lg-0">
+                        <h4 class="text-uppercase mb-4">Potražite nas</h4>
+                        <a class="btn btn-outline-light btn-social mx-1" href="#">
+                            <i class="fab fa-fw fa-facebook-f"></i>
+                        </a>
+                        <a class="btn btn-outline-light btn-social mx-1" href="#">
+                            <i class="fab fa-fw fa-twitter"></i>
+                        </a>
+                        <a class="btn btn-outline-light btn-social mx-1" href="#">
+                            <i class="fab fa-fw fa-linkedin-in"></i>
+                        </a>
+                        <a class="btn btn-outline-light btn-social mx-1" href="#">
+                            <i class="fab fa-fw fa-dribbble"></i>
+                        </a>
+                    </div>
+
+                    <!-- Footer About Text -->
+                    <div class="col-lg-4">
+                        <h4 class="text-uppercase mb-4">O nama</h4>
+                        <p class="lead mb-0">
+                            Aplikacija namijenjena vozačima i putnicima u svrhu smanjivanja troškova kao i socijalizacije ljudi by
+                            <a href="https://www.linkedin.com/in/amarsabic">Amar Šabić</a>.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </footer>
+
+        <!-- Copyright Section -->
+        <section class="copyright py-4 text-center text-white">
+            <div class="container">
+                <small>Copyright &copy; Carpool 2020</small>
+            </div>
+        </section>
+
     }
+
+
+    <script type="text/javascript">
+    
+     
+    </script>
 
 
     @RenderSection("Scripts", required: false)

@@ -28,28 +28,7 @@ namespace CarpoolApp.Areas.Driver.Controllers
         {
             return View(new AutomobilDodajVM());
         }
-        public IActionResult Detalji()
-        {
-            AutomobilDetaljiVM lista = new AutomobilDetaljiVM();
-            int vozacID = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-
-            lista.automobili = _db.Autmobili.Where(x => x.VozacID == vozacID)
-                .Select(x => new AutomobilDetaljiVM.Row()
-                {
-                    AutomobilID = x.AutomobilID,
-                    Naziv = x.Naziv,
-                    Model = x.Model,
-                    DatumIstekaRegistracije = x.DatumIstekaRegistracije,
-                    BrojRegOznaka = x.BrojRegOznaka,
-                    Slika = x.SlikaPath,
-                    Godiste = x.Godiste
-                })
-                .ToList();
-
-
-            return View(lista);
-        }
-
+        
         [HttpPost]
         public IActionResult Dodaj(AutomobilDodajVM mod)
         {
@@ -71,9 +50,31 @@ namespace CarpoolApp.Areas.Driver.Controllers
                 _db.SaveChanges();
             }
 
-            return RedirectToActionPermanent(nameof(Detalji));
+            return RedirectToAction(nameof(Detalji));
         }
 
+        public IActionResult Detalji()
+        {
+            AutomobilDetaljiVM lista = new AutomobilDetaljiVM();
+            int vozacID = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            lista.automobili = _db.Autmobili.Where(x => x.VozacID == vozacID)
+                .Select(x => new AutomobilDetaljiVM.Row()
+                {
+                    AutomobilID = x.AutomobilID,
+                    Naziv = x.Naziv,
+                    Model = x.Model,
+                    DatumIstekaRegistracije = x.DatumIstekaRegistracije,
+                    BrojRegOznaka = x.BrojRegOznaka,
+                    Slika = x.SlikaPath,
+                    Godiste = x.Godiste
+                })
+                .ToList();
+
+
+            return View(lista);
+        }
+     
         public IActionResult Uredi(int automobilID)
         {
             Automobil a = _db.Autmobili.Find(automobilID);
@@ -88,7 +89,7 @@ namespace CarpoolApp.Areas.Driver.Controllers
                 PostojecaSlikaPath = a.SlikaPath
             };
 
-            return View(model);
+            return View("Uredi", model);
         }
         [HttpPost]
         public IActionResult Uredi(AutomobilUrediVM mod)
@@ -117,7 +118,7 @@ namespace CarpoolApp.Areas.Driver.Controllers
                 _db.SaveChanges();
             }
 
-            return Redirect("/Driver/Automobil/Detalji");
+            return RedirectToAction(nameof(Detalji));
         }
 
         private string slikaRootFolder(AutomobilDodajVM mod)

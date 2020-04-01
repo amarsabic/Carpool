@@ -4,4 +4,43 @@
 @{
     ViewData["Title"] = "Index";
 }
+<!-- Theme CSS -->
+<link href="~/bootstrapTheme/css/freelancer.css" rel="stylesheet" asp-append-version="true">
 
+@*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
+@*<link rel="stylesheet" href="~/css/korisnickiProfil.css" asp-append-version="true" />*@
+
+<!-- Bootstrap core JavaScript -->
+<script src="~/bootstrapTheme/vendor/jquery/jquery.min.js" asp-append-version="true"></script>
+<script src="~/bootstrapTheme/vendor/bootstrap/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
+
+<!-- Plugin JavaScript -->
+<script src="~/bootstrapTheme/vendor/jquery-easing/jquery.easing.min.js" asp-append-version="true"></script>
+
+<!-- Contact Form JavaScript -->
+<script src="~/bootstrapTheme/js/jqBootstrapValidation.js" asp-append-version="true"></script>
+<script src="~/bootstrapTheme/js/contact_me.js" asp-append-version="true"></script>
+
+<!-- Custom scripts for this template -->
+<script src="~/bootstrapTheme/js/freelancer.min.js" asp-append-version="true"></script>
+
+<!-- Masthead -->
+<header class="masthead bg-primary text-white text-center">
+    <div class="container d-flex align-items-center flex-column">
+
+        <!-- Masthead Avatar Image -->
+        <img class="masthead-avatar mb-5" src="~/bootstrapTheme/img/avataaars.svg" alt="">
+
+        <!-- Masthead Heading -->
+        <h1 class="masthead-heading text-uppercase mb-0">Dobrodošli, @User.Identity.Name.Substring(0, @User.Identity.Name.IndexOf("@"))</h1>
+
+        <!-- Icon Divider -->
+        <div class="divider-custom divider-light">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon">
+                <i class="fas fa-car"></i>
+            </div>
+            <div class="divider-custom-line"></div>
+        </div>
+    </div>
+</header>

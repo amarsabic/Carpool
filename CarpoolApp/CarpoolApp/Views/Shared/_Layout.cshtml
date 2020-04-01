@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/mojStyle.css" asp-append-version="true" />
+    
     <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed&display=swap" rel="stylesheet">
     <!-- Custom fonts for this theme -->
     <link href="~/bootstrapTheme/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" asp-append-version="true">
@@ -44,11 +45,13 @@
     @if (!ViewData["Title"].Equals("Prijavi se") && !ViewData["Title"].Equals("Registracija"))
     {
         <footer class="border-top footer text-muted" style="background-color: #edf0f1;">
-            <div class="container">
-                &copy; 2019 - CarpoolApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-            </div>
+                <div class="container">
+                    &copy; 2019 - CarpoolApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                </div>
 
-        </footer>
+            </footer>
+        
+       
     }
     else
     {
@@ -63,6 +66,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
     <script src="~/js/mojJs.js" asp-append-version="true"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/jsFIT.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

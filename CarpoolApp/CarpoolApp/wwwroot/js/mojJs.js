@@ -16,3 +16,4 @@ function typingEffect() {
 typingEffect();
 
 /*TYPING EFFECT END*/
+

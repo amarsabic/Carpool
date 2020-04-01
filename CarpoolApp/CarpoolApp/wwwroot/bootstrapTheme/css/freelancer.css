@@ -9719,10 +9719,11 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 @media (min-width: 992px) {
-  .masthead {
-    padding-top: calc(6rem + 104px);
-    padding-bottom: 6rem;
-  }
+    .masthead {
+        padding-top: calc(6rem + 104px);
+        padding-bottom: 6rem;
+        height: 100%;
+    }
   .masthead .masthead-heading {
     font-size: 4rem;
     line-height: 3.5rem;
@@ -9734,16 +9735,19 @@ a.text-dark:hover, a.text-dark:focus {
 
 .portfolio {
   margin-bottom: -30px;
+  margin-top: 60px;
 }
 
+
+
 .portfolio .portfolio-item {
-  cursor: pointer;
-  position: relative;
-  display: block;
-  max-width: 25rem;
-  margin-bottom: 30px;
-  border-radius: 0.5rem;
-  overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    display: block;
+    max-width: 25rem;
+    margin-bottom: 30px;
+    border-radius: 0.5rem;
+    overflow: hidden;
 }
 
 .portfolio .portfolio-item .portfolio-item-caption {

@@ -3,37 +3,11 @@
 @{
     ViewData["Title"] = "Detalji";
 }
-<link rel="stylesheet" href="~/css/driver.css" asp-append-version="true" />
-<link rel="stylesheet" href="~/jsFIT.js" asp-append-version="true" />
-
-
-
-
-@*<div class="automobilContainer">
-        @foreach (var item in Model.automobili)
-        {
-            string slikaPath = "~/imgs/" + (item.Slika ?? "carnotfound.jpg");
-            <div class="card">
-                <img class="card-img-top" src="@slikaPath" alt="Card image cap" asp-append-version="true">
-                <div class="card-body">
-                    <h5 class="car-title nazivAuta">@item.Naziv  @item.Model</h5>
-                    <h6 class="car-title">@item.Godiste</h6>
-                    <h6 class="car-title">@item.BrojRegOznaka</h6>
-                    <h6 class="car-title">@item.DatumIstekaRegistracije.ToString("dd-mm-yyyy")</h6>
-                    <a asp-controller="Automobil" asp-action="Obrisi" asp-route-automobilId="@item.AutomobilID" class="btn btn-danger btn-obrisi">Ukloni</a>
-                    <a asp-controller="Automobil" asp-action="Uredi" asp-route-automobilId="@item.AutomobilID" class="btn btn-primary btn-obrisi">Uredi</a>
-                </div>
-            </div>
-        }
-    </div>*@
+@*<link rel="stylesheet" href="~/css/driver.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/jsFIT.js" asp-append-version="true" />*@
 
 <section class="page-section portfolio" id="portfolio">
     <div class="container">
-        <div>
-            <a ajax-poziv="da" ajax-rezultat="tabelaAutomobili" href="/Driver/Automobil/Dodaj" class="btn btn-primary" id="btnDodajVozilo" @*asp-area="Driver" asp-controller="Automobil" asp-action="Dodaj"*@><i class="fas fa-plus fa-2x"></i></a>
-            <br />
-            <br />
-        </div>
 
         <!-- Portfolio Section Heading -->
         <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Automobili</h2>
@@ -46,7 +20,11 @@
             </div>
             <div class="divider-custom-line"></div>
         </div>
-
+        <div style="text-align:right;">
+            <a class="btn btn-primary" id="btnDodajVozilo" asp-area="Driver" asp-controller="Automobil" asp-action="Dodaj"><i class="fas fa-plus fa-2x"></i></a>
+            <br />
+            <br />
+        </div>
         <!-- Portfolio Grid Items -->
         <div class="row">
             @foreach (var item in Model.automobili)
@@ -68,7 +46,7 @@
                     <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal1">
                         <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                             <div class="portfolio-item-caption-content text-center text-white">
-                                <i class="fas fa-plus fa-3x"></i>
+                                <i class="fas fa-search fa-3x"></i>
                             </div>
                         </div>
                         <img style="height:250px; width:100%;" class="img-fluid" src="@slikaPath" alt="" asp-append-version="true">

@@ -8,11 +8,11 @@
     <li class="nav-item">
         @if (User.IsInRole("Korisnik"))
         {
-            <a class="nav-link text-light" asp-area="User" asp-controller="Profil" asp-action="Index" title="Manage">Hello @User.Identity.Name!</a>
+        <a class="nav-link text-light" asp-area="User" asp-controller="Profil" asp-action="Index" title="Manage">@User.Identity.Name.Substring(0, @User.Identity.Name.IndexOf("@"))!</a>
         }
         else if(User.IsInRole("Vozac"))
         {
-            <a class="nav-link text-light" asp-area="Driver" asp-controller="Automobil" asp-action="Index" title="Manage">Hello @User.Identity.Name!</a>
+    <a class="nav-link text-light" asp-area="Driver" asp-controller="Automobil" asp-action="Index" title="Manage">@User.Identity.Name.Substring(0, @User.Identity.Name.IndexOf("@"))</a>
         }
         else
         {

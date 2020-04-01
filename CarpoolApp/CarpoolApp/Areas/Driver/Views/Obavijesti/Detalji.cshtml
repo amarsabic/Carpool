@@ -4,53 +4,7 @@
     ViewData["Title"] = "Detalji";
 }
 <link rel="stylesheet" href="~/css/driver.css" asp-append-version="true" />
+<link href="~/bootstrapTheme/css/freelancer.min.css" rel="stylesheet" asp-append-version="true">
 
 <a class="btn btn-primary" id="btnDodajVozilo" asp-area="Driver" asp-controller="Obavijesti" asp-action="Dodaj">Dodaj novu obavijest</a></li>
 
-<table id="tabelaObavijesti" class="table">
-    <thead>
-        <tr>
-            <th>
-                #
-            </th>
-            <th>
-                Kratki opis
-            </th>
-            <th>
-                Naslov
-            </th>
-            <th>
-                Datum i vrijeme objave
-            </th>
-            <th>
-                Tip
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.obavijesti)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ObavijestiID)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.KratkiOpis)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Naslov)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DatumVrijemeObjave)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TipObavijesti.NazivTipa)
-                </td>
-                <td>
-                    <a href="/Driver/Obavijesti/Obrisi?ObavijestID=@item.ObavijestiID" class="btn btn-danger">Ukloni</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
