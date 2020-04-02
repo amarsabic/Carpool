@@ -3,8 +3,43 @@
 @{
     ViewData["Title"] = "Detalji";
 }
-<link rel="stylesheet" href="~/css/driver.css" asp-append-version="true" />
-<link href="~/bootstrapTheme/css/freelancer.min.css" rel="stylesheet" asp-append-version="true">
+  
+  <link href="~/bootstrapTheme/css/freelancer.css" rel="stylesheet" asp-append-version="true">
 
-<a class="btn btn-primary" id="btnDodajVozilo" asp-area="Driver" asp-controller="Obavijesti" asp-action="Dodaj">Dodaj novu obavijest</a></li>
+<!-- About Section -->
+<section class="page-section bg-primary text-white mb-0 portfolio" id="about">
+    <div class="container">
 
+        <!-- About Section Heading -->
+        <h2 class="page-section-heading text-center text-uppercase text-white">Obavijesti</h2>
+
+        <!-- Icon Divider -->
+        <div class="divider-custom divider-light">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon">
+                <i class="fas fa-newspaper"></i>
+            </div>
+            <div class="divider-custom-line"></div>
+        </div>
+        <!-- About Section Button -->
+        <div class="text-center mt-4">
+            <a class="btn btn-xl btn-outline-light btnObavijest" asp-area="Driver" asp-controller="Obavijesti" asp-action="Dodaj">
+                <i class="fas fa-plus mr-2"></i>
+                Dodaj obavijest
+            </a>
+            <a class="btn btn-xl btn-outline-light btnObavijest" ajax-rezultat="obavijestiDiv" href="/Driver/Obavijesti/LicneObavijesti" @*asp-area="Driver" asp-controller="Obavijesti" asp-action="LicneObavijesti"*@>
+                <i class="fas fa-user mr-2"></i>
+                Moje obavijesti
+            </a>
+            <a class="btn btn-xl btn-outline-light btnObavijest" ajax-poziv="da" ajax-rezultat="obavijestiDiv" href="/Driver/Obavijesti/SveObavijesti" @*asp-area="Driver" asp-controller="Obavijesti" asp-action="SveObavijesti"*@>
+                <i class="fas fa-scroll mr-2"></i>
+               Sve obavijesti
+            </a>
+        </div>
+
+        <div class="row" id="obavijestiDiv">
+
+        </div>
+
+    </div>
+</section>

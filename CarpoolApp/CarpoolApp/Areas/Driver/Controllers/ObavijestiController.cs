@@ -15,11 +15,11 @@ namespace CarpoolApp.Areas.Driver.Controllers
         public ObavijestiController(CarpoolAppContext db) : base(db)
         {
         }
-        public IActionResult Index()
+        public IActionResult Detalji()
         {
             return View();
         }
-        public IActionResult Detalji()
+        public IActionResult LicneObavijesti()
         {
            ObavijestiDetaljiVM lista = new ObavijestiDetaljiVM();
            int vozac = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
@@ -35,7 +35,24 @@ namespace CarpoolApp.Areas.Driver.Controllers
                    TipObavijesti = x.TipObavijesti
                }).ToList();
 
-            return View(lista);
+            return PartialView(lista);
+        }
+        public IActionResult SveObavijesti()
+        {
+            ObavijestiDetaljiVM lista = new ObavijestiDetaljiVM();
+      
+            lista.obavijesti = _db.Obavijesti
+                .Select(x => new ObavijestiDetaljiVM.Row()
+                {
+                    Naslov = x.Naslov,
+                    KratkiOpis = x.KratkiOpis,
+                    DatumVrijemeObjave = x.DatumVrijemeObjave,
+                    ObavijestiID = x.ObavijestiID,
+                    TipObavijestiID = x.TipObavijestiID,
+                    TipObavijesti = x.TipObavijesti
+                }).ToList();
+
+            return PartialView(lista);
         }
         public IActionResult Obrisi(int obavijestID)
         {
@@ -66,7 +83,7 @@ namespace CarpoolApp.Areas.Driver.Controllers
             {
                 VozacID = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)),
                 Naslov = Model.Naslov,
-                DatumVrijemeObjave = Model.DatumVrijemeObjave,
+                DatumVrijemeObjave = DateTime.Now,
                 KratkiOpis = Model.KratkiOpis,
                 TipObavijestiID = Model.TipObavijesti
             });

@@ -2,32 +2,60 @@
 @{
     ViewData["Title"] = "Dodaj";
 }
-<link rel="stylesheet" href="~/css/driver.css" asp-append-version="true" />
-<div class="row justify-content-center align-content-center">
 
-    <form id="formaDodajVozilo" action="Dodaj" method="post">
-        <h2>Kreiraj novu obavijest</h2>
-        <div class="form-group">
-            <label asp-for="Naslov" class="control-label"></label>
-            <input asp-for="Naslov" class="form-control" />
-            <span asp-validation-for="Naslov" class="text-danger"></span>
+<!-- Custom scripts for this template -->
+<script src="~/bootstrapTheme/js/freelancer.min.js" asp-append-version="true"></script>
+
+<!-- Contact Section -->
+<section class="page-section portfolio" id="contact">
+    <div class="container">
+
+        <!-- Contact Section Heading -->
+        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Dodaj obavijest</h2>
+
+        <!-- Icon Divider -->
+        <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon">
+                <i class="fas fa-newspaper"></i>
+            </div>
+            <div class="divider-custom-line"></div>
         </div>
-        <div class="form-group">
-            <label asp-for="TipObavijesti" class="control-label"></label>
-            <select asp-for="TipObavijesti" asp-items="Model.tipovi" class="form-control">
-                <option>(odaberite tip)</option>
-            </select>
+
+        <!-- Contact Section Form -->
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+
+                <form enctype="multipart/form-data" action="Dodaj" method="post">
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                            <label>Naslov</label>
+                            <input asp-for="Naslov" class="form-control" id="name" type="text" required="required" placeholder="Naslov" data-validation-required-message="Molimo Vas unesite naslov sadržaja.">
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="control-group">                
+                            <label>Tip obavijesti</label>
+                            <select asp-for="TipObavijesti" asp-items="Model.tipovi" class="form-control">
+                                <option>(odaberite tip)</option>
+                            </select>
+                    </div>
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                            <label>Kratki opis</label>
+                            <textarea asp-for="KratkiOpis" class="form-control" id="message" rows="5" placeholder=". . ." required="required" data-validation-required-message="Molimo Vas unesite sadržaj."></textarea>
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+
+                    <br>
+                    <div id="success"></div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-xl">Objavi</button>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="form-group">
-            <label asp-for="KratkiOpis"class="control-label">Kratki opis</label>
-            <input asp-for="KratkiOpis" class="form-control" />
-            <span asp-validation-for="KratkiOpis" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="DatumVrijemeObjave" class="control-label"></label>
-            <input asp-for="DatumVrijemeObjave" class="form-control" />
-            <span asp-validation-for="DatumVrijemeObjave" class="text-danger"></span>
-        </div>
-        <button  class="btn btn-primary" type="submit">Objavi</button>
-    </form>
-</div>
+
+    </div>
+</section>

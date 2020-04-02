@@ -1,0 +1,17 @@
+﻿@model CarpoolApp.Areas.Driver.ViewModels.Obavijesti.ObavijestiDetaljiVM
+@{
+    ViewData["Title"] = "Index";
+}
+    <script src="~/jsFIT.js" asp-append-version="true"></script>
+<div class="row">
+    @for (var i = 0; i < Model.obavijesti.Count(); i++)
+    {
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">@Model.obavijesti[i].Naslov</h5>
+                <h6 class="card-subtitle mb-2 text-muted">@Model.obavijesti[i].DatumVrijemeObjave</h6>
+                <p class="card-text">@Model.obavijesti[i].KratkiOpis</p>
+            </div>
+        </div>
+    }
+</div>

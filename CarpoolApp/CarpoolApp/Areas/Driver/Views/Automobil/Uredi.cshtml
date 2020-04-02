@@ -4,57 +4,94 @@
     var slikaPath = "~/imgs/" + (Model.PostojecaSlikaPath ?? "carnotfound.jpg");
 }
 
-<link rel="stylesheet" href="~/css/driver.css" asp-append-version="true" />
-<div class="row justify-content-center align-content-center">
-    <form enctype="multipart/form-data" id="formaDodajVozilo" action="Uredi" method="post">
-        <h2>Uredi vozilo</h2>
-        <input asp-for="AutomobilId" hidden="hidden" />
-        <input asp-for="PostojecaSlikaPath" hidden="hidden" />
-        <div class="form-group">
-            <label asp-for="Naziv" class="control-label"></label>
-            <input asp-for="Naziv" class="form-control" placeholder="@Model.Naziv" />
-            <span asp-validation-for="Naziv" class="text-danger"></span>
+
+<!-- Custom scripts for this template -->
+<script src="~/bootstrapTheme/js/freelancer.min.js" asp-append-version="true"></script>
+
+<!-- Contact Section -->
+<section class="page-section portfolio" id="contact">
+    <div class="container">
+
+        <!-- Contact Section Heading -->
+        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Uredi automobil</h2>
+
+        <!-- Icon Divider -->
+        <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon">
+                <i class="fas fa-car"></i>
+            </div>
+            <div class="divider-custom-line"></div>
         </div>
-        <div class="form-group">
-            <label asp-for="Model" class="control-label"></label>
-            <input asp-for="Model" class="form-control" placeholder="@Model.Model" />
-            <span asp-validation-for="Model" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Godiste" class="control-label"></label>
-            <input asp-for="Godiste" class="form-control" placeholder="@Model.Godiste" />
-            <span asp-validation-for="Godiste" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="BrojRegOznaka" class="control-label"></label>
-            <input asp-for="BrojRegOznaka" class="form-control" placeholder="@Model.BrojRegOznaka" />
-            <span asp-validation-for="BrojRegOznaka" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="DatumIstekaRegistracije" class="control-label"></label>
-            <input asp-for="DatumIstekaRegistracije" class="form-control" placeholder="@Model.DatumIstekaRegistracije" />
-            <span asp-validation-for="DatumIstekaRegistracije" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Slika" class="control-label"></label>
-            <div class="custom-file">
-                <input asp-for="Slika" class="form-control custom-file-input" />
-                <label class="custom-file-label">Kliknite ovdje da promijenite sliku...</label>
+
+        <!-- Contact Section Form -->
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+
+                <form enctype="multipart/form-data" id="formaDodajVozilo" action="Uredi" method="post">
+                    <input asp-for="AutomobilId" hidden="hidden" />
+                    <input asp-for="PostojecaSlikaPath" hidden="hidden" />
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                            <label>Naziv</label>
+                            <input asp-for="Naziv" class="form-control" id="name" type="text" placeholder="Naziv" required="required" data-validation-required-message="Molimo Vas unesite naziv automobila.">
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                            <label>Model</label>
+                            <input asp-for="Model" class="form-control" type="text" placeholder="Model" required="required" data-validation-required-message="Molimo Vas unesite naziv modela.">
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                            <label>Godina proizvodnje</label>
+                            <input asp-for="Godiste" class="form-control" id="phone" type="tel" placeholder="Godina proizvodnje" required="required" data-validation-required-message="Molimo Vas unesite godinu proizvodnje.">
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                            <label>Broj registarskih oznaka</label>
+                            <input asp-for="BrojRegOznaka" class="form-control" id="phone" placeholder="Broj registarskih oznaka" required="required" data-validation-required-message="Molimo Vas unesite broj registarskih oznaka.">
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                            <label>Datum isteka registarskih oznaka</label>
+                            <input asp-for="DatumIstekaRegistracije" class="form-control" id="phone" placeholder="Datum isteka registarskih oznaka" required="required" data-validation-required-message="Molimo Vas unesite datum isteka registarskih oznaka.">
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Slika" class="control-label"></label>
+                        <div class="custom-file">
+                            <input asp-for="Slika" class="form-control custom-file-input" />
+                            <label class="custom-file-label">Odaberite sliku...</label>
+                        </div>
+                    </div>
+                    <br>
+                    <div id="success"></div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-xl">Dodaj</button>
+                    </div>
+
+                    @section Scripts{
+                        <script>
+                            $(document).ready(function () {
+                                $('.custom-file-input').on("change", function () {
+                                    var fileName = $(this).val().split("\\").pop();
+                                    $(this).next('.custom-file-label').html(fileName);
+                                });
+                            });
+                        </script>
+                    }
+                </form>
             </div>
         </div>
-        <div class="form-group urediAutoSlika"> <img src="@slikaPath" class="slikaAuto" alt="Alternate Text" asp-append-version="true" /></div>
-        <button class="btn btn-primary" type="submit">Sačuvaj</button>
-        <a asp-action="Detalji" asp-controller="Automobil" asp-area="Driver" class="btn btn-primary" type="submit">Prekini</a>
 
-        @section Scripts{
-            <script>
-                $(document).ready(function () {
-                    $('.custom-file-input').on("change", function () {
-                        var fileName = $(this).val().split("\\").pop();
-                        $(this).next('.custom-file-label').html(fileName);
-                    });
-                });
-            </script>
-        }
-    </form>
-</div>
+    </div>
+</section>
