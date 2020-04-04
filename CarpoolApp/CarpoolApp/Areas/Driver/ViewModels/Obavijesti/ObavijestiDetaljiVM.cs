@@ -18,6 +18,7 @@ namespace CarpoolApp.Areas.Driver.ViewModels.Obavijesti
 
             public int TipObavijestiID { get; set; }
             public TipObavijesti TipObavijesti { get; set; }
+            public string KorisnickoIme { get; set; }
         }
     }
 }

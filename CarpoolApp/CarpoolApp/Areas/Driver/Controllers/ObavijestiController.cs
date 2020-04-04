@@ -8,6 +8,7 @@ using CarpoolApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
+
 namespace CarpoolApp.Areas.Driver.Controllers
 {
     public class ObavijestiController : BaseController
@@ -32,7 +33,8 @@ namespace CarpoolApp.Areas.Driver.Controllers
                    DatumVrijemeObjave = x.DatumVrijemeObjave,
                    ObavijestiID = x.ObavijestiID,
                    TipObavijestiID = x.TipObavijestiID,
-                   TipObavijesti = x.TipObavijesti
+                   TipObavijesti = x.TipObavijesti,
+                   KorisnickoIme = x.Vozac.Korisnik.Ime + " " + x.Vozac.Korisnik.Prezime
                }).ToList();
 
             return PartialView(lista);
@@ -49,7 +51,8 @@ namespace CarpoolApp.Areas.Driver.Controllers
                     DatumVrijemeObjave = x.DatumVrijemeObjave,
                     ObavijestiID = x.ObavijestiID,
                     TipObavijestiID = x.TipObavijestiID,
-                    TipObavijesti = x.TipObavijesti
+                    TipObavijesti = x.TipObavijesti,
+                    KorisnickoIme = x.Vozac.Korisnik.Ime + " " + x.Vozac.Korisnik.Prezime
                 }).ToList();
 
             return PartialView(lista);

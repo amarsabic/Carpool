@@ -1,19 +1,88 @@
 ﻿@model CarpoolApp.Areas.Driver.ViewModels.Obavijesti.ObavijestiDetaljiVM
+@using CarpoolApp.Helper
 @{
     ViewData["Title"] = "SveObavijesti";
 }
 
 <script src="~/jsFIT.js" asp-append-version="true"></script>
+<!-- Custom styles for this template -->
+<link href="~/css/Obavijesti.css" rel="stylesheet" asp-append-version="true">
 
 <div class="row">
-    @for (var i = 0; i < Model.obavijesti.Count(); i++)
+    @for (var i = Model.obavijesti.Count() - 1; i >= 0; i--)
     {
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">@Model.obavijesti[i].Naslov</h5>
-                <h6 class="card-subtitle mb-2 text-muted">@Model.obavijesti[i].DatumVrijemeObjave</h6>
-                <p class="card-text">@Model.obavijesti[i].KratkiOpis</p>
+        <!-- Main Content -->
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="post-preview">
+                        <a href="post.html">
+                            <h2 class="post-title">
+                                @Model.obavijesti[i].Naslov
+                            </h2>
+                            <h3 class="post-subtitle">
+                                @Model.obavijesti[i].KratkiOpis.Substring(0, @Model.obavijesti[i].KratkiOpis.IndexOf(".") + 1)
+                            </h3>
+                        </a>
+                        <p class="post-meta">
+                            Objavio/la @Model.obavijesti[i].KorisnickoIme @DateTimeHelper.GetFriendlyRelativeTime(Model.obavijesti[i].DatumVrijemeObjave)
+                        </p>
+                    </div>
+                    <hr>
+                </div>
             </div>
         </div>
     }
+    <!-- Pager -->
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
 </div>
+
+@*if (Model.obavijesti[i].TipObavijesti.NazivTipa == "Info")
+    {
+        <div class="col-md-6 col-lg-4">
+            <div class="portfolio-item mx-auto">
+                <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
+                    <div class="card-header">@DateTimeHelper.GetFriendlyRelativeTime(Model.obavijesti[i].DatumVrijemeObjave)</div>
+                    <div class="card-body">
+                        <h5 class="card-title">@Model.obavijesti[i].Naslov</h5>
+                        <p class="card-text">@Model.obavijesti[i].KratkiOpis</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="col-md-6 col-lg-4">
+            <div class="portfolio-item mx-auto">
+                <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
+                    <div class="card-header">@DateTimeHelper.GetFriendlyRelativeTime(Model.obavijesti[i].DatumVrijemeObjave)</div>
+                    <div class="card-body">
+                        <h5 class="card-title">@Model.obavijesti[i].Naslov</h5>
+                        <p class="card-text">@Model.obavijesti[i].KratkiOpis</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }*@
+
+
+
