@@ -17,7 +17,6 @@ using Microsoft.Extensions.Hosting;
 using CarpoolApp.Services;
 using ReflectionIT.Mvc.Paging;
 
-
 namespace CarpoolApp
 {
     public class Startup
@@ -47,6 +46,7 @@ namespace CarpoolApp
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

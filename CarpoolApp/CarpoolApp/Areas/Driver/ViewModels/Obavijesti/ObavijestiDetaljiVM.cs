@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CarpoolApp.Models;
+using ReflectionIT.Mvc.Paging;
 
 namespace CarpoolApp.Areas.Driver.ViewModels.Obavijesti
 {
     public class ObavijestiDetaljiVM
     {
-        public List<Row> obavijesti { get; set; }
+        public PagingList<Row> Obavijesti { get; set; }
+        public int Page { get; set; } = 1;
+
         public class Row
         {
             public int ObavijestiID { get; set; }

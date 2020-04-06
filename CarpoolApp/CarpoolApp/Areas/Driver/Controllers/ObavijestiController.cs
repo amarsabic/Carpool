@@ -7,7 +7,8 @@ using CarpoolApp.Areas.Driver.ViewModels.Obavijesti;
 using CarpoolApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-
+using Microsoft.EntityFrameworkCore;
+using ReflectionIT.Mvc.Paging;
 
 namespace CarpoolApp.Areas.Driver.Controllers
 {
@@ -20,43 +21,56 @@ namespace CarpoolApp.Areas.Driver.Controllers
         {
             return View();
         }
-        public IActionResult LicneObavijesti()
-        {
-           ObavijestiDetaljiVM lista = new ObavijestiDetaljiVM();
-           int vozac = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
-           lista.obavijesti = _db.Obavijesti.Where(o => o.VozacID == vozac)
-               .Select(x=>new ObavijestiDetaljiVM.Row()
-               {
-                   Naslov = x.Naslov,
-                   KratkiOpis = x.KratkiOpis,
-                   DatumVrijemeObjave = x.DatumVrijemeObjave,
-                   ObavijestiID = x.ObavijestiID,
-                   TipObavijestiID = x.TipObavijestiID,
-                   TipObavijesti = x.TipObavijesti,
-                   KorisnickoIme = x.Vozac.Korisnik.Ime + " " + x.Vozac.Korisnik.Prezime
-               }).ToList();
+        //public IActionResult LicneObavijesti()
+        //{
+        //    ObavijestiDetaljiVM lista = new ObavijestiDetaljiVM();
+        //    int vozac = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
-            return PartialView(lista);
-        }
-        public IActionResult SveObavijesti()
+        //    lista.obavijesti = _db.Obavijesti.Where(o => o.VozacID == vozac)
+        //        .Select(x => new ObavijestiDetaljiVM.Row()
+        //        {
+        //            Naslov = x.Naslov,
+        //            KratkiOpis = x.KratkiOpis,
+        //            DatumVrijemeObjave = x.DatumVrijemeObjave,
+        //            ObavijestiID = x.ObavijestiID,
+        //            TipObavijestiID = x.TipObavijestiID,
+        //            TipObavijesti = x.TipObavijesti,
+        //            KorisnickoIme = x.Vozac.Korisnik.Ime + " " + x.Vozac.Korisnik.Prezime
+        //        }).ToList();
+
+        //    return PartialView(lista);
+        //}
+
+        public async Task<IActionResult> SveObavijesti(ObavijestiDetaljiVM model)
         {
             ObavijestiDetaljiVM lista = new ObavijestiDetaljiVM();
-      
-            lista.obavijesti = _db.Obavijesti
-                .Select(x => new ObavijestiDetaljiVM.Row()
-                {
-                    Naslov = x.Naslov,
-                    KratkiOpis = x.KratkiOpis,
-                    DatumVrijemeObjave = x.DatumVrijemeObjave,
-                    ObavijestiID = x.ObavijestiID,
-                    TipObavijestiID = x.TipObavijestiID,
-                    TipObavijesti = x.TipObavijesti,
-                    KorisnickoIme = x.Vozac.Korisnik.Ime + " " + x.Vozac.Korisnik.Prezime
-                }).ToList();
 
+            var obavijesti = _db.Obavijesti
+                 .Select(x => new ObavijestiDetaljiVM.Row()
+                 {
+                     Naslov = x.Naslov,
+                     KratkiOpis = x.KratkiOpis,
+                     DatumVrijemeObjave = x.DatumVrijemeObjave,
+                     ObavijestiID = x.ObavijestiID,
+                     TipObavijestiID = x.TipObavijestiID,
+                     TipObavijesti = x.TipObavijesti,
+                     KorisnickoIme = x.Vozac.Korisnik.Ime + " " + x.Vozac.Korisnik.Prezime
+                 });
+
+            lista.Obavijesti = await PagingList.CreateAsync((IOrderedQueryable<ObavijestiDetaljiVM.Row>)obavijesti, 1, model.Page);
             return PartialView(lista);
         }
+
+        //[Obsolete]
+        //public async Task<IActionResult> SveObavijestiAsync(int page = 1)
+        //{
+        //    var item = _db.Obavijesti.AsNoTracking().OrderBy(p => p.ObavijestiID);
+        //    var model = await PagingList<Obavijesti>.CreateAsync(item, 5, page);
+
+        //    return PartialView(model);
+        //}
+
         public IActionResult Obrisi(int obavijestID)
         {
             Obavijesti obavijest = _db.Obavijesti.Find(obavijestID);

@@ -3,8 +3,8 @@
 @{
     ViewData["Title"] = "Detalji";
 }
-  
-  <link href="~/bootstrapTheme/css/freelancer.css" rel="stylesheet" asp-append-version="true">
+
+<link href="~/bootstrapTheme/css/freelancer.css" rel="stylesheet" asp-append-version="true">
 
 <!-- About Section -->
 <section class="page-section bg-primary text-white mb-0 portfolio" id="about">
@@ -31,9 +31,10 @@
                 <i class="fas fa-user mr-2"></i>
                 Moje obavijesti
             </a>
-            <a class="btn btn-xl btn-outline-light btnObavijest" ajax-poziv="da" ajax-rezultat="obavijestiDiv" href="/Driver/Obavijesti/SveObavijesti" @*asp-area="Driver" asp-controller="Obavijesti" asp-action="SveObavijesti"*@>
+            <a class="btn btn-xl btn-outline-light btnObavijest"
+               ajax-poziv="da" ajax-rezultat="obavijestiDiv" href="/Driver/Obavijesti/SveObavijesti">
                 <i class="fas fa-scroll mr-2"></i>
-               Sve obavijesti
+                Sve obavijesti
             </a>
         </div>
 

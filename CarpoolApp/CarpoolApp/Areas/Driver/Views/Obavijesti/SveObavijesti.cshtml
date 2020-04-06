@@ -1,5 +1,10 @@
 ﻿@model CarpoolApp.Areas.Driver.ViewModels.Obavijesti.ObavijestiDetaljiVM
 @using CarpoolApp.Helper
+
+@*@model ReflectionIT.Mvc.Paging.PagingList<CarpoolApp.Models.Obavijesti>
+    @using ReflectionIT.Mvc.Paging
+    @addTagHelper *, ReflectionIT.Mvc.Paging*@
+
 @{
     ViewData["Title"] = "SveObavijesti";
 }
@@ -9,7 +14,7 @@
 <link href="~/css/Obavijesti.css" rel="stylesheet" asp-append-version="true">
 
 <div class="row">
-    @for (var i = Model.obavijesti.Count() - 1; i >= 0; i--)
+    @for (var i = Model.Obavijesti.Count() - 1; i >= 0; i--)
     {
         <!-- Main Content -->
         <div class="container">
@@ -18,14 +23,25 @@
                     <div class="post-preview">
                         <a href="post.html">
                             <h2 class="post-title">
-                                @Model.obavijesti[i].Naslov
+                                @Model.Obavijesti[i].Naslov
                             </h2>
-                            <h3 class="post-subtitle">
-                                @Model.obavijesti[i].KratkiOpis.Substring(0, @Model.obavijesti[i].KratkiOpis.IndexOf(".") + 1)
-                            </h3>
+                            @if (Model.Obavijesti[i].TipObavijesti.NazivTipa == "Hitno")
+                            {
+                                <h3 class="post-subtitle">
+                                    @Model.Obavijesti[i].KratkiOpis.Substring(0, @Model.Obavijesti[i].KratkiOpis.IndexOf(".") + 1)
+                                </h3>
+                                <i style="color:red;" class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                            }
+                            else
+                            {
+                                <h3 class="post-subtitle">
+                                    @Model.Obavijesti[i].KratkiOpis.Substring(0, @Model.Obavijesti[i].KratkiOpis.IndexOf(".") + 1)
+                                </h3>
+                                <i style="color:lightblue;" class="fa fa-info-circle" aria-hidden="true"></i>
+                            }
                         </a>
                         <p class="post-meta">
-                            Objavio/la @Model.obavijesti[i].KorisnickoIme @DateTimeHelper.GetFriendlyRelativeTime(Model.obavijesti[i].DatumVrijemeObjave)
+                            Objavio/la @Model.Obavijesti[i].KorisnickoIme @DateTimeHelper.GetFriendlyRelativeTime(Model.Obavijesti[i].DatumVrijemeObjave)
                         </p>
                     </div>
                     <hr>
@@ -33,56 +49,62 @@
             </div>
         </div>
     }
-    <!-- Pager -->
-    <nav aria-label="Page navigation example">
-        <ul class="pagination">
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                    <span class="sr-only">Previous</span>
-                </a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+
+    <div class="pagination">
+
+        <form ajax-url="/Driver/Obavijesti/SveObavijesti" ajax-result="obavijestiDiv">
+            <vc:pagination paging-list="@Model.Obavijesti" />
+        </form>
+    </div>
 </div>
 
-@*if (Model.obavijesti[i].TipObavijesti.NazivTipa == "Info")
-    {
-        <div class="col-md-6 col-lg-4">
-            <div class="portfolio-item mx-auto">
-                <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
-                    <div class="card-header">@DateTimeHelper.GetFriendlyRelativeTime(Model.obavijesti[i].DatumVrijemeObjave)</div>
-                    <div class="card-body">
-                        <h5 class="card-title">@Model.obavijesti[i].Naslov</h5>
-                        <p class="card-text">@Model.obavijesti[i].KratkiOpis</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    }
-    else
-    {
-        <div class="col-md-6 col-lg-4">
-            <div class="portfolio-item mx-auto">
-                <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
-                    <div class="card-header">@DateTimeHelper.GetFriendlyRelativeTime(Model.obavijesti[i].DatumVrijemeObjave)</div>
-                    <div class="card-body">
-                        <h5 class="card-title">@Model.obavijesti[i].Naslov</h5>
-                        <p class="card-text">@Model.obavijesti[i].KratkiOpis</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    }*@
 
 
+
+
+
+
+
+
+
+
+
+
+
+@*<cs-pager cs-paging-pagenumber="4"
+                  cs-paging-totalitems="4"
+                  cs-paging-pagesize="1"
+                  cs-pagenumber-param="pagenumber"
+                  asp-controller="Obavijesti"
+                  asp-action="SveObavijesti"
+                  cs-pager-li-current-class="page-item active"
+                  cs-pager-li-other-class="page-item"
+                  cs-pager-li-non-active-class="page-item disabled"
+                  cs-pager-link-current-class="page-link"
+                  cs-pager-link-other-class="page-link"></cs-pager>
+    </div>*@
+
+
+
+<!-- Pager -->
+@*<nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>*@
 
