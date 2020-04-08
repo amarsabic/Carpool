@@ -45,6 +45,7 @@ namespace CarpoolApp.Areas.Driver.Controllers
         public async Task<IActionResult> SveObavijesti(ObavijestiDetaljiVM model)
         {
             ObavijestiDetaljiVM lista = new ObavijestiDetaljiVM();
+           
 
             var obavijesti = _db.Obavijesti
                  .Select(x => new ObavijestiDetaljiVM.Row()
@@ -58,18 +59,31 @@ namespace CarpoolApp.Areas.Driver.Controllers
                      KorisnickoIme = x.Vozac.Korisnik.Ime + " " + x.Vozac.Korisnik.Prezime
                  });
 
-            lista.Obavijesti = await PagingList.CreateAsync((IOrderedQueryable<ObavijestiDetaljiVM.Row>)obavijesti, 1, model.Page);
+            lista.Obavijesti = await PagingList.CreateAsync((IOrderedQueryable<ObavijestiDetaljiVM.Row>)obavijesti, 2, model.Page);
             return PartialView(lista);
         }
 
-        //[Obsolete]
-        //public async Task<IActionResult> SveObavijestiAsync(int page = 1)
-        //{
-        //    var item = _db.Obavijesti.AsNoTracking().OrderBy(p => p.ObavijestiID);
-        //    var model = await PagingList<Obavijesti>.CreateAsync(item, 5, page);
+        public async Task<IActionResult> LicneObavijesti(ObavijestiDetaljiVM model)
+        {
+            ObavijestiDetaljiVM lista = new ObavijestiDetaljiVM();
 
-        //    return PartialView(model);
-        //}
+            int vozac = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            var obavijesti = _db.Obavijesti.Where(o => o.VozacID == vozac)
+                 .Select(x => new ObavijestiDetaljiVM.Row()
+                 {
+                     Naslov = x.Naslov,
+                     KratkiOpis = x.KratkiOpis,
+                     DatumVrijemeObjave = x.DatumVrijemeObjave,
+                     ObavijestiID = x.ObavijestiID,
+                     TipObavijestiID = x.TipObavijestiID,
+                     TipObavijesti = x.TipObavijesti,
+                     KorisnickoIme = x.Vozac.Korisnik.Ime + " " + x.Vozac.Korisnik.Prezime
+                 });
+
+            lista.Obavijesti = await PagingList.CreateAsync((IOrderedQueryable<ObavijestiDetaljiVM.Row>)obavijesti, 4, model.Page);
+            return PartialView(lista);
+        }
 
         public IActionResult Obrisi(int obavijestID)
         {

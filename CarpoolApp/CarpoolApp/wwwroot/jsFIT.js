@@ -1,6 +1,7 @@
 ﻿function ajaxFormButton() {
 
     $('button[ajax-form-call="yes"]').click(function () {
+
         var button = $(this);
         var form = button.parents('form');
 
@@ -26,22 +27,24 @@
                 success: function (result) {
                     if (resultId !== '') {
                         $(`#${resultId}`).html(result);
+
                     }
                 },
                 beforeSend: function (xhr) {
                     xhr.overrideMimeType('application/x-www-form-urlencoded; charset=UTF-8');
                     $(beginClass).val('');
                 }
-
             });
 
-        }).attr('ajax-form-call', 'set');
-    });
+        })
+    }).attr('ajax-form-call', 'set');
 }
 
 function DodajAjaxEvente() {
     $("button[ajax-poziv='da']").click(function (event) {
-        $(this).attr("ajax-poziv", "dodan");
+
+
+        //$(this).attr("ajax-poziv", "dodan");
 
         event.preventDefault();
         var urlZaPoziv = $(this).attr("ajax-url");
@@ -50,10 +53,10 @@ function DodajAjaxEvente() {
         $.get(urlZaPoziv, function (data, status) {
             $("#" + divZaRezultat).html(data);
         });
-    });
+    }).attr("ajax-poziv", "dodan");
 
     $("a[ajax-poziv='da']").click(function (event) {
-        $(this).attr("ajax-poziv", "dodan");
+        //$(this).attr("ajax-poziv", "dodan");
         event.preventDefault();
         var urlZaPoziv1 = $(this).attr("ajax-url");
         var urlZaPoziv2 = $(this).attr("href");
@@ -69,10 +72,10 @@ function DodajAjaxEvente() {
         $.get(urlZaPoziv, function (data, status) {
             $("#" + divZaRezultat).html(data);
         });
-    });
+    }).attr("ajax-poziv", "dodan");
 
     $("form[ajax-poziv='da']").submit(function (event) {
-        $(this).attr("ajax-poziv", "dodan");
+        //$(this).attr("ajax-poziv", "dodan");
         event.preventDefault();
         var urlZaPoziv1 = $(this).attr("ajax-url");
         var urlZaPoziv2 = $(this).attr("action");
@@ -94,7 +97,7 @@ function DodajAjaxEvente() {
                 $("#" + divZaRezultat).html(data);
             }
         });
-    });
+    }).attr("ajax-poziv", "dodan");
 }
 $(document).ready(function () {
     // izvršava nakon što glavni html dokument bude generisan

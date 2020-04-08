@@ -42,4 +42,9 @@
             </div>
         </div>
     }
+    <div class="formPagination">
+        <form ajax-url="/Driver/Obavijesti/LicneObavijesti" ajax-result="obavijestiDiv" class="pagination justify-content-center">
+            <vc:pagination paging-list="@Model.Obavijesti" />
+        </form>
+    </div>
 </div>
