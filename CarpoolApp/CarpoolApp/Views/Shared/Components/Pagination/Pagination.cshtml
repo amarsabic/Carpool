@@ -1,26 +1,28 @@
 ﻿@model CarpoolApp.ViewModels.PaginationVM
+
+
 <!-- First -->
 @if (Model.StartPageIndex > 1)
 {
-    <button ajax-form-call="yes" type="submit" name="Page" value="1" class="page-link">First</button>
+    <button ajax-form-call="yes" type="submit" name="Page" value="1" class="page-link btnPagination">First</button>
 }
 
 @if (Model.PreviousPage > 0)
 {
     <!-- Previous -->
-<button ajax-form-call="yes" type="submit" name="Page" value="@Model.PreviousPage" class="page-link"><i class="fas fa-arrow-left"></i></button>
+    <button ajax-form-call="yes" type="submit" name="Page" value="@Model.PreviousPage" class="page-link btnPrevious"><i class="fas fa-arrow-left"></i></button>
 }
 
 <!-- Numbers -->
 @for (var i = Model.StartPageIndex; i <= Model.StopPageIndex; i++)
 {
-    <button ajax-form-call="yes"  name="Page" value="@i" class="@(Model.PageIndex == i ? "active" : "") page-link">@i</button>
+    <button ajax-form-call="yes" name="Page" value="@i" class="@(Model.PageIndex == i ? "active" : "") page-link btnNumbers">@i</button>
 }
 
 @if (Model.NextPage <= Model.PageCount && Model.NextPage > 0)
 {
     <!-- Next -->
-    <button ajax-form-call="yes" type="submit" name="Page" value="@Model.NextPage" class="page-link"><i class="fas fa-arrow-right"></i></button>
+    <button ajax-form-call="yes" type="submit" name="Page" value="@Model.NextPage" class="page-link btnNext"><i class="fas fa-arrow-right"></i></button>
 }
 
 @if (Model.PageCount > Model.StopPageIndex)
@@ -28,3 +30,4 @@
     <!-- Last -->
     <button ajax-form-call="yes" type="submit" name="Page" value="@Model.PageCount" class="page-link">Last</button>
 }
+

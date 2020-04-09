@@ -39,9 +39,36 @@
 
 .formPagination{
     width:100%;
+    margin-top:20px;
 }
+
+.btnPrevious {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-style: none;
+}
+.btnNext {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-style: none;
+}
+
+.btnNumbers{
+    border-style:none;
+}
+
+.active {
+    background-color: rgb(33, 37, 41);
+}
+
 @media only screen and (min-width: 768px) {
     .post-preview > a > .post-title {
         font-size: 36px;
     }
+}
+
+@media only screen and (max-width: 600px) {
+   .row{
+       margin:0px 7px 0px 7px;
+   }
 }

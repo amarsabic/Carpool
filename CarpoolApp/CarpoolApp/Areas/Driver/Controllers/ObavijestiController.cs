@@ -45,9 +45,10 @@ namespace CarpoolApp.Areas.Driver.Controllers
         public async Task<IActionResult> SveObavijesti(ObavijestiDetaljiVM model)
         {
             ObavijestiDetaljiVM lista = new ObavijestiDetaljiVM();
-           
+
 
             var obavijesti = _db.Obavijesti
+                .OrderByDescending(x => x.DatumVrijemeObjave)
                  .Select(x => new ObavijestiDetaljiVM.Row()
                  {
                      Naslov = x.Naslov,
@@ -59,7 +60,7 @@ namespace CarpoolApp.Areas.Driver.Controllers
                      KorisnickoIme = x.Vozac.Korisnik.Ime + " " + x.Vozac.Korisnik.Prezime
                  });
 
-            lista.Obavijesti = await PagingList.CreateAsync((IOrderedQueryable<ObavijestiDetaljiVM.Row>)obavijesti, 2, model.Page);
+            lista.Obavijesti = await PagingList.CreateAsync((IOrderedQueryable<ObavijestiDetaljiVM.Row>)obavijesti, 3, model.Page);
             return PartialView(lista);
         }
 
@@ -70,6 +71,7 @@ namespace CarpoolApp.Areas.Driver.Controllers
             int vozac = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
             var obavijesti = _db.Obavijesti.Where(o => o.VozacID == vozac)
+                 .OrderByDescending(x => x.DatumVrijemeObjave)
                  .Select(x => new ObavijestiDetaljiVM.Row()
                  {
                      Naslov = x.Naslov,
@@ -81,7 +83,7 @@ namespace CarpoolApp.Areas.Driver.Controllers
                      KorisnickoIme = x.Vozac.Korisnik.Ime + " " + x.Vozac.Korisnik.Prezime
                  });
 
-            lista.Obavijesti = await PagingList.CreateAsync((IOrderedQueryable<ObavijestiDetaljiVM.Row>)obavijesti, 4, model.Page);
+            lista.Obavijesti = await PagingList.CreateAsync((IOrderedQueryable<ObavijestiDetaljiVM.Row>)obavijesti, 3, model.Page);
             return PartialView(lista);
         }
 
