@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="col-lg-8 col-md-10 mx-auto">
                     <div class="post-preview">
-                        <a href="post.html">
+                        <a asp-controller="Obavijesti" asp-area="Driver" asp-action="Uredi" asp-route-obavijestiId="@Model.Obavijesti[i].ObavijestiID">
                             <h2 class="post-title">
                                 @Model.Obavijesti[i].Naslov
                             </h2>
@@ -33,6 +33,7 @@
                                 <i style="color:lightblue;" class="fa fa-info-circle" aria-hidden="true"></i>
                             }
                         </a>
+                        @*<a href="#"><i class="fas fa-edit fa-lg"></i></a>*@
                         <p class="post-meta">
                             Objavio/la @Model.Obavijesti[i].KorisnickoIme @DateTimeHelper.GetFriendlyRelativeTime(Model.Obavijesti[i].DatumVrijemeObjave)
                         </p>

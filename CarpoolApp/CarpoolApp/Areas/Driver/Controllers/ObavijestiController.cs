@@ -22,26 +22,6 @@ namespace CarpoolApp.Areas.Driver.Controllers
             return View();
         }
 
-        //public IActionResult LicneObavijesti()
-        //{
-        //    ObavijestiDetaljiVM lista = new ObavijestiDetaljiVM();
-        //    int vozac = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-
-        //    lista.obavijesti = _db.Obavijesti.Where(o => o.VozacID == vozac)
-        //        .Select(x => new ObavijestiDetaljiVM.Row()
-        //        {
-        //            Naslov = x.Naslov,
-        //            KratkiOpis = x.KratkiOpis,
-        //            DatumVrijemeObjave = x.DatumVrijemeObjave,
-        //            ObavijestiID = x.ObavijestiID,
-        //            TipObavijestiID = x.TipObavijestiID,
-        //            TipObavijesti = x.TipObavijesti,
-        //            KorisnickoIme = x.Vozac.Korisnik.Ime + " " + x.Vozac.Korisnik.Prezime
-        //        }).ToList();
-
-        //    return PartialView(lista);
-        //}
-
         public async Task<IActionResult> SveObavijesti(ObavijestiDetaljiVM model)
         {
             ObavijestiDetaljiVM lista = new ObavijestiDetaljiVM();
@@ -87,14 +67,14 @@ namespace CarpoolApp.Areas.Driver.Controllers
             return PartialView(lista);
         }
 
-        public IActionResult Obrisi(int obavijestID)
+        public IActionResult Obrisi(int obavijestiId)
         {
-            Obavijesti obavijest = _db.Obavijesti.Find(obavijestID);
+            Obavijesti obavijest = _db.Obavijesti.Find(obavijestiId);
             _db.Obavijesti.Remove(obavijest);
 
             _db.SaveChanges();
 
-            return Redirect("/Driver/Obavijesti/Detalji");
+            return RedirectToAction(nameof(Detalji));
         }
         public IActionResult Dodaj()
         {
@@ -124,6 +104,43 @@ namespace CarpoolApp.Areas.Driver.Controllers
             _db.SaveChanges();
 
             return RedirectToActionPermanent(nameof(Detalji));
+        }
+
+        public IActionResult Uredi(int obavijestiId)
+        {
+            Obavijesti o = _db.Obavijesti.Find(obavijestiId);
+            var model = new ObavijestiUrediVM
+            {
+                DatumVrijemeObjave = o.DatumVrijemeObjave,
+                KratkiOpis = o.KratkiOpis,
+                TipObavijesti = o.TipObavijestiID,
+                ObavijestId = obavijestiId,
+                Naslov = o.Naslov,
+
+                tipovi = _db.TipObavijesti.Select(t => new SelectListItem()
+                {
+                    Value = t.TipObavijestiID.ToString(),
+                    Text = t.NazivTipa
+                }).ToList()
+            };
+
+            return View("Uredi", model);
+        }
+
+        [HttpPost]
+        public IActionResult Uredi(ObavijestiUrediVM mod)
+        {
+
+            Obavijesti obavijesti = _db.Obavijesti.Find(mod.ObavijestId);
+
+            obavijesti.Naslov = mod.Naslov;
+            obavijesti.KratkiOpis = mod.KratkiOpis;
+            obavijesti.TipObavijestiID = mod.TipObavijesti;
+
+            _db.Obavijesti.Update(obavijesti);
+            _db.SaveChanges();
+
+            return RedirectToAction(nameof(Detalji));
         }
     }
 }
