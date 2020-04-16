@@ -141,9 +141,14 @@ namespace CarpoolApp.Areas.Driver.Controllers
         public IActionResult Obrisi(int automobilID)
         {
             Automobil auto = _db.Autmobili.Find(automobilID);
-            _db.Autmobili.Remove(auto);
-            _db.SaveChanges();
 
+            var aktivnaVoznjaAutomobil = _db.Voznje.Where(v=>v.AutomobilID==automobilID).FirstOrDefault();
+
+            if (aktivnaVoznjaAutomobil == null)
+            {
+                _db.Autmobili.Remove(auto);
+                _db.SaveChanges();
+            }
 
             return Redirect(nameof(Detalji));
             //return Redirect("/Driver/Automobil/Detalji");          

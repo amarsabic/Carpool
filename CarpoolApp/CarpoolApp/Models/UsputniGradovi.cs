@@ -8,9 +8,7 @@ namespace CarpoolApp.Models
     public class UsputniGradovi
     {
         public int UsputniGradoviID { get; set; }
-        public int GradPoRedu { get; set; }
-        public double IndividualnaCijena { get; set; }
-
+        public double CijenaUsputni { get; set; }
         public int VoznjaID { get; set; }
         public Voznja Voznja { get; set; }
         public int GradID { get; set; }

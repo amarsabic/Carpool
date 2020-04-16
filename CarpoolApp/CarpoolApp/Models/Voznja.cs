@@ -11,7 +11,7 @@ namespace CarpoolApp.Models
         public DateTime DatumPolaska { get; set; }
         public DateTime VrijemePolaska { get; set; }
         public int SlobodnaMjesta { get; set; }
-        public double CijenaPoOsobi { get; set; }
+        public double PunaCijena { get; set; }
 
         public int VozacID { get; set; }
         public Vozac Vozac { get; set; }
@@ -27,6 +27,5 @@ namespace CarpoolApp.Models
         public List<UsputniGradovi> UsputniGradovi { get; set; }
         public List<Rezervacija> Rezervacije { get; set; }
         public List<Ocjene> Ocjene { get; set; }
-
     }
 }

@@ -4,14 +4,16 @@ using CarpoolApp.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CarpoolApp.Migrations
 {
     [DbContext(typeof(CarpoolAppContext))]
-    partial class CarpoolAppContextModelSnapshot : ModelSnapshot
+    [Migration("20200415230616_voznjaUsputniEdit")]
+    partial class voznjaUsputniEdit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
