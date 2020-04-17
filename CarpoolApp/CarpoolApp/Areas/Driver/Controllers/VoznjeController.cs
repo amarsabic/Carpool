@@ -21,6 +21,13 @@ namespace CarpoolApp.Areas.Driver.Controllers
 
             return View();
         }
+
+        public IActionResult CijenaVoznje(int voznjaID)
+        {
+
+
+            return View();
+        }
         public IActionResult Dodaj()
         {
             int vozac = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
@@ -37,7 +44,7 @@ namespace CarpoolApp.Areas.Driver.Controllers
                     Value = g.GradID.ToString(),
                     Text = g.Naziv
                 }).ToList(),
-                Automobili = _db.Autmobili.Where(a => a.VozacID == vozac).Select(a => new SelectListItem
+                Automobili = _db.Autmobili.Where(a => a.VozacID == vozac && !a.IsAktivan).Select(a => new SelectListItem
                 {
                     Value = a.AutomobilID.ToString(),
                     Text = a.Naziv + " " + a.Model
@@ -69,16 +76,22 @@ namespace CarpoolApp.Areas.Driver.Controllers
             _db.Add(voznja);
             _db.SaveChanges();
 
-            foreach (var selektirani in mod.SelektiraniGradovi)
+            if (mod.SelektiraniGradovi != null)
             {
-                UsputniGradovi usputni = new UsputniGradovi
+                foreach (var selektirani in mod.SelektiraniGradovi)
                 {
-                    GradID=selektirani,
-                    VoznjaID=voznja.VoznjaID
-                };
+                    UsputniGradovi usputni = new UsputniGradovi
+                    {
+                        GradID = selektirani,
+                        VoznjaID = voznja.VoznjaID
+                    };
 
-                _db.UsputniGradovi.Add(usputni);
+                    _db.UsputniGradovi.Add(usputni);
+                }
             }
+
+            Automobil auto = _db.Autmobili.Find(mod.AutomobilID);
+            auto.IsAktivan = true;
 
             _db.SaveChanges();
 

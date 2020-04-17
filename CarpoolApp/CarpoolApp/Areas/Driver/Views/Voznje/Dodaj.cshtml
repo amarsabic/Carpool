@@ -47,21 +47,20 @@
                     </div>
 
                     <div class="tab">
-
                         <div class="form-group">
                             <label>Usputni gradovi</label>
-                            <select asp-for="SelektiraniGradovi" asp-items="Model.UsputniGradovi" class="selectpicker w-100" multiple>
-                                <option disabled="disabled">(Odaberite usputne stanice)</option>
+                            <select size="5" asp-for="SelektiraniGradovi" asp-items="Model.UsputniGradovi" class="selectpicker w-100 form-control" data-live-search="true" title="Odaberite usputne gradove..." data-width="auto" data-size="7" multiple>
+                                <option disabled="disabled">(Odaberite usputne gradove)</option>
                             </select>
                         </div>
-
                     </div>
 
                     <div class="tab">
 
                         <div class="control-group">
                             <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                                <label>Slobodna mjesta</label>
+                                Slobodna mjesta
+
                                 <input asp-for="SlobodnaMjesta" class="form-control" id="name" type="text" required="required" placeholder="Slobodna mjesta" data-validation-required-message="Molimo Vas unesite broj slobodnih mjesta.">
                                 <p class="help-block text-danger"></p>
                             </div>
@@ -69,22 +68,22 @@
                     </div>
 
                     <div class="tab">
-
                         <div class="control-group">
                             <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                                <label>Datum polaska</label>
+                                Datum polaska
                                 <input asp-for="DatumPolaska" class="form-control" id="phone" placeholder="Datum polaska" required="required" data-validation-required-message="Molimo Vas unesite datum polaska.">
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
                         <div class="control-group">
                             <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                                <label>Vrijeme polaska</label>
+                                Vrijeme polaska
                                 <input asp-for="VrijemePolaska" class="form-control" id="phone" placeholder="Vrijeme polaska" required="required" data-validation-required-message="Molimo Vas unesite vrijeme polaska.">
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
                     </div>
+
                     <div class="tab">
                         <div class="control-group">
                             <label>Automobil</label>
@@ -93,10 +92,11 @@
                             </select>
                         </div>
                     </div>
+
                     <div style="overflow:auto;">
                         <div style="float:right;">
-                            <button class="btn btn-primary" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-                            <button class="btn btn-primary" type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                            <button class="btn btn-primary" type="button" id="prevBtn" onclick="nextPrev(-1)">Nazad</button>
+                            <button class="btn btn-primary" type="button" id="nextBtn" onclick="nextPrev(1)">Dalje</button>
                         </div>
                     </div>
 
@@ -114,6 +114,7 @@
         </div>
     </div>
 </section>
+
 <script>
     var currentTab = 0; // Current tab is set to be the first tab (0)
     showTab(currentTab); // Display the current tab
@@ -131,7 +132,7 @@
         if (n == (x.length - 1)) {
             document.getElementById("nextBtn").innerHTML = "Objavi";
         } else {
-            document.getElementById("nextBtn").innerHTML = "Next";
+            document.getElementById("nextBtn").innerHTML = "Dalje";
         }
         //... and run a function that will display the correct step indicator:
         fixStepIndicator(n)
