@@ -1,4 +1,4 @@
-﻿@model CarpoolApp.Areas.Driver.ViewModels.Voznje.VoznjeDodajVM
+﻿@model CarpoolApp.Areas.Driver.ViewModels.Voznje.VoznjeUrediVM
 @{
     ViewData["Title"] = "Dodaj";
 }
@@ -25,8 +25,7 @@
         </div>
         <div class="row">
             <div class="col-lg-8 mx-auto">
-                <form id="regForm" enctype="multipart/form-data" novalidate="novalidate" method="post" action="Dodaj">
-
+                <form id="regForm" enctype="multipart/form-data" novalidate="novalidate" method="post" action="Uredi">
                     <input asp-for="VoznjaID" hidden="hidden">
                     <input asp-for="VozacID" hidden="hidden">
 
@@ -35,14 +34,14 @@
                         <div class="control-group">
                             <label>Polazište</label>
                             <select asp-for="GradPolaskaID" asp-items="Model.GradPolaska" class="form-control">
-                                <option disabled="disabled">(Odaberite polazište)</option>
+                                <option>(Odaberite polazište)</option>
                             </select>
                         </div>
 
                         <div class="control-group">
                             <label>Destinacija</label>
                             <select asp-for="GradDestinacijaID" asp-items="Model.GradDestinacija" class="form-control">
-                                <option disabled="disabled">(Odaberite destinaciju)</option>
+                                <option>(Odaberite destinaciju)</option>
                             </select>
                         </div>
                     </div>
@@ -100,7 +99,7 @@
                         <div class="control-group">
                             <label>Automobil</label>
                             <select asp-for="AutomobilID" asp-items="Model.Automobili" class="form-control">
-                                <option disabled="disabled">(Odaberite automobil)</option>
+                                <option>(Odaberite automobil)</option>
                             </select>
                         </div>
                     </div>

@@ -24,7 +24,10 @@ namespace CarpoolApp.Areas.Driver.ViewModels.Voznje
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:H:mm}")]
         public DateTime VrijemePolaska { get; set; }
         public int SlobodnaMjesta { get; set; }
-        public double CijenaPoOsobi { get; set; }
+
+        [DataType(DataType.Currency)]
+        [DisplayFormat(DataFormatString = "{0:#,##0.00#}", ApplyFormatInEditMode = true)]
+        public double PunaCijena { get; set; }
         public int AutomobilID { get; set; }
         public List<SelectListItem> Automobili { get; set; }
 

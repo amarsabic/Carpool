@@ -1,4 +1,4 @@
-﻿@model CarpoolApp.Areas.Driver.ViewModels.Obavijesti.ObavijestDodajVM
+﻿@model CarpoolApp.Areas.Driver.ViewModels.Voznje.CijenaVoznjeVM
 @{
     ViewData["Title"] = "Dodaj";
 }
@@ -11,12 +11,13 @@
     <div class="container">
 
         <!-- Contact Section Heading -->
-        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Kreiraj novu vožnju</h2>
+        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">@Model.GradPolazak  <i class="fas fa-car-side"></i> @Model.GradDestinacija</h2>
+
         <!-- Icon Divider -->
         <div class="divider-custom">
             <div class="divider-custom-line"></div>
             <div class="divider-custom-icon">
-                <i class="fas fa-money"></i>
+                <i class="fas fa-money-bill"></i>
             </div>
             <div class="divider-custom-line"></div>
         </div>
@@ -25,36 +26,31 @@
         <div class="row">
             <div class="col-lg-8 mx-auto">
 
-                <form action="Dodaj" method="post">
-                    <div class="control-group">
-                        <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                            <label>Naslov</label>
-                            <input asp-for="Naslov" class="form-control" id="name" type="text" required="required" placeholder="Naslov" data-validation-required-message="Molimo Vas unesite naslov sadržaja.">
-                            <p class="help-block text-danger"></p>
+                <form enctype="multipart/form-data" action="CijenaVoznje" method="post">
+                    <input asp-for="VoznjaID" hidden="hidden">
+                    @foreach (var item in Model.rows)
+                    {
+                        <h6>Unesite cijenu za usputni grad @item.UsputniNaziv.ToUpper()</h6>
+
+                        <div class="control-group">
+                            <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                                <input asp-for="@item.UsputniCijena" class="form-control" id="name" type="text" required="required" placeholder=" @Model.GradPolazak - @item.UsputniNaziv" data-validation-required-message="Molimo Vas unesite cijenu za usputni grad.">
+                                <p class="help-block text-danger"></p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="control-group">
-                        <label>Tip obavijesti</label>
-                        <select asp-for="TipObavijesti" asp-items="Model.tipovi" class="form-control">
-                            <option disabled="disabled">(odaberite tip)</option>
-                        </select>
-                    </div>
-                    <div class="control-group">
-                        <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                            <label>Kratki opis</label>
-                            <textarea asp-for="KratkiOpis" class="form-control" id="message" rows="5" placeholder=". . ." required="required" data-validation-required-message="Molimo Vas unesite sadržaj."></textarea>
-                            <p class="help-block text-danger"></p>
-                        </div>
-                    </div>
+                    }
 
                     <br>
                     <div id="success"></div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-xl">Objavi</button>
+                        <button type="submit" class="btn btn-primary btn-xl">Spasi</button>
+                        <a class="btn btn-primary btn-xl" asp-area="Driver" asp-controller="Voznje" asp-action="Uredi" asp-route-voznjaID="@Model.VoznjaID">Uredi vožnju</a>
                     </div>
+
                 </form>
             </div>
         </div>
-
     </div>
 </section>
+
+
