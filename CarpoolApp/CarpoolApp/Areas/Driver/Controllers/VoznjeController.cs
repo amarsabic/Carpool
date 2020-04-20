@@ -23,18 +23,23 @@ namespace CarpoolApp.Areas.Driver.Controllers
         }
         public IActionResult CijenaVoznje(int voznjaID)
         {
-            var model = new CijenaVoznjeVM
-            {
-                rows = _db.UsputniGradovi.Where(u => u.VoznjaID == voznjaID).Select(u => new CijenaVoznjeVM.Row
-                {
-                    UsputniGradID = u.UsputniGradoviID,
-                    UsputniNaziv = u.Grad.Naziv
-                }).ToList(),
+            CijenaVoznjeVM model = new CijenaVoznjeVM();
 
-                GradDestinacija = _db.Voznje.Where(v => v.VoznjaID == voznjaID).Select(v => v.GradDestinacija.Naziv).FirstOrDefault(),
-                GradPolazak = _db.Voznje.Where(v => v.VoznjaID == voznjaID).Select(v => v.GradPolaska.Naziv).FirstOrDefault(),
-                VoznjaID = voznjaID
-            };
+            model = _db.Voznje.Where(v => v.VoznjaID == voznjaID).Select(v => new CijenaVoznjeVM
+            {
+                GradDestinacija=v.GradDestinacija.Naziv,
+                GradPolazak=v.GradPolaska.Naziv
+            }).FirstOrDefault(); 
+
+            model.rows = new List<CijenaVoznjeVM.Row>();
+            model.rows = _db.UsputniGradovi.Where(u => u.VoznjaID == voznjaID).Select(u => new CijenaVoznjeVM.Row
+            {
+                UsputniGradID = u.UsputniGradoviID,
+                UsputniNaziv = u.Grad.Naziv,
+                UsputniCijena=u.CijenaUsputni
+            }).ToList();
+
+            model.VoznjaID = voznjaID;
 
             return View(model);
         }
@@ -42,19 +47,17 @@ namespace CarpoolApp.Areas.Driver.Controllers
         [HttpPost]
         public IActionResult CijenaVoznje(CijenaVoznjeVM mod)
         {
-            foreach (var item in mod.rows)
+            for(int i=0;i<mod.rows.Count;i++)
             {
-                UsputniGradovi usputni = _db.UsputniGradovi.Find(item.UsputniGradID);
+                UsputniGradovi usputni = _db.UsputniGradovi.Find(mod.rows[i].UsputniGradID);
 
-                usputni.CijenaUsputni = item.UsputniCijena;
+                usputni.CijenaUsputni = mod.rows[i].UsputniCijena;
                 _db.UsputniGradovi.Update(usputni);
             }
-
-
+      
             _db.SaveChanges();
 
-
-            return View();
+            return View(nameof(MojeVoznje));
         }
 
         public IActionResult Dodaj()
@@ -224,7 +227,8 @@ namespace CarpoolApp.Areas.Driver.Controllers
             _db.Voznje.Update(v);
             _db.SaveChanges();
 
-            return RedirectToAction(nameof(Obavijesti));
+
+            return RedirectToAction("CijenaVoznje", "Voznje", new { voznjaID = mod.VoznjaID });
         }
     }
 }

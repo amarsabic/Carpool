@@ -1,6 +1,6 @@
 ﻿@model CarpoolApp.Areas.Driver.ViewModels.Voznje.CijenaVoznjeVM
 @{
-    ViewData["Title"] = "Dodaj";
+    ViewData["Title"] = "CijenaVoznje";
 }
 
 <!-- Custom scripts for this template -->
@@ -27,18 +27,32 @@
             <div class="col-lg-8 mx-auto">
 
                 <form enctype="multipart/form-data" action="CijenaVoznje" method="post">
+
                     <input asp-for="VoznjaID" hidden="hidden">
-                    @foreach (var item in Model.rows)
+
+                    @for (int i = 0; i < Model.rows.Count; i++)
+                    {
+                        <h6>Unesite cijenu za usputni grad @Model.rows[i].UsputniNaziv.ToUpper()</h6>
+                        <input asp-for="@Model.rows[i].UsputniGradID" hidden="hidden">
+                        <div class="control-group">
+                            <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                                <input asp-for="@Model.rows[i].UsputniCijena" class="form-control" id="name" type="text" required="required" placeholder=" @Model.GradPolazak - @Model.rows[i].UsputniNaziv" data-validation-required-message="Molimo Vas unesite cijenu za usputni grad."><span>BAM</span>
+                                <p class="help-block text-danger"></p>
+                            </div>
+                        </div>
+                    }
+
+                    @*@foreach (var item in Model.rows)
                     {
                         <h6>Unesite cijenu za usputni grad @item.UsputniNaziv.ToUpper()</h6>
-
+                        <input asp-for="@item.UsputniGradID" hidden="hidden">
                         <div class="control-group">
                             <div class="form-group floating-label-form-group controls mb-0 pb-2">
                                 <input asp-for="@item.UsputniCijena" class="form-control" id="name" type="text" required="required" placeholder=" @Model.GradPolazak - @item.UsputniNaziv" data-validation-required-message="Molimo Vas unesite cijenu za usputni grad.">
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
-                    }
+                    }*@
 
                     <br>
                     <div id="success"></div>
@@ -46,7 +60,6 @@
                         <button type="submit" class="btn btn-primary btn-xl">Spasi</button>
                         <a class="btn btn-primary btn-xl" asp-area="Driver" asp-controller="Voznje" asp-action="Uredi" asp-route-voznjaID="@Model.VoznjaID">Uredi vožnju</a>
                     </div>
-
                 </form>
             </div>
         </div>
