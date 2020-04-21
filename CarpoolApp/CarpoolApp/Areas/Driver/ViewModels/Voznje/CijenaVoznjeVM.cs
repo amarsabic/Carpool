@@ -23,7 +23,7 @@ namespace CarpoolApp.Areas.Driver.ViewModels.Voznje
             public string UsputniNaziv { get; set; }
             [DataType(DataType.Currency)]
             [DisplayFormat(DataFormatString = "{0:#,##0.00#}", ApplyFormatInEditMode = true)]
-            public double UsputniCijena { get; set; }
+            public decimal UsputniCijena { get; set; }
         }
     }
 }

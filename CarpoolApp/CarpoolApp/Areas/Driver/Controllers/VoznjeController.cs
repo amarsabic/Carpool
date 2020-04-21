@@ -16,8 +16,31 @@ namespace CarpoolApp.Areas.Driver.Controllers
         {
         }
 
+        public IActionResult SveVoznje()
+        {
+            SveVoznjeVM model = new SveVoznjeVM();
+
+            model.voznje = _db.Voznje.Select(v => new SveVoznjeVM.Row
+            {
+                AutoNazivModel = v.Automobil.Naziv + " " + v.Automobil.Model,
+                SlikaPath = v.Automobil.SlikaPath,
+                DatumPolaska = v.DatumPolaska,
+                VrijemePolaska = v.VrijemePolaska,
+                PunaCijena = v.PunaCijena,
+                SlobodnaMjesta = v.SlobodnaMjesta,
+                GradPolaska = v.GradPolaska.Naziv,
+                GradDestinacija = v.GradDestinacija.Naziv,
+                UsputniGradovi = _db.UsputniGradovi.Select(u=>u.Grad.Naziv).ToList(),
+                VoznjaID = v.VoznjaID,
+                KorisnickoIme= v.Vozac.Korisnik.Ime + " " + v.Vozac.Korisnik.Prezime
+            }).ToList();
+
+            return View(model);
+        }
+
         public IActionResult MojeVoznje()
         {
+
 
             return View();
         }
@@ -27,16 +50,16 @@ namespace CarpoolApp.Areas.Driver.Controllers
 
             model = _db.Voznje.Where(v => v.VoznjaID == voznjaID).Select(v => new CijenaVoznjeVM
             {
-                GradDestinacija=v.GradDestinacija.Naziv,
-                GradPolazak=v.GradPolaska.Naziv
-            }).FirstOrDefault(); 
+                GradDestinacija = v.GradDestinacija.Naziv,
+                GradPolazak = v.GradPolaska.Naziv
+            }).FirstOrDefault();
 
             model.rows = new List<CijenaVoznjeVM.Row>();
             model.rows = _db.UsputniGradovi.Where(u => u.VoznjaID == voznjaID).Select(u => new CijenaVoznjeVM.Row
             {
                 UsputniGradID = u.UsputniGradoviID,
                 UsputniNaziv = u.Grad.Naziv,
-                UsputniCijena=u.CijenaUsputni
+                UsputniCijena = u.CijenaUsputni
             }).ToList();
 
             model.VoznjaID = voznjaID;
@@ -47,17 +70,17 @@ namespace CarpoolApp.Areas.Driver.Controllers
         [HttpPost]
         public IActionResult CijenaVoznje(CijenaVoznjeVM mod)
         {
-            for(int i=0;i<mod.rows.Count;i++)
+            for (int i = 0; i < mod.rows.Count; i++)
             {
                 UsputniGradovi usputni = _db.UsputniGradovi.Find(mod.rows[i].UsputniGradID);
 
                 usputni.CijenaUsputni = mod.rows[i].UsputniCijena;
                 _db.UsputniGradovi.Update(usputni);
             }
-      
+
             _db.SaveChanges();
 
-            return View(nameof(MojeVoznje));
+            return RedirectToAction(nameof(SveVoznje));
         }
 
         public IActionResult Dodaj()

@@ -1,0 +1,76 @@
+﻿@model CarpoolApp.Areas.Driver.ViewModels.Voznje.SveVoznjeVM
+@{
+    ViewData["Title"] = "SveVoznje";
+}
+
+
+<link href="~/bootstrapTheme/css/freelancer.css" rel="stylesheet" asp-append-version="true">
+
+<!-- Custom styles for this template -->
+<link href="~/css/Obavijesti.css" rel="stylesheet" asp-append-version="true">
+<link href="~/css/voznje.css" rel="stylesheet" asp-append-version="true">
+
+<section class="page-section portfolio" id="portfolio">
+    <div class="container">
+
+        <!-- Portfolio Section Heading -->
+        @*<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Aktivne vožnje</h2>*@
+
+        <!-- Icon Divider -->
+        <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon">
+                <i class="fas fa-car"></i>
+            </div>
+            <div class="divider-custom-line"></div>
+        </div>
+
+        <div style="text-align:right;">
+            <a class="btn btn-primary" id="btnDodajVozilo" asp-area="Driver" asp-controller="Voznje" asp-action="Dodaj"><i class="fas fa-plus fa-2x"></i></a>
+            <br />
+            <br />
+        </div>
+
+        <!-- Portfolio Grid Items -->
+        <div class="row">
+            @for (var i = 0; i < Model.voznje.Count(); i++)
+            {
+                <!-- Main Content -->
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-10 mx-auto">
+                            <div class="post-preview">
+                                <a href="post.html">
+                                    <h2 class="post-title">
+                                        @Model.voznje[i].GradPolaska <i class="fa fa-arrow-right"></i> @Model.voznje[i].GradDestinacija
+                                    </h2>
+                                    <h5>@Model.voznje[i].PunaCijena BAM</h5>
+
+                                    @*<h4 class="post-subtitle">
+                                        @for (var j = 0; j < @Model.voznje[i].UsputniGradovi.Count(); j++)
+                                        {
+                                            if (j == @Model.voznje[i].UsputniGradovi.Count() - 1)
+                                            {
+                                                @Model.voznje[i].UsputniGradovi[j]
+                                            }
+                                            else
+                                            {
+                                                @Model.voznje[i].UsputniGradovi[j] <i class="fa fa-angle-right"></i>
+                                            }
+                                        }
+                                    </h4>*@
+                                </a>
+                                @*<h5 style="float:right;">@Model.voznje[i].VrijemePolaska.ToShortTimeString()</h5>*@
+                                <p style="color:black;" class="post-meta">
+                                    Objavio/la @Model.voznje[i].KorisnickoIme
+                                </p>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+

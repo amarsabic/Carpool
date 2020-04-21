@@ -11,7 +11,7 @@ namespace CarpoolApp.Models
         public DateTime DatumPolaska { get; set; }
         public DateTime VrijemePolaska { get; set; }
         public int SlobodnaMjesta { get; set; }
-        public double PunaCijena { get; set; }
+        public decimal PunaCijena { get; set; }
 
         public int VozacID { get; set; }
         public Vozac Vozac { get; set; }

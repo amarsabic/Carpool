@@ -27,7 +27,7 @@ namespace CarpoolApp.Areas.Driver.ViewModels.Voznje
 
         [DataType(DataType.Currency)]
         [DisplayFormat(DataFormatString = "{0:#,##0.00#}", ApplyFormatInEditMode = true)]
-        public double PunaCijena { get; set; }
+        public decimal PunaCijena { get; set; }
         public int AutomobilID { get; set; }
         public List<SelectListItem> Automobili { get; set; }
 
