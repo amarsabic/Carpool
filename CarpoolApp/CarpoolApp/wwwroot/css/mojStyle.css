@@ -17,14 +17,28 @@
     transform: translate(-50%, -50%);
 }
 
-.form-row input {
+/*.form-row select {
     padding: 22px;
     width: 100%;
-    /* border-radius: .25rem;*/
+    border-radius: .25rem;
     border-radius: 50px;
     line-height: 1.25;
-    /* border: 1px solid #212529;*/
+    border: 1px solid #212529;
     border: none;
+}*/
+
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding: 5px;
+    background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png) no-repeat right #ddd;
+    background-position-x: 390px;
+}
+
+.selectStyle {
+    border-radius: 50px;
+    text-indent: 5px;
+    font-size:18px;
 }
 
 .btn-primary {
@@ -37,7 +51,7 @@
 .btn-primary:hover {
     background-color: #212529 !important;
     color: white;
-    opacity: 95%;
+    opacity: 0.95;
 }
 
 .btn-light {
@@ -51,7 +65,7 @@
     .btn-light:hover {
         background-color: rgba(0, 136, 169, 1) !important;
         color: white;
-        opacity: 95%;
+        opacity: 0.95;
     }
 
 #naslovPretrazi {

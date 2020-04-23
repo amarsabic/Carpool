@@ -1,3 +1,11 @@
 ﻿.Cijena {
  float:right;
 }
+
+.openModalDiv{
+    cursor:pointer;
+}
+
+.openModalDiv:hover{
+    opacity:0.7;
+}

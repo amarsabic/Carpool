@@ -1,23 +1,28 @@
-﻿@{
+﻿@model CarpoolApp.ViewModels.SearchDestinacije
+
+@{
     ViewData["Title"] = "CarpoolApp";
 }
 
 
-
-    <div class="homePage">
-        <div>
-            <form>
-                <div class="form-row" id="mojaForma">
-                    <div class="col">
-                        <input type="text" class="form-control" placeholder="Polazište">
-                    </div>
-                    <div class="col">
-                        <input type="text" class="form-control" placeholder="Odredište">
-                    </div>
-                    <button type="button" class="btn btn-primary">Pretraži</button>
-                    <div id="naslovPretrazi"></div>
+<div class="homePage" action="SearchDestinacija">
+    <div>
+        <form action="/Home/SearchDestinacija" method="post">
+            <div class="form-row" id="mojaForma">
+                <div class="col">
+                    <select asp-for="SearchPolazisteId" asp-items="Model.polazista" class="form-control selectStyle">
+                        <option disabled="disabled">(Odaberite polazište)</option>
+                    </select>
                 </div>
-            </form>
-        </div>
-       
+                <div class="col">
+                    <select asp-for="SearchOdredisteId" asp-items="Model.odredista" class="form-control selectStyle">
+                        <option disabled="disabled">(Odaberite polazište)</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Pretraži</button>
+                <div id="naslovPretrazi"></div>
+            </div>
+        </form>
     </div>
+</div>
+

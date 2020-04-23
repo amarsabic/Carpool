@@ -14,6 +14,13 @@ namespace CarpoolApp.Areas.Driver.ViewModels.Voznje
         {
             voznje = new List<Row>();
         }
+
+        public class Usputni
+        {
+            public int UsputniGradId { get; set; }
+            public string Naziv { get; set; }
+            public decimal Cijena { get; set; }
+        }
         public class Row
         {
             public int VoznjaID { get; set; }
@@ -26,7 +33,11 @@ namespace CarpoolApp.Areas.Driver.ViewModels.Voznje
             public string GradDestinacija { get; set; }
             public string SlikaPath { get; set; }
             public string AutoNazivModel { get; set; }
-            public List<string> UsputniGradovi { get; set; }
+
+            public List<Usputni> usputni { get; set; }
+
+            //public List<string> UsputniGradovi { get; set; }
+            //public List<decimal> UsputniCijena { get; set; }
         }
     }
 }

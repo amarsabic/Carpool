@@ -20,7 +20,7 @@ namespace CarpoolApp.Areas.Driver.Controllers
         {
             SveVoznjeVM model = new SveVoznjeVM();
 
-            model.voznje = _db.Voznje.Select(v => new SveVoznjeVM.Row
+            model.voznje = _db.Voznje.OrderByDescending(v => v.DatumObjave).Select(v => new SveVoznjeVM.Row
             {
                 AutoNazivModel = v.Automobil.Naziv + " " + v.Automobil.Model,
                 SlikaPath = v.Automobil.SlikaPath,
@@ -30,10 +30,68 @@ namespace CarpoolApp.Areas.Driver.Controllers
                 SlobodnaMjesta = v.SlobodnaMjesta,
                 GradPolaska = v.GradPolaska.Naziv,
                 GradDestinacija = v.GradDestinacija.Naziv,
-                UsputniGradovi = _db.UsputniGradovi.Select(u=>u.Grad.Naziv).ToList(),
+                //UsputniGradovi = _db.UsputniGradovi.Select(u => u.Grad.Naziv).ToList(),
+                //UsputniCijena=_db.UsputniGradovi.Select(u=>u.CijenaUsputni).ToList(),
+                usputni=_db.UsputniGradovi.Select(u=>new SveVoznjeVM.Usputni
+                {
+                    UsputniGradId=u.UsputniGradoviID,
+                    Cijena=u.CijenaUsputni,
+                    Naziv=u.Grad.Naziv
+                }).ToList(),
                 VoznjaID = v.VoznjaID,
-                KorisnickoIme= v.Vozac.Korisnik.Ime + " " + v.Vozac.Korisnik.Prezime
+                KorisnickoIme = v.Vozac.Korisnik.Ime + " " + v.Vozac.Korisnik.Prezime
             }).ToList();
+
+            return View(model);
+        }
+        public IActionResult SearchVoznje(int odredisteId, int polazisteId)
+        {
+            SveVoznjeVM model = new SveVoznjeVM();
+
+            //model.voznje = _db.Voznje.Where(v => v.GradPolaskaID == polazisteId && v.GradDestinacijaID == odredisteId)
+            //    .OrderByDescending(v => v.DatumObjave).Select(v => new SveVoznjeVM.Row
+            //{
+            //    AutoNazivModel = v.Automobil.Naziv + " " + v.Automobil.Model,
+            //    SlikaPath = v.Automobil.SlikaPath,
+            //    DatumPolaska = v.DatumPolaska,
+            //    VrijemePolaska = v.VrijemePolaska,
+            //    PunaCijena = v.PunaCijena,
+            //    SlobodnaMjesta = v.SlobodnaMjesta,
+            //    GradPolaska = v.GradPolaska.Naziv,
+            //    GradDestinacija = v.GradDestinacija.Naziv,
+            //    usputni = _db.UsputniGradovi.Select(u => new SveVoznjeVM.Usputni
+            //    {
+            //        UsputniGradId = u.UsputniGradoviID,
+            //        Cijena = u.CijenaUsputni,
+            //        Naziv = u.Grad.Naziv
+            //    }).ToList(),
+            //    VoznjaID = v.VoznjaID,
+            //    KorisnickoIme = v.Vozac.Korisnik.Ime + " " + v.Vozac.Korisnik.Prezime
+            //}).ToList();
+
+            //BUG FIX
+
+            model.voznje = _db.UsputniGradovi
+              .Where(v => (v.GradID==odredisteId && v.Voznja.GradPolaskaID == polazisteId) || (v.Voznja.GradPolaskaID == polazisteId && v.Voznja.GradDestinacijaID == odredisteId))
+              .OrderByDescending(v => v.Voznja.DatumObjave).Select(v => new SveVoznjeVM.Row
+              {
+                  AutoNazivModel = v.Voznja.Automobil.Naziv + " " + v.Voznja.Automobil.Model,
+                  SlikaPath = v.Voznja.Automobil.SlikaPath,
+                  DatumPolaska = v.Voznja.DatumPolaska,
+                  VrijemePolaska = v.Voznja.VrijemePolaska,
+                  PunaCijena = v.Voznja.PunaCijena,
+                  SlobodnaMjesta = v.Voznja.SlobodnaMjesta,
+                  GradPolaska = v.Voznja.GradPolaska.Naziv,
+                  GradDestinacija = v.Voznja.GradDestinacija.Naziv,
+                  usputni = _db.UsputniGradovi.Select(u => new SveVoznjeVM.Usputni
+                  {
+                      UsputniGradId = u.UsputniGradoviID,
+                      Cijena = u.CijenaUsputni,
+                      Naziv = u.Grad.Naziv
+                  }).ToList(),
+                  VoznjaID = v.VoznjaID,
+                  KorisnickoIme = v.Voznja.Vozac.Korisnik.Ime + " " + v.Voznja.Vozac.Korisnik.Prezime
+              }).ToList();
 
             return View(model);
         }
@@ -125,6 +183,7 @@ namespace CarpoolApp.Areas.Driver.Controllers
                 DatumPolaska = mod.DatumPolaska,
                 SlobodnaMjesta = mod.SlobodnaMjesta,
                 VrijemePolaska = mod.VrijemePolaska,
+                DatumObjave=DateTime.Now,
                 VozacID = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)),
                 VoznjaID = mod.VoznjaID
             };
@@ -151,7 +210,15 @@ namespace CarpoolApp.Areas.Driver.Controllers
 
             _db.SaveChanges();
 
-            return RedirectToAction("CijenaVoznje", "Voznje", new { voznjaID = voznja.VoznjaID });
+            if(mod.SelektiraniGradovi != null)
+            {
+                return RedirectToAction("CijenaVoznje", "Voznje", new { voznjaID = voznja.VoznjaID });
+            }
+            else
+            {
+                return RedirectToAction(nameof(SveVoznje));
+            }
+          
         }
 
         public IActionResult Uredi(int voznjaID)
