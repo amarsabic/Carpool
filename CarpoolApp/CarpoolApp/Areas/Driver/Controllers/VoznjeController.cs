@@ -8,6 +8,7 @@ using CarpoolApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using ReflectionIT.Mvc.Paging;
 
 namespace CarpoolApp.Areas.Driver.Controllers
 {
@@ -17,6 +18,10 @@ namespace CarpoolApp.Areas.Driver.Controllers
         {
         }
 
+        public IActionResult Detalji()
+        {
+            return View();
+        }
         public IActionResult SveVoznje()
         {
             SveVoznjeVM model = new SveVoznjeVM();
@@ -31,27 +36,28 @@ namespace CarpoolApp.Areas.Driver.Controllers
                 SlobodnaMjesta = v.SlobodnaMjesta,
                 GradPolaska = v.GradPolaska.Naziv,
                 GradDestinacija = v.GradDestinacija.Naziv,
-                //UsputniGradovi = _db.UsputniGradovi.Select(u => u.Grad.Naziv).ToList(),
-                //UsputniCijena=_db.UsputniGradovi.Select(u=>u.CijenaUsputni).ToList(),
-                usputni = _db.UsputniGradovi.Where(u=>u.VoznjaID==v.VoznjaID).Select(u => new SveVoznjeVM.Usputni
+
+                usputni = _db.UsputniGradovi.Where(u => u.VoznjaID == v.VoznjaID).Select(u => new SveVoznjeVM.Usputni
                 {
                     UsputniGradId = u.UsputniGradoviID,
                     Cijena = u.CijenaUsputni,
                     Naziv = u.Grad.Naziv
                 }).ToList(),
+
                 VoznjaID = v.VoznjaID,
                 KorisnickoIme = v.Vozac.Korisnik.Ime + " " + v.Vozac.Korisnik.Prezime
             }).ToList();
 
             return View(model);
         }
+
         public IActionResult SearchVoznje(int odredisteId, int polazisteId)
         {
             SveVoznjeVM model = new SveVoznjeVM();
 
 
             model.voznje = _db.Voznje
-                .Where(v => (v.GradPolaskaID == polazisteId && v.GradDestinacijaID == odredisteId) || (v.UsputniGradovi.Any(a=>a.GradID==odredisteId) && v.GradPolaskaID==polazisteId))
+                .Where(v => (v.GradPolaskaID == polazisteId && v.GradDestinacijaID == odredisteId) || (v.UsputniGradovi.Any(a => a.GradID == odredisteId) && v.GradPolaskaID == polazisteId))
                 .OrderByDescending(v => v.DatumObjave).Select(v => new SveVoznjeVM.Row
                 {
                     AutoNazivModel = v.Automobil.Naziv + " " + v.Automobil.Model,
@@ -72,35 +78,10 @@ namespace CarpoolApp.Areas.Driver.Controllers
                     KorisnickoIme = v.Vozac.Korisnik.Ime + " " + v.Vozac.Korisnik.Prezime
                 }).ToList();
 
-
-
-            //BUG FIX
-
-            //model.voznje = _db.UsputniGradovi
-            //  .Where(v => (v.Voznja.GradPolaskaID == polazisteId && v.Voznja.GradDestinacijaID == odredisteId))
-            //  .OrderByDescending(v => v.Voznja.DatumObjave)
-            //  .Select(v => new SveVoznjeVM.Row
-            //  {
-            //      AutoNazivModel = v.Voznja.Automobil.Naziv + " " + v.Voznja.Automobil.Model,
-            //      SlikaPath = v.Voznja.Automobil.SlikaPath,
-            //      DatumPolaska = v.Voznja.DatumPolaska,
-            //      VrijemePolaska = v.Voznja.VrijemePolaska,
-            //      PunaCijena = v.Voznja.PunaCijena,
-            //      SlobodnaMjesta = v.Voznja.SlobodnaMjesta,
-            //      GradPolaska = v.Voznja.GradPolaska.Naziv,
-            //      GradDestinacija = v.Voznja.GradDestinacija.Naziv,
-            //      usputni = _db.UsputniGradovi.Where(u => u.VoznjaID == v.Voznja.VoznjaID).Select(u => new SveVoznjeVM.Usputni
-            //      {
-            //          UsputniGradId = u.UsputniGradoviID,
-            //          Cijena = u.CijenaUsputni,
-            //          Naziv = u.Grad.Naziv
-            //      }).ToList(),
-            //      VoznjaID = v.VoznjaID,
-            //      KorisnickoIme = v.Voznja.Vozac.Korisnik.Ime + " " + v.Voznja.Vozac.Korisnik.Prezime
-            //  }).ToList();
-
             return View(model);
         }
+
+
 
         public IActionResult MojeVoznje()
         {
@@ -108,6 +89,7 @@ namespace CarpoolApp.Areas.Driver.Controllers
 
             return View();
         }
+
         public IActionResult CijenaVoznje(int voznjaID)
         {
             CijenaVoznjeVM model = new CijenaVoznjeVM();
@@ -326,7 +308,5 @@ namespace CarpoolApp.Areas.Driver.Controllers
 
             return RedirectToAction("CijenaVoznje", "Voznje", new { voznjaID = mod.VoznjaID });
         }
-
-
     }
 }

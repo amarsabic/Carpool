@@ -16,9 +16,7 @@ namespace CarpoolApp.Models
         public string BrojRegOznaka { get; set; }
         public DateTime DatumIstekaRegistracije { get; set; }
         public string SlikaPath { get; set; }
-
         public bool IsAktivan { get; set; }
-
         public List<Voznja> Voznje { get; set; }
     }
 }

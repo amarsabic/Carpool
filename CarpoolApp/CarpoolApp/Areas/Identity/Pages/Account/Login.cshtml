@@ -5,30 +5,81 @@
     ViewData["Title"] = "Prijavi se";
 }
 
-<link rel="stylesheet" href="~/css/LoginPage.css"  asp-append-version="true"/>
-<div class="row justify-content-center align-content-center loginPage">
-    <div class="col-md-4">
-     
-        <section>
-            <form id="account"  method="post">
+@*<link rel="stylesheet" href="~/css/LoginPage.css" asp-append-version="true" />*@
+
+@*<div class="row justify-content-center align-content-center loginPage">
+        <div class="col-lg-4 mx-auto ">
+
+            <section>
+                <form id="account" method="post">
+                    <h1 id="loginDescription">@ViewData["Title"]</h1>
+                    <h4 id="loginDescription">Već ste korisnik? Prijavite se.</h4>
+                    <hr />
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <label id="PassRegForgot" asp-for="Input.Email"></label>
+                        <input asp-for="Input.Email" class="form-control" />
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label id="PassRegForgot" asp-for="Input.Password"></label>
+                        <input asp-for="Input.Password" class="form-control" />
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label id="PassRegForgot" asp-for="Input.RememberMe">
+                                <input asp-for="Input.RememberMe" />
+                                @Html.DisplayNameFor(m => m.Input.RememberMe)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary loginButton">Prijavi se</button>
+                    </div>
+                    <div class="form-group">
+                        <p>
+                            <a id="forgot-password" asp-page="./ForgotPassword">Zaboravili ste password?</a>
+                        </p>
+                        <p>
+                            <a id="PassRegForgot" asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Registriraj se</a>
+                        </p>
+                        <p>
+                            <a id="PassRegForgot" type="submit" asp-page-handler="SendVerificationEmail" style="padding: 0px; margin: 0px; border: 0px">Pošalji email konfirmaciju</a>
+                        </p>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </div>*@
+
+
+<link rel="stylesheet" href="~/css/LoginPage.css" asp-append-version="true" />
+
+<!-- About Section -->
+<section class="page-section bg-primary text-white mb-0 portfolio" id="about">
+    <div class="container">
+        <div class="text-center col-lg-6 mx-auto mt-4">
+
+            <form method="post" class="loginForma">
                 <h1 id="loginDescription">@ViewData["Title"]</h1>
                 <h4 id="loginDescription">Već ste korisnik? Prijavite se.</h4>
-                <hr/>
+                <hr />
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
                     <label id="PassRegForgot" asp-for="Input.Email"></label>
-                    <input asp-for="Input.Email" class="form-control"/>
+                    <input asp-for="Input.Email" class="form-control" />
                     <span asp-validation-for="Input.Email" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label id="PassRegForgot" asp-for="Input.Password"></label>
-                    <input asp-for="Input.Password" class="form-control"/>
+                    <input asp-for="Input.Password" class="form-control" />
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <div class="checkbox">
                         <label id="PassRegForgot" asp-for="Input.RememberMe">
-                            <input asp-for="Input.RememberMe"/>
+                            <input asp-for="Input.RememberMe" />
                             @Html.DisplayNameFor(m => m.Input.RememberMe)
                         </label>
                     </div>
@@ -48,10 +99,10 @@
                     </p>
                 </div>
             </form>
-        </section>
+        </div>
     </div>
-</div>
+</section>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial"/>
+    <partial name="_ValidationScriptsPartial" />
 }

@@ -1,4 +1,4 @@
-﻿#registerAccount {
+﻿/*#registerAccount {
     background-color: rgba(33, 37, 41, 0.9);
     padding: 20px;
     border-radius: 20px;
@@ -12,7 +12,7 @@
     background-image: url('/car.jpg');
     background-repeat: no-repeat;
     background-size: cover;
-    /* background-position: center; */
+     background-position: center; 
     height: 100vh;
     position: relative;
     margin-top: -17px;
@@ -20,7 +20,7 @@
 
 /*#registerNaslov { font-weight: bold; }*/
 
-.registerButton {
+/*.registerButton {
     background-color: rgba(0, 136, 169, 1) !important;
 }
 
@@ -39,4 +39,32 @@
 
 hr {
     border-top: 1px solid rgba(0, 136, 169,.2);
+}*/
+
+.bg-primary {
+    background-image: url('/car.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.loginForma {
+    background-color: rgba(33, 37, 41, 0.9);
+    padding: 20px;
+    border-radius: 20px;
+    text-align: left;
+}
+
+.form-control {
+    width: 100%;
+    border-radius: 50px;
+    line-height: 1.25;
+    border: none;
+}
+
+hr {
+    border-top: 1px solid rgba(0, 136, 169,.2);
+}
+
+#Input_GradID {
+    background-position-x: 450px;
 }

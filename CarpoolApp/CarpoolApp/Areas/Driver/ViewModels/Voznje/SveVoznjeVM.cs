@@ -1,4 +1,5 @@
 ﻿using CarpoolApp.Models;
+using ReflectionIT.Mvc.Paging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,8 @@ namespace CarpoolApp.Areas.Driver.ViewModels.Voznje
 {
     public class SveVoznjeVM
     {
-        public List<Row> voznje { get; set; }
+       
+       public List<Row> voznje { get; set; }
 
         public SveVoznjeVM()
         {
@@ -35,9 +37,6 @@ namespace CarpoolApp.Areas.Driver.ViewModels.Voznje
             public string AutoNazivModel { get; set; }
 
             public List<Usputni> usputni { get; set; }
-
-            //public List<string> UsputniGradovi { get; set; }
-            //public List<decimal> UsputniCijena { get; set; }
         }
     }
 }

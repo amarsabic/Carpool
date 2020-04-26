@@ -6,7 +6,8 @@
 <link rel="stylesheet" href="~/css/registerPage.css" asp-append-version="true" />
 
 
-<div class="row justify-content-center align-content-center registerHome">
+
+@*<div class="row justify-content-center align-content-center registerHome">
     <div class="col-md-4">
         <form id="registerAccount" asp-route-returnUrl="@Model.ReturnUrl" method="post">
             <h1 id="registerNaslov">@ViewData["Title"]</h1>
@@ -50,7 +51,57 @@
             <button type="submit" class="btn btn-primary registerButton">Registriraj se</button>
         </form>
     </div>
-</div>
+</div>*@
+
+<!-- About Section -->
+<section class="page-section bg-primary text-white mb-0 portfolio" id="about">
+    <div class="container">
+        <div class="text-center col-lg-6 mx-auto mt-4">
+
+            <form class="loginForma" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                <h1 id="registerNaslov">@ViewData["Title"]</h1>
+                <h4 id="registerOpis">Kreirajte Vaš Carpool profil.</h4>
+                <hr />
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="Input.Ime"></label>
+                    <input asp-for="Input.Ime" class="form-control" />
+                    <span asp-validation-for="Input.Ime" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Input.Prezime"></label>
+                    <input asp-for="Input.Prezime" class="form-control" />
+                    <span asp-validation-for="Input.Prezime" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Gradovi"></label>
+                    <select asp-for="Input.GradID" asp-items="Model.Gradovi" class="form-control">
+                        <option disabled="disabled">Gradovi</option>
+                    </select>
+                    <span asp-validation-for="Input.Prezime" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Email"></label>
+                    <input asp-for="Input.Email" class="form-control" />
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Password"></label>
+                    <input asp-for="Input.Password" class="form-control" />
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Potvrdi password</label>
+                    <input asp-for="Input.ConfirmPassword" class="form-control" />
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary registerButton">Registriraj se</button>
+            </form>
+        </div>
+    </div>
+</section>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
