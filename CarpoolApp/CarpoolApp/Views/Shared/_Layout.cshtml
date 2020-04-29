@@ -2,7 +2,6 @@
 @inject SignInManager<Korisnik> SignInManager
 @inject UserManager<Korisnik> UserManager
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -79,6 +78,8 @@
 
     @if (!ViewData["Title"].Equals("Prijavi se") && !ViewData["Title"].Equals("Registracija"))
     {
+        <vc:najpoznatije-voznje></vc:najpoznatije-voznje>
+
         <!-- Footer -->
         <footer class="footer text-center">
             <div class="container">

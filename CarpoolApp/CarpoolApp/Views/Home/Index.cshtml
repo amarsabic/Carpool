@@ -5,12 +5,12 @@
 }
 
 <link href="~/bootstrapTheme/css/freelancer.css" rel="stylesheet" asp-append-version="true">
+<link rel="stylesheet" href="~/css/homeIndex.css" asp-append-version="true" />
 
 <section class="page-section portfolio" id="portfolio">
     <div class="container">
-
         <!-- Portfolio Section Heading -->
-        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" id="naslovPretrazi"></h2>
+        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0 naslovJS" id="naslovPretrazi"></h2>
 
         <!-- Icon Divider -->
         <div class="divider-custom">
@@ -21,26 +21,25 @@
             <div class="divider-custom-line"></div>
         </div>
 
-        <div @*class="homePage"*@ action="SearchDestinacija">
-            <div>
-                <form action="/Home/SearchDestinacija" method="post">
-                    <div>
-                        <div>
-                            <select asp-for="SearchPolazisteId" asp-items="Model.polazista" class="form-control selectStyle">
-                                <option disabled="disabled">(Odaberite polazište)</option>
-                            </select>
-                        </div>
-                        <div>
-                            <select asp-for="SearchOdredisteId" asp-items="Model.odredista" class="form-control selectStyle">
-                                <option disabled="disabled">(Odaberite polazište)</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Pretraži</button>
-                       
+        <div class="text-center col-lg-10 mx-auto mt-4 formaIndex">
+            <form action="/Home/SearchDestinacija" method="post">
+                <div class="form-row">
+                    <div class="col-sm">
+                        <select asp-for="SearchPolazisteId" asp-items="Model.polazista" class="form-control selectStyleHome"> 
+                            <option disabled="disabled" selected>Polazište</option>
+                        </select>
                     </div>
-                </form>
-            </div>
+                    <div class="col-sm">
+                        <select asp-for="SearchOdredisteId" asp-items="Model.odredista" class="form-control selectStyleHome">
+                            <option disabled="disabled" selected>Odredište</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Pretraži</button>
+                </div>
+            </form>
+
         </div>
+
     </div>
 </section>
 

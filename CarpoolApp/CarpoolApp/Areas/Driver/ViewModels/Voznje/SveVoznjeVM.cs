@@ -8,8 +8,7 @@ using System.Threading.Tasks;
 namespace CarpoolApp.Areas.Driver.ViewModels.Voznje
 {
     public class SveVoznjeVM
-    {
-       
+    { 
        public List<Row> voznje { get; set; }
 
         public SveVoznjeVM()

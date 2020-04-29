@@ -42,6 +42,7 @@ namespace CarpoolApp.Controllers
 
         public IActionResult SearchDestinacija(SearchDestinacije mod)
         {
+
             return RedirectToActionPermanent("SearchVoznje", "Voznje", new { Area = "Driver", polazisteId = mod.SearchPolazisteId, odredisteId = mod.SearchOdredisteId });
 
             //return RedirectToAction(nameof(Index));

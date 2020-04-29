@@ -1,0 +1,45 @@
+﻿@model CarpoolApp.ViewModels.NajpoznatijeVoznjeVM
+
+<style>
+    a:hover{
+        opacity:0.7;
+    }
+</style>
+
+<!-- About Section -->
+<section class="page-section bg-primary text-white mb-0 portfolio" id="about">
+    <div class="container">
+
+        <!-- About Section Heading -->
+        <h2 class="page-section-heading text-center text-uppercase text-white">Nove relacije</h2>
+
+        <!-- Icon Divider -->
+        <div class="divider-custom divider-light">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon">
+                <i class="fas fa-car"></i>
+            </div>
+            <div class="divider-custom-line"></div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+              
+                @for (var i = 0; i < Model.voznje.Count(); i++)
+                {
+               
+                    <div class="col-sm-4 text-center">
+                        <a style="color:white; text-decoration:none;" asp-area="Driver" asp-controller="Voznje" asp-action="SearchVoznje" asp-route-odredisteId="@Model.voznje[i].GradDestinacijaId" asp-route-polazisteId="@Model.voznje[i].GradPolaskaId">
+                            <h2>
+                                @Model.voznje[i].GradPolaska <i class="fa fa-arrow-right"></i> @Model.voznje[i].GradDestinacija
+                            </h2>
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+
+

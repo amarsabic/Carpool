@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using CarpoolApp.Areas.Driver.ViewModels.Voznje;
 using CarpoolApp.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -55,7 +56,6 @@ namespace CarpoolApp.Areas.Driver.Controllers
         {
             SveVoznjeVM model = new SveVoznjeVM();
 
-
             model.voznje = _db.Voznje
                 .Where(v => (v.GradPolaskaID == polazisteId && v.GradDestinacijaID == odredisteId) || (v.UsputniGradovi.Any(a => a.GradID == odredisteId) && v.GradPolaskaID == polazisteId))
                 .OrderByDescending(v => v.DatumObjave).Select(v => new SveVoznjeVM.Row
@@ -80,233 +80,232 @@ namespace CarpoolApp.Areas.Driver.Controllers
 
             return View(model);
         }
+ 
+
+    public IActionResult MojeVoznje()
+    {
 
 
+        return View();
+    }
 
-        public IActionResult MojeVoznje()
+    public IActionResult CijenaVoznje(int voznjaID)
+    {
+        CijenaVoznjeVM model = new CijenaVoznjeVM();
+
+        model = _db.Voznje.Where(v => v.VoznjaID == voznjaID).Select(v => new CijenaVoznjeVM
         {
+            GradDestinacija = v.GradDestinacija.Naziv,
+            GradPolazak = v.GradPolaska.Naziv
+        }).FirstOrDefault();
 
+        model.rows = new List<CijenaVoznjeVM.Row>();
+        model.rows = _db.UsputniGradovi.Where(u => u.VoznjaID == voznjaID).Select(u => new CijenaVoznjeVM.Row
+        {
+            UsputniGradID = u.UsputniGradoviID,
+            UsputniNaziv = u.Grad.Naziv,
+            UsputniCijena = u.CijenaUsputni
+        }).ToList();
 
-            return View();
+        model.VoznjaID = voznjaID;
+
+        return View(model);
+    }
+
+    [HttpPost]
+    public IActionResult CijenaVoznje(CijenaVoznjeVM mod)
+    {
+        for (int i = 0; i < mod.rows.Count; i++)
+        {
+            UsputniGradovi usputni = _db.UsputniGradovi.Find(mod.rows[i].UsputniGradID);
+
+            usputni.CijenaUsputni = mod.rows[i].UsputniCijena;
+            _db.UsputniGradovi.Update(usputni);
         }
 
-        public IActionResult CijenaVoznje(int voznjaID)
+        _db.SaveChanges();
+
+        return RedirectToAction(nameof(SveVoznje));
+    }
+
+    public IActionResult Dodaj()
+    {
+        int vozac = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+        var model = new VoznjeDodajVM
         {
-            CijenaVoznjeVM model = new CijenaVoznjeVM();
-
-            model = _db.Voznje.Where(v => v.VoznjaID == voznjaID).Select(v => new CijenaVoznjeVM
+            GradPolaska = _db.Gradovi.OrderBy(g => g.Naziv).Select(g => new SelectListItem
             {
-                GradDestinacija = v.GradDestinacija.Naziv,
-                GradPolazak = v.GradPolaska.Naziv
-            }).FirstOrDefault();
-
-            model.rows = new List<CijenaVoznjeVM.Row>();
-            model.rows = _db.UsputniGradovi.Where(u => u.VoznjaID == voznjaID).Select(u => new CijenaVoznjeVM.Row
+                Value = g.GradID.ToString(),
+                Text = g.Naziv
+            }).ToList(),
+            GradDestinacija = _db.Gradovi.OrderBy(g => g.Naziv).Select(g => new SelectListItem
             {
-                UsputniGradID = u.UsputniGradoviID,
-                UsputniNaziv = u.Grad.Naziv,
-                UsputniCijena = u.CijenaUsputni
-            }).ToList();
+                Value = g.GradID.ToString(),
+                Text = g.Naziv
+            }).ToList(),
+            Automobili = _db.Autmobili.Where(a => a.VozacID == vozac && !a.IsAktivan).Select(a => new SelectListItem
+            {
+                Value = a.AutomobilID.ToString(),
+                Text = a.Naziv + " " + a.Model
+            }).ToList(),
+            UsputniGradovi = _db.Gradovi.OrderBy(g => g.Naziv).Select(g => new SelectListItem
+            {
+                Value = g.GradID.ToString(),
+                Text = g.Naziv
+            }).ToList()
+        };
 
-            model.VoznjaID = voznjaID;
-
-            return View(model);
-        }
-
-        [HttpPost]
-        public IActionResult CijenaVoznje(CijenaVoznjeVM mod)
+        return View(model);
+    }
+    [HttpPost]
+    public IActionResult Dodaj(VoznjeDodajVM mod)
+    {
+        Voznja voznja = new Voznja
         {
-            for (int i = 0; i < mod.rows.Count; i++)
-            {
-                UsputniGradovi usputni = _db.UsputniGradovi.Find(mod.rows[i].UsputniGradID);
+            GradPolaskaID = mod.GradPolaskaID,
+            GradDestinacijaID = mod.GradDestinacijaID,
+            AutomobilID = mod.AutomobilID,
+            PunaCijena = mod.PunaCijena,
+            DatumPolaska = mod.DatumPolaska,
+            SlobodnaMjesta = mod.SlobodnaMjesta,
+            VrijemePolaska = mod.VrijemePolaska,
+            DatumObjave = DateTime.Now,
+            VozacID = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)),
+            VoznjaID = mod.VoznjaID
+        };
 
-                usputni.CijenaUsputni = mod.rows[i].UsputniCijena;
-                _db.UsputniGradovi.Update(usputni);
+        _db.Add(voznja);
+        _db.SaveChanges();
+
+        if (mod.SelektiraniGradovi != null)
+        {
+            foreach (var selektirani in mod.SelektiraniGradovi)
+            {
+                UsputniGradovi usputni = new UsputniGradovi
+                {
+                    GradID = selektirani,
+                    VoznjaID = voznja.VoznjaID
+                };
+
+                _db.UsputniGradovi.Add(usputni);
             }
+        }
 
-            _db.SaveChanges();
+        Automobil auto = _db.Autmobili.Find(mod.AutomobilID);
+        auto.IsAktivan = true;
 
+        _db.SaveChanges();
+
+        if (mod.SelektiraniGradovi != null)
+        {
+            return RedirectToAction("CijenaVoznje", "Voznje", new { voznjaID = voznja.VoznjaID });
+        }
+        else
+        {
             return RedirectToAction(nameof(SveVoznje));
         }
 
-        public IActionResult Dodaj()
-        {
-            int vozac = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-
-            var model = new VoznjeDodajVM
-            {
-                GradPolaska = _db.Gradovi.OrderBy(g => g.Naziv).Select(g => new SelectListItem
-                {
-                    Value = g.GradID.ToString(),
-                    Text = g.Naziv
-                }).ToList(),
-                GradDestinacija = _db.Gradovi.OrderBy(g => g.Naziv).Select(g => new SelectListItem
-                {
-                    Value = g.GradID.ToString(),
-                    Text = g.Naziv
-                }).ToList(),
-                Automobili = _db.Autmobili.Where(a => a.VozacID == vozac && !a.IsAktivan).Select(a => new SelectListItem
-                {
-                    Value = a.AutomobilID.ToString(),
-                    Text = a.Naziv + " " + a.Model
-                }).ToList(),
-                UsputniGradovi = _db.Gradovi.OrderBy(g => g.Naziv).Select(g => new SelectListItem
-                {
-                    Value = g.GradID.ToString(),
-                    Text = g.Naziv
-                }).ToList()
-            };
-
-            return View(model);
-        }
-        [HttpPost]
-        public IActionResult Dodaj(VoznjeDodajVM mod)
-        {
-            Voznja voznja = new Voznja
-            {
-                GradPolaskaID = mod.GradPolaskaID,
-                GradDestinacijaID = mod.GradDestinacijaID,
-                AutomobilID = mod.AutomobilID,
-                PunaCijena = mod.PunaCijena,
-                DatumPolaska = mod.DatumPolaska,
-                SlobodnaMjesta = mod.SlobodnaMjesta,
-                VrijemePolaska = mod.VrijemePolaska,
-                DatumObjave = DateTime.Now,
-                VozacID = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)),
-                VoznjaID = mod.VoznjaID
-            };
-
-            _db.Add(voznja);
-            _db.SaveChanges();
-
-            if (mod.SelektiraniGradovi != null)
-            {
-                foreach (var selektirani in mod.SelektiraniGradovi)
-                {
-                    UsputniGradovi usputni = new UsputniGradovi
-                    {
-                        GradID = selektirani,
-                        VoznjaID = voznja.VoznjaID
-                    };
-
-                    _db.UsputniGradovi.Add(usputni);
-                }
-            }
-
-            Automobil auto = _db.Autmobili.Find(mod.AutomobilID);
-            auto.IsAktivan = true;
-
-            _db.SaveChanges();
-
-            if (mod.SelektiraniGradovi != null)
-            {
-                return RedirectToAction("CijenaVoznje", "Voznje", new { voznjaID = voznja.VoznjaID });
-            }
-            else
-            {
-                return RedirectToAction(nameof(SveVoznje));
-            }
-
-        }
-
-        public IActionResult Uredi(int voznjaID)
-        {
-            int vozac = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-
-            Voznja v = _db.Voznje.Where(v => v.VoznjaID == voznjaID).FirstOrDefault();
-
-            VoznjeUrediVM mod = new VoznjeUrediVM
-            {
-                GradPolaska = _db.Gradovi.OrderBy(g => g.Naziv).Select(g => new SelectListItem
-                {
-                    Value = g.GradID.ToString(),
-                    Text = g.Naziv
-                }).ToList(),
-                GradDestinacija = _db.Gradovi.OrderBy(g => g.Naziv).Select(g => new SelectListItem
-                {
-                    Value = g.GradID.ToString(),
-                    Text = g.Naziv
-                }).ToList(),
-                Automobili = _db.Autmobili.Where(a => a.VozacID == vozac && !a.IsAktivan).Select(a => new SelectListItem
-                {
-                    Value = a.AutomobilID.ToString(),
-                    Text = a.Naziv + " " + a.Model
-                }).ToList(),
-                UsputniGradovi = _db.Gradovi.OrderBy(g => g.Naziv).Select(g => new SelectListItem
-                {
-                    Value = g.GradID.ToString(),
-                    Text = g.Naziv
-                }).ToList(),
-
-                PunaCijena = v.PunaCijena,
-                VrijemePolaska = v.VrijemePolaska,
-                SlobodnaMjesta = v.SlobodnaMjesta,
-                DatumPolaska = v.DatumPolaska,
-                VozacID = vozac,
-                VoznjaID = voznjaID
-            };
-
-            return View("Uredi", mod);
-        }
-
-        [HttpPost]
-        public IActionResult Uredi(VoznjeUrediVM mod)
-        {
-
-            Voznja v = _db.Voznje.Find(mod.VoznjaID);
-
-            v.PunaCijena = mod.PunaCijena;
-            v.SlobodnaMjesta = mod.SlobodnaMjesta;
-            v.DatumPolaska = mod.DatumPolaska;
-            v.VrijemePolaska = mod.VrijemePolaska;
-
-            if (mod.GradPolaskaID != 0)
-            {
-                v.GradPolaskaID = mod.GradPolaskaID;
-            }
-            if (mod.GradDestinacijaID != 0)
-            {
-                v.GradDestinacijaID = mod.GradDestinacijaID;
-            }
-            if (mod.AutomobilID != 0)
-            {
-                Automobil stari = _db.Autmobili.Find(v.AutomobilID);
-                stari.IsAktivan = false;
-
-                v.AutomobilID = mod.AutomobilID;
-                Automobil novi = _db.Autmobili.Find(mod.AutomobilID);
-                novi.IsAktivan = true;
-
-
-                _db.Autmobili.Update(novi);
-                _db.Autmobili.Update(stari);
-            }
-
-            if (mod.SelektiraniGradovi != null)
-            {
-                var stari = _db.UsputniGradovi.Where(u => u.VoznjaID == v.VoznjaID).ToList();
-                foreach (var grad in stari)
-                {
-                    _db.UsputniGradovi.Remove(grad);
-                }
-
-                foreach (var selektirani in mod.SelektiraniGradovi)
-                {
-                    UsputniGradovi usputni = new UsputniGradovi
-                    {
-                        GradID = selektirani,
-                        VoznjaID = mod.VoznjaID
-                    };
-
-                    _db.UsputniGradovi.Add(usputni);
-                }
-            }
-
-            _db.Voznje.Update(v);
-            _db.SaveChanges();
-
-
-            return RedirectToAction("CijenaVoznje", "Voznje", new { voznjaID = mod.VoznjaID });
-        }
     }
+
+    public IActionResult Uredi(int voznjaID)
+    {
+        int vozac = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+        Voznja v = _db.Voznje.Where(v => v.VoznjaID == voznjaID).FirstOrDefault();
+
+        VoznjeUrediVM mod = new VoznjeUrediVM
+        {
+            GradPolaska = _db.Gradovi.OrderBy(g => g.Naziv).Select(g => new SelectListItem
+            {
+                Value = g.GradID.ToString(),
+                Text = g.Naziv
+            }).ToList(),
+            GradDestinacija = _db.Gradovi.OrderBy(g => g.Naziv).Select(g => new SelectListItem
+            {
+                Value = g.GradID.ToString(),
+                Text = g.Naziv
+            }).ToList(),
+            Automobili = _db.Autmobili.Where(a => a.VozacID == vozac && !a.IsAktivan).Select(a => new SelectListItem
+            {
+                Value = a.AutomobilID.ToString(),
+                Text = a.Naziv + " " + a.Model
+            }).ToList(),
+            UsputniGradovi = _db.Gradovi.OrderBy(g => g.Naziv).Select(g => new SelectListItem
+            {
+                Value = g.GradID.ToString(),
+                Text = g.Naziv
+            }).ToList(),
+
+            PunaCijena = v.PunaCijena,
+            VrijemePolaska = v.VrijemePolaska,
+            SlobodnaMjesta = v.SlobodnaMjesta,
+            DatumPolaska = v.DatumPolaska,
+            VozacID = vozac,
+            VoznjaID = voznjaID
+        };
+
+        return View("Uredi", mod);
+    }
+
+    [HttpPost]
+    public IActionResult Uredi(VoznjeUrediVM mod)
+    {
+
+        Voznja v = _db.Voznje.Find(mod.VoznjaID);
+
+        v.PunaCijena = mod.PunaCijena;
+        v.SlobodnaMjesta = mod.SlobodnaMjesta;
+        v.DatumPolaska = mod.DatumPolaska;
+        v.VrijemePolaska = mod.VrijemePolaska;
+
+        if (mod.GradPolaskaID != 0)
+        {
+            v.GradPolaskaID = mod.GradPolaskaID;
+        }
+        if (mod.GradDestinacijaID != 0)
+        {
+            v.GradDestinacijaID = mod.GradDestinacijaID;
+        }
+        if (mod.AutomobilID != 0)
+        {
+            Automobil stari = _db.Autmobili.Find(v.AutomobilID);
+            stari.IsAktivan = false;
+
+            v.AutomobilID = mod.AutomobilID;
+            Automobil novi = _db.Autmobili.Find(mod.AutomobilID);
+            novi.IsAktivan = true;
+
+
+            _db.Autmobili.Update(novi);
+            _db.Autmobili.Update(stari);
+        }
+
+        if (mod.SelektiraniGradovi != null)
+        {
+            var stari = _db.UsputniGradovi.Where(u => u.VoznjaID == v.VoznjaID).ToList();
+            foreach (var grad in stari)
+            {
+                _db.UsputniGradovi.Remove(grad);
+            }
+
+            foreach (var selektirani in mod.SelektiraniGradovi)
+            {
+                UsputniGradovi usputni = new UsputniGradovi
+                {
+                    GradID = selektirani,
+                    VoznjaID = mod.VoznjaID
+                };
+
+                _db.UsputniGradovi.Add(usputni);
+            }
+        }
+
+        _db.Voznje.Update(v);
+        _db.SaveChanges();
+
+
+        return RedirectToAction("CijenaVoznje", "Voznje", new { voznjaID = mod.VoznjaID });
+    }
+}
 }

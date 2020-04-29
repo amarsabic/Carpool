@@ -77,3 +77,17 @@ body {
 .text-transform {
     text-transform: uppercase !important;
 }
+
+.selectStyleHome {
+    background-position-x: 355px;
+}
+
+.formaSearch{
+    margin-top:50px;
+}
+
+/*#portfolio {
+    background-image: url('/car3.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}*/

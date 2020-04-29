@@ -41,7 +41,7 @@ namespace CarpoolApp.Areas.User.Controllers
            await _db.SaveChangesAsync();
 
 
-           await _roleManager.CreateAsync(new IdentityRole<int> {Name = "Vozac", NormalizedName = "VOZAC" }); //Kreiranje role u bazi
+            await _roleManager.CreateAsync(new IdentityRole<int> {Name = "Vozac", NormalizedName = "VOZAC" }); //Kreiranje role u bazi
             var curentUser = await _userManager.FindByEmailAsync(User.FindFirstValue(ClaimTypes.Name)); // Dobavaljas trenutnog logiranog Korisnika
             await _userManager.AddToRoleAsync(curentUser, "Vozac"); //dodavanja role
             await _userManager.RemoveFromRoleAsync(curentUser, "Korisnik");
