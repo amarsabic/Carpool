@@ -14,11 +14,8 @@ namespace CarpoolApp.Models
         public Voznja Voznja { get; set; }
         public int KorisnikID { get; set; }
         public Korisnik Korisnik { get; set; }
-        public int UsputniGradODID { get; set; }
-        public UsputniGradovi UsputniGradoviOD { get; set; }
-        public int UsputniGradDOID { get; set; }
-        public UsputniGradovi UsputniGradoviDO { get; set; }
-        public int PrtljagID { get; set; }
-        public Prtljag Prtljag { get; set; }
+        public int? UsputniGradId { get; set; }
+        public UsputniGradovi UsputniGrad { get; set; }
+        public string OpisPrtljaga { get; set; }
     }
 }

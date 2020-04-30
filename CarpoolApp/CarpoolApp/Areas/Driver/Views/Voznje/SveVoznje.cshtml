@@ -83,8 +83,9 @@
 
 
                                             @*<h4 class="post-subtitle">*@
-                                            <table class="table table-borderless">
-
+                                        <table class="table table-borderless">
+                                            @if (Model.voznje[i].usputni.Count() > 0)
+                                            {
                                                 <thead>
                                                     <tr>
                                                         <th scope="col"><i class="fa fa-home"></i></th>
@@ -93,7 +94,8 @@
                                                         <th scope="col"><i class="fa fa-ticket-alt" aria-hidden="true"></i></th>
                                                     </tr>
                                                 </thead>
-                                                @for (var j = 0; j < @Model.voznje[i].usputni.Count(); j++)
+
+                                                for (var j = 0; j < @Model.voznje[i].usputni.Count(); j++)
                                                 {
 
                                                     <tbody>
@@ -105,16 +107,19 @@
                                                         </tr>
                                                     </tbody>
 
+
                                                 }
+                                            }
 
+                                            <tr class="border-bottom border-top">
+                                                <th>@Model.voznje[i].GradPolaska</th>
+                                                <th>@Model.voznje[i].GradDestinacija</th>
+                                                <th>@Model.voznje[i].PunaCijena</th>
+                                                <th><a asp-action="PunaRezervacija" asp-controller="Rezervacije" asp-route-voznjaID="@Model.voznje[i].VoznjaID" class="btn btn-danger btn-sm" style="color:white; cursor:pointer;">Rezerviši</a></th>
+                                            </tr>
+                                        </table>
+                                            <h4>Slobodna mjesta:  @Model.voznje[i].SlobodnaMjesta</h4>
 
-                                                <tr class="border-bottom border-top">
-                                                    <th>@Model.voznje[i].GradPolaska</th>
-                                                    <th>@Model.voznje[i].GradDestinacija</th>
-                                                    <th>@Model.voznje[i].PunaCijena</th>
-                                                    <th><a asp-action="Rezervisi" asp-controller="Voznje" asp-route-usputniGradId="@Model.voznje[i].VoznjaID" class="btn btn-danger btn-sm" style="color:white; cursor:pointer;">Rezerviši</a></th>
-                                                </tr>
-                                            </table>
 
                                             <!-- Portfolio Modal - Image -->
                                             <img class="img-fluid rounded mb-5" src="@slikaPath" asp-append-version="true" />

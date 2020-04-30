@@ -1,0 +1,50 @@
+﻿@model CarpoolApp.Areas.Driver.ViewModels.Rezervacije.PunaRezervacijaVM
+@{
+    ViewData["Title"] = "PunaRezervacja";
+}
+
+<!-- Custom scripts for this template -->
+<script src="~/bootstrapTheme/js/freelancer.min.js" asp-append-version="true"></script>
+
+<!-- Contact Section -->
+<section class="page-section portfolio" id="contact">
+    <div class="container">
+
+        <!-- Contact Section Heading -->
+        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0"> @Model.GradPolaska <i class="fa fa-arrow-right"></i> @Model.GradDestinacija</h2>
+
+        <!-- Icon Divider -->
+        <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon">
+                <i class="fas fa-file-contract"></i>
+            </div>
+            <div class="divider-custom-line"></div>
+        </div>
+
+        <!-- Contact Section Form -->
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+
+                <form enctype="multipart/form-data" action="PunaRezervacija" method="post">
+                    <input asp-for="VoznjaID" hidden="hidden" />
+                    <input asp-for="KorisnikID" hidden="hidden" />
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                            <label>Opis prtljaga</label>
+                            <input asp-for="OpisPrtljag" class="form-control" id="name" type="text" required="required" placeholder="Unesite kratki opis vašeg prtljaga" data-validation-required-message="Molimo Vas unesite kratki opis prtljaga.">
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+               
+                    <br>
+                    <div id="success"></div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-xl">Rezerviši</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</section>

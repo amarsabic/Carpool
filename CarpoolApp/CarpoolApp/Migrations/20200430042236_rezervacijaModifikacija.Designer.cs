@@ -4,14 +4,16 @@ using CarpoolApp.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CarpoolApp.Migrations
 {
     [DbContext(typeof(CarpoolAppContext))]
-    partial class CarpoolAppContextModelSnapshot : ModelSnapshot
+    [Migration("20200430042236_rezervacijaModifikacija")]
+    partial class rezervacijaModifikacija
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -335,6 +337,9 @@ namespace CarpoolApp.Migrations
                     b.Property<int?>("UsputniGradId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("UsputniGradoviID")
+                        .HasColumnType("int");
+
                     b.Property<int>("VoznjaID")
                         .HasColumnType("int");
 
@@ -342,7 +347,7 @@ namespace CarpoolApp.Migrations
 
                     b.HasIndex("KorisnikID");
 
-                    b.HasIndex("UsputniGradId");
+                    b.HasIndex("UsputniGradoviID");
 
                     b.HasIndex("VoznjaID");
 
@@ -679,9 +684,9 @@ namespace CarpoolApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CarpoolApp.Models.UsputniGradovi", "UsputniGrad")
+                    b.HasOne("CarpoolApp.Models.UsputniGradovi", "usputniGradovi")
                         .WithMany()
-                        .HasForeignKey("UsputniGradId");
+                        .HasForeignKey("UsputniGradoviID");
 
                     b.HasOne("CarpoolApp.Models.Voznja", "Voznja")
                         .WithMany("Rezervacije")
