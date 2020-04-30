@@ -98,10 +98,6 @@
 
                                                     <tbody>
                                                         <tr>
-                                                            @*<td>@Model.voznje[i].GradPolaska</td>
-                                                                <td>@Model.voznje[i].UsputniGradovi[j]</td>
-                                                                <td>@Model.voznje[i].UsputniCijena[j]</td>*@
-
                                                             <td>@Model.voznje[i].GradPolaska</td>
                                                             <td>@Model.voznje[i].usputni[j].Naziv</td>
                                                             <td>@Model.voznje[i].usputni[j].Cijena</td>
@@ -110,6 +106,14 @@
                                                     </tbody>
 
                                                 }
+
+
+                                                <tr class="border-bottom border-top">
+                                                    <th>@Model.voznje[i].GradPolaska</th>
+                                                    <th>@Model.voznje[i].GradDestinacija</th>
+                                                    <th>@Model.voznje[i].PunaCijena</th>
+                                                    <th><a asp-action="Rezervisi" asp-controller="Voznje" asp-route-usputniGradId="@Model.voznje[i].VoznjaID" class="btn btn-danger btn-sm" style="color:white; cursor:pointer;">Rezerviši</a></th>
+                                                </tr>
                                             </table>
 
                                             <!-- Portfolio Modal - Image -->

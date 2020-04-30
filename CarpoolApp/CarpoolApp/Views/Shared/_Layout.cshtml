@@ -60,7 +60,7 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item mx-0 mx-lg-1">
-                            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                            <div class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger">
                                 <partial name="_LoginPartial" />
                             </div>
                         </li>
@@ -74,9 +74,7 @@
     @RenderBody()
 
 
-
-
-    @if (!ViewData["Title"].Equals("Prijavi se") && !ViewData["Title"].Equals("Registracija"))
+    @if (ViewData["Title"].Equals("CarpoolApp"))
     {
         <vc:najpoznatije-voznje></vc:najpoznatije-voznje>
 
@@ -130,19 +128,11 @@
                 <small>Copyright &copy; Carpool 2020</small>
             </div>
         </section>
-
+      
 
     }
-    else
-    {
-        <!-- Copyright Section -->
-        <section class="copyright py-4 text-center text-white">
-            <div class="container">
-                <small>Copyright &copy; Carpool 2020</small>
-            </div>
-        </section>
-    }
 
+ 
     <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
     <script src="~/js/mojJs.js" asp-append-version="true"></script>
