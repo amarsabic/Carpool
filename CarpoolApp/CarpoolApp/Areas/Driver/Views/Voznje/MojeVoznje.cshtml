@@ -1,16 +1,167 @@
-﻿
+﻿@model CarpoolApp.Areas.Driver.ViewModels.Voznje.SveVoznjeVM
+
 @{
-    Layout = null;
+    ViewData["Title"] = "SveVoznje";
 }
 
-<!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>MojeVoznje</title>
-</head>
-<body>
-    dodana voznja
-</body>
-</html>
+<link href="~/bootstrapTheme/css/freelancer.css" rel="stylesheet" asp-append-version="true">
+
+<!-- Custom styles for this template -->
+<link href="~/css/Obavijesti.css" rel="stylesheet" asp-append-version="true">
+<link href="~/css/voznje.css" rel="stylesheet" asp-append-version="true">
+
+<section class="page-section portfolio" id="portfolio">
+    <div class="container">
+
+        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Moje vožnje</h2>
+
+        <!-- Icon Divider -->
+        <div style="margin:0px !important;" class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon">
+                <i class="fas fa-car"></i>
+            </div>
+            <div class="divider-custom-line"></div>
+        </div>
+
+        <div style="text-align:right;">
+            <a class="btn btn-primary" id="btnDodajVozilo" asp-area="Driver" asp-controller="Voznje" asp-action="Dodaj"><i class="fas fa-plus fa-2x"></i></a>
+            <br />
+            <br />
+        </div>
+
+        <!-- Portfolio Grid Items -->
+        <div class="row">
+            @for (var i = 0; i < Model.voznje.Count(); i++)
+            {
+                string slikaPath = "~/imgs/" + (Model.voznje[i].SlikaPath ?? "carnotfound.jpg");
+                <!-- Main Content -->
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-10 mx-auto">
+                            <div class="post-preview">
+                                <a class="openModalDiv" data-toggle="modal" data-target="#portfolioModal_@i">
+                                    <h2 class="post-title">
+                                        @Model.voznje[i].GradPolaska <i class="fa fa-arrow-right"></i> @Model.voznje[i].GradDestinacija
+                                    </h2>
+                                    <h5>@Model.voznje[i].PunaCijena BAM</h5>
+                                </a>
+                                @*<h5 style="float:right;">@Model.voznje[i].VrijemePolaska.ToShortTimeString()</h5>*@
+                                <p style="color:black;" class="post-meta">
+                                    Objavio/la @Model.voznje[i].KorisnickoIme
+                                </p>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Portfolio Modals -->
+                <div class="portfolio-modal modal fade" id="portfolioModal_@i" tabindex="-1" role="dialog" aria-labelledby="portfolioModalLabel_@i" aria-hidden="true">
+                    <div class="modal-dialog modal-xl" role="document">
+                        <div class="modal-content">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">
+                                    <i class="fas fa-times"></i>
+                                </span>
+                            </button>
+                            <div class="modal-body text-center">
+                                <div class="container">
+                                    <div class="row justify-content-center">
+                                        <div class="col-lg-8">
+                                            <!-- Portfolio Modal - Title -->
+                                            <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">  @Model.voznje[i].GradPolaska <i class="fa fa-arrow-right"></i> @Model.voznje[i].GradDestinacija</h2>
+                                            <!-- Icon Divider -->
+                                            <div class="divider-custom">
+                                                <div class="divider-custom-line"></div>
+                                                <div class="divider-custom-icon">
+                                                    <i class="fas fa-car"></i>
+                                                </div>
+                                                <div class="divider-custom-line"></div>
+                                            </div>
+
+
+
+                                            @*<h4 class="post-subtitle">*@
+                                            <table class="table table-borderless">
+                                                @if (Model.voznje[i].usputni.Count() > 0)
+                                                {
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col"><i class="fa fa-home"></i></th>
+                                                            <th scope="col">Usputni grad</th>
+                                                            <th scope="col">Cijena</th>
+                                                            @if (Model.CurrentUser != Model.voznje[i].KorisnikID)
+                                                            {
+                                                                <th scope="col"><i class="fa fa-ticket-alt" aria-hidden="true"></i></th>
+                                                            }
+                                                        </tr>
+                                                    </thead>
+
+                                                    for (var j = 0; j < @Model.voznje[i].usputni.Count(); j++)
+                                                    {
+
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>@Model.voznje[i].GradPolaska</td>
+                                                                <td>@Model.voznje[i].usputni[j].Naziv</td>
+                                                                <td>@Model.voznje[i].usputni[j].Cijena</td>
+
+                                                                @if (Model.CurrentUser != Model.voznje[i].KorisnikID)
+                                                                {
+                                                                    <td><a asp-action="Rezervisi" asp-controller="Voznje" asp-route-usputniGradId="@Model.voznje[i].usputni[j].UsputniGradId" class="btn btn-info btn-sm" style="color:white; cursor:pointer;">Rezerviši</a></td>
+                                                                }
+                                                            </tr>
+                                                        </tbody>
+
+                                                    }
+                                                }
+
+
+                                                <tr class="border-bottom border-top">
+                                                    <th>@Model.voznje[i].GradPolaska</th>
+                                                    <th>@Model.voznje[i].GradDestinacija</th>
+                                                    <th>@Model.voznje[i].PunaCijena</th>
+
+                                                    @if (Model.CurrentUser != Model.voznje[i].KorisnikID)
+                                                    {
+                                                        <th><a asp-action="PunaRezervacija" asp-controller="Rezervacije" asp-route-voznjaID="@Model.voznje[i].VoznjaID" class="btn btn-danger btn-sm" style="color:white; cursor:pointer;">Rezerviši</a></th>
+                                                    }
+                                                </tr>
+
+                                            </table>
+                                            <h4>Slobodna mjesta:  @Model.voznje[i].SlobodnaMjesta</h4>
+
+
+                                            <!-- Portfolio Modal - Image -->
+                                            <img class="img-fluid rounded mb-5" src="@slikaPath" asp-append-version="true" />
+
+                                            @if (Model.CurrentUser == Model.voznje[i].KorisnikID)
+                                            {
+                                                <a class="btn btn-secondary" asp-action="Uredi" asp-controller="Voznje" asp-route-voznjaID="@Model.voznje[i].VoznjaID">
+                                                    <i class="fas fa-edit fa-fw"></i>
+                                                    Uredi
+                                                </a>
+                                                <a class="btn btn-danger" asp-action="Obrisi" asp-controller="Voznje" asp-route-automobilID="@Model.voznje[i].VoznjaID">
+                                                    <i class="fas fa-trash fa-fw"></i>
+                                                    Ukloni
+                                                </a>
+                                            }
+                                            <button class="btn btn-primary" href="#" data-dismiss="modal">
+                                                <i class="fas fa-times fa-fw"></i>
+                                                Zatvori
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+

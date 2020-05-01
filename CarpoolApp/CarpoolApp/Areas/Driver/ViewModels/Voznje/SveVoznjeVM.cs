@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 namespace CarpoolApp.Areas.Driver.ViewModels.Voznje
 {
     public class SveVoznjeVM
-    { 
-       public List<Row> voznje { get; set; }
+    {
+        public int CurrentUser { get; set; }
+        public List<Row> voznje { get; set; }
 
         public SveVoznjeVM()
         {
@@ -25,6 +26,7 @@ namespace CarpoolApp.Areas.Driver.ViewModels.Voznje
         public class Row
         {
             public int VoznjaID { get; set; }
+            public int KorisnikID { get; set; }
             public string KorisnickoIme { get; set; }
             public DateTime DatumPolaska { get; set; }
             public DateTime VrijemePolaska { get; set; }

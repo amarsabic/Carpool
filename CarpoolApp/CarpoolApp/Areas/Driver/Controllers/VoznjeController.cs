@@ -27,7 +27,11 @@ namespace CarpoolApp.Areas.Driver.Controllers
         {
             SveVoznjeVM model = new SveVoznjeVM();
 
-            model.voznje = _db.Voznje.OrderByDescending(v => v.DatumObjave).Select(v => new SveVoznjeVM.Row
+            model.CurrentUser = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            model.voznje = _db.Voznje
+                .Where(a=>a.SlobodnaMjesta>0)
+                .OrderByDescending(v => v.DatumObjave).Select(v => new SveVoznjeVM.Row
             {
                 AutoNazivModel = v.Automobil.Naziv + " " + v.Automobil.Model,
                 SlikaPath = v.Automobil.SlikaPath,
@@ -37,6 +41,7 @@ namespace CarpoolApp.Areas.Driver.Controllers
                 SlobodnaMjesta = v.SlobodnaMjesta,
                 GradPolaska = v.GradPolaska.Naziv,
                 GradDestinacija = v.GradDestinacija.Naziv,
+                KorisnikID=v.VozacID,
 
                 usputni = _db.UsputniGradovi.Where(u => u.VoznjaID == v.VoznjaID).Select(u => new SveVoznjeVM.Usputni
                 {
@@ -82,11 +87,38 @@ namespace CarpoolApp.Areas.Driver.Controllers
         }
  
 
-    public IActionResult MojeVoznje()
+    public IActionResult MojeVoznje(int vozacID)
     {
+            SveVoznjeVM model = new SveVoznjeVM();
 
+            model.CurrentUser = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
-        return View();
+            model.voznje = _db.Voznje
+                .Where(a => a.VozacID==vozacID)
+                .OrderByDescending(v => v.DatumObjave).Select(v => new SveVoznjeVM.Row
+                {
+                    AutoNazivModel = v.Automobil.Naziv + " " + v.Automobil.Model,
+                    SlikaPath = v.Automobil.SlikaPath,
+                    DatumPolaska = v.DatumPolaska,
+                    VrijemePolaska = v.VrijemePolaska,
+                    PunaCijena = v.PunaCijena,
+                    SlobodnaMjesta = v.SlobodnaMjesta,
+                    GradPolaska = v.GradPolaska.Naziv,
+                    GradDestinacija = v.GradDestinacija.Naziv,
+                    KorisnikID = v.VozacID,
+
+                    usputni = _db.UsputniGradovi.Where(u => u.VoznjaID == v.VoznjaID).Select(u => new SveVoznjeVM.Usputni
+                    {
+                        UsputniGradId = u.UsputniGradoviID,
+                        Cijena = u.CijenaUsputni,
+                        Naziv = u.Grad.Naziv
+                    }).ToList(),
+
+                    VoznjaID = v.VoznjaID,
+                    KorisnickoIme = v.Vozac.Korisnik.Ime + " " + v.Vozac.Korisnik.Prezime
+                }).ToList();
+
+            return View(model);
     }
 
     public IActionResult CijenaVoznje(int voznjaID)
