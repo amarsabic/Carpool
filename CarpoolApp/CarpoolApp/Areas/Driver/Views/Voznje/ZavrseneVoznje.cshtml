@@ -14,7 +14,7 @@
 <section class="page-section portfolio" id="portfolio">
     <div class="container">
 
-        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Moje vožnje</h2>
+        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Završene vožnje</h2>
 
         <!-- Icon Divider -->
         <div style="margin:0px !important;" class="divider-custom">
@@ -26,8 +26,14 @@
         </div>
 
         <div style="text-align:center;">
-            <a class="btn btn-primary" id="btnDodajVozilo" asp-area="Driver" asp-controller="Voznje" asp-action="Dodaj"><i class="fas fa-plus fa-2x"></i></a>
-            <a class="btn btn-info" id="btnDodajVozilo" asp-area="Driver" asp-controller="Voznje" asp-action="ZavrseneVoznje" asp-route-vozacID="@Model.CurrentUser"><i class="fas fa-history fa-2x"></i></a>
+            <a class="btn  btn-outline-dark" asp-action="MojeVoznje" asp-controller="Voznje" asp-route-vozacID="@Model.CurrentUser">
+                <i class="fas fa-user mr-2"></i>
+                Moje vožnje
+            </a>
+            <a class="btn btn-outline-dark" asp-action="SveVoznje" asp-controller="Voznje">
+                <i class="fas fa-list mr-2"></i>
+                Sve vožnje
+            </a>
             <br />
             <br />
         </div>
