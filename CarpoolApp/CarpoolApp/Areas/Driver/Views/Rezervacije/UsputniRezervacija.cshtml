@@ -1,4 +1,4 @@
-﻿@model CarpoolApp.Areas.Driver.ViewModels.Rezervacije.PunaRezervacijaVM
+﻿@model CarpoolApp.Areas.Driver.ViewModels.Rezervacije.UsputniRezervacijaVM
 @{
     ViewData["Title"] = "Rezervacija";
 }
@@ -26,9 +26,10 @@
         <div class="row">
             <div class="col-lg-8 mx-auto">
 
-                <form enctype="multipart/form-data" action="PunaRezervacija" method="post">
+                <form enctype="multipart/form-data" action="UsputniRezervacija" method="post">
                     <input asp-for="VoznjaID" hidden="hidden" />
                     <input asp-for="KorisnikID" hidden="hidden" />
+                    <input asp-for="UsputniGradID" hidden="hidden" />
                     <div class="control-group">
                         <div class="form-group floating-label-form-group controls mb-0 pb-2">
                             <label>Opis prtljaga</label>
@@ -36,7 +37,7 @@
                             <p class="help-block text-danger"></p>
                         </div>
                     </div>
-               
+
                     <br>
                     <div id="success"></div>
                     <div class="form-group">

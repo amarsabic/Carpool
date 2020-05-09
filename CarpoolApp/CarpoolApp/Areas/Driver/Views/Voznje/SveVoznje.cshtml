@@ -115,7 +115,7 @@
 
                                                                 @if (Model.CurrentUser != Model.voznje[i].KorisnikID)
                                                                 {
-                                                                    <td><a asp-action="Rezervisi" asp-controller="Voznje" asp-route-usputniGradId="@Model.voznje[i].usputni[j].UsputniGradId" class="btn btn-info btn-sm" style="color:white; cursor:pointer;">Rezerviši</a></td>
+                                                                    <td><a asp-action="UsputniRezervacija" asp-controller="Rezervacije" asp-route-usputniGradID="@Model.voznje[i].usputni[j].UsputniGradId" asp-route-voznjaID="@Model.voznje[i].VoznjaID" class="btn btn-info btn-sm" style="color:white; cursor:pointer;">Rezerviši</a></td>
                                                                 }
                                                             </tr>
                                                         </tbody>

@@ -14,17 +14,46 @@ namespace CarpoolApp.Areas.Driver.Controllers
         public RezervacijeController(CarpoolAppContext db) : base(db)
         {
         }
+
+        public IActionResult Detalji()
+        {
+            var model = new RezervacijeDetaljiVM();
+
+           var vozacID = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            model.voznje = _db.Voznje.Where(v => v.VozacID == vozacID && v.IsAktivna).Select(v => new RezervacijeDetaljiVM.Row2
+            {
+                DatumVoznje = v.DatumPolaska,
+                GradPolaska = v.GradPolaska.Naziv,
+                GradDestinacija = v.GradDestinacija.Naziv,
+                VoznjaID = v.VoznjaID,
+
+
+                rezervacije = _db.Rezervacije.Where(r => r.VoznjaID == v.VoznjaID).Select(r => new RezervacijeDetaljiVM.Row
+                {
+                    DatumRezervacije = r.DatumRezervacije,
+                    RezervacijaID = r.RezervacijaID,
+                    NazivUsputnog = r.UsputniGrad.Grad.Naziv,
+                    UsputniCijena = r.UsputniGrad.CijenaUsputni,
+                    PunaCijena = v.PunaCijena,
+                    ImePutnika=r.Korisnik.Ime + " " + r.Korisnik.Prezime
+                }).ToList()
+            }).ToList();
+
+
+            return View(model);
+        }
         public IActionResult PunaRezervacija(int voznjaID)
         {
             PunaRezervacijaVM model = new PunaRezervacijaVM();
 
             model = _db.Voznje.Where(v => v.VoznjaID == voznjaID).Select(v => new PunaRezervacijaVM
             {
-                VoznjaID=voznjaID,
-                GradDestinacija=v.GradDestinacija.Naziv,
-                GradPolaska=v.GradPolaska.Naziv,
-                PunaCijena=v.PunaCijena,
-                KorisnikID= int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier))
+                VoznjaID = voznjaID,
+                GradDestinacija = v.GradDestinacija.Naziv,
+                GradPolaska = v.GradPolaska.Naziv,
+                PunaCijena = v.PunaCijena,
+                KorisnikID = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier))
             }).FirstOrDefault();
 
             return View(model);
@@ -35,10 +64,10 @@ namespace CarpoolApp.Areas.Driver.Controllers
         {
             Rezervacija rez = new Rezervacija
             {
-                VoznjaID=mod.VoznjaID,
-                OpisPrtljaga=mod.OpisPrtljag,
-                DatumRezervacije=DateTime.Now,
-                KorisnikID=mod.KorisnikID
+                VoznjaID = mod.VoznjaID,
+                OpisPrtljaga = mod.OpisPrtljag,
+                DatumRezervacije = DateTime.Now,
+                KorisnikID = mod.KorisnikID
             };
 
             _db.Rezervacije.Add(rez);
@@ -48,7 +77,46 @@ namespace CarpoolApp.Areas.Driver.Controllers
 
             _db.SaveChanges();
 
-            return RedirectToAction("MojeRezervacije");
+            return RedirectToAction("Detalji");
+        }
+
+        public IActionResult UsputniRezervacija(int usputniGradID, int voznjaID)
+        {
+            UsputniRezervacijaVM model = new UsputniRezervacijaVM();
+
+            model = _db.Voznje.Where(v => v.VoznjaID == voznjaID).Select(v => new UsputniRezervacijaVM
+            {
+                VoznjaID = voznjaID,
+                GradDestinacija = v.GradDestinacija.Naziv,
+                GradPolaska = v.GradPolaska.Naziv,
+                PunaCijena = v.PunaCijena,
+                KorisnikID = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)),
+                UsputniGradID = usputniGradID
+            }).FirstOrDefault();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult UsputniRezervacija(UsputniRezervacijaVM mod)
+        {
+            Rezervacija rez = new Rezervacija
+            {
+                VoznjaID = mod.VoznjaID,
+                OpisPrtljaga = mod.OpisPrtljag,
+                DatumRezervacije = DateTime.Now,
+                KorisnikID = mod.KorisnikID,
+                UsputniGradId = mod.UsputniGradID
+            };
+
+            _db.Rezervacije.Add(rez);
+
+            Voznja v = _db.Voznje.Where(x => x.VoznjaID == mod.VoznjaID).FirstOrDefault();
+            v.SlobodnaMjesta--;
+
+            _db.SaveChanges();
+
+            return RedirectToAction("Detalji");
         }
     }
 }

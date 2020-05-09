@@ -1,0 +1,109 @@
+﻿@model CarpoolApp.Areas.Driver.ViewModels.Rezervacije.RezervacijeDetaljiVM
+
+@{
+    ViewData["Title"] = "Detalji";
+}
+
+<!-- Custom scripts for this template -->
+<script src="~/bootstrapTheme/js/freelancer.min.js" asp-append-version="true"></script>
+
+<!-- Contact Section -->
+<section class="page-section portfolio" id="contact">
+    <div class="container">
+
+        <!-- Contact Section Heading -->
+        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">
+            Rezervacije
+        </h2>
+
+        <!-- Icon Divider -->
+        <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon">
+                <i class="fas fa-luggage-cart"></i>
+            </div>
+            <div class="divider-custom-line"></div>
+        </div>
+
+        <!-- Contact Section Form -->
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Polazak</th>
+                            <th>Destinacija</th>
+                            <th>Putnik</th>
+                            <th>Datum vožnje</th>
+                            <th>Datum rezervacije</th>
+                            <th>Cijena</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            for (int i = 0; i < Model.voznje.Count; i++)
+                            {
+                                for (int j = 0; j < Model.voznje[i].rezervacije.Count(); j++)
+                                {
+                                    <tr>
+                                        <td>@Model.voznje[i].GradPolaska</td>
+
+                                        @if (Model.voznje[i].rezervacije[j].NazivUsputnog != null)
+                                        {
+                                            <td>@Model.voznje[i].rezervacije[j].NazivUsputnog</td>
+                                        }
+                                        else
+                                        {
+                                            <td>@Model.voznje[i].GradDestinacija</td>
+                                        }
+
+                                        <td>@Model.voznje[i].rezervacije[j].ImePutnika</td>
+                                        <td>@Model.voznje[i].DatumVoznje</td>
+                                        <td>@Model.voznje[i].rezervacije[j].DatumRezervacije</td>
+
+                                        @if (Model.voznje[i].rezervacije[j].NazivUsputnog != null)
+                                        {
+                                            <td>@Model.voznje[i].rezervacije[j].UsputniCijena</td>
+                                        }
+                                        else
+                                        {
+                                            <td>@Model.voznje[i].rezervacije[j].PunaCijena</td>
+                                        }
+                                    </tr>
+                                }
+                            }
+
+                            @*@foreach (var item in Model.rezervacije)
+                                {
+                                <tr>
+                                    <td>@Model.GradPolaska</td>
+                                    @if (item.NazivUsputnog != null)
+                                    {
+                                        <td>@item.NazivUsputnog</td>
+                                    }
+                                    else
+                                    {
+                                        <td>@Model.GradDestinacija</td>
+                                    }
+                                    <td>@item.ImePutnika</td>
+                                    <td>@Model.DatumVoznje</td>
+                                    <td>@item.DatumRezervacije</td>
+                                    @if (item.NazivUsputnog != null)
+                                    {
+                                        <td>@item.UsputniCijena</td>
+                                    }
+                                    else
+                                    {
+                                        <td>@item.PunaCijena</td>
+                                    }
+                                </tr>
+                                }*@
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</section>
