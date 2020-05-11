@@ -36,7 +36,8 @@ namespace CarpoolApp.Areas.Driver.Controllers
                     NazivUsputnog = r.UsputniGrad.Grad.Naziv,
                     UsputniCijena = r.UsputniGrad.CijenaUsputni,
                     PunaCijena = v.PunaCijena,
-                    ImePutnika=r.Korisnik.Ime + " " + r.Korisnik.Prezime
+                    ImePutnika=r.Korisnik.Ime + " " + r.Korisnik.Prezime,
+                    OpisPrtljaga=r.OpisPrtljaga
                 }).ToList()
             }).ToList();
 
@@ -67,7 +68,8 @@ namespace CarpoolApp.Areas.Driver.Controllers
                 VoznjaID = mod.VoznjaID,
                 OpisPrtljaga = mod.OpisPrtljag,
                 DatumRezervacije = DateTime.Now,
-                KorisnikID = mod.KorisnikID
+                KorisnikID = mod.KorisnikID,
+                IsAktivna=true
             };
 
             _db.Rezervacije.Add(rez);
@@ -77,7 +79,7 @@ namespace CarpoolApp.Areas.Driver.Controllers
 
             _db.SaveChanges();
 
-            return RedirectToAction("Detalji");
+            return RedirectToAction("MojaPutovanja");
         }
 
         public IActionResult UsputniRezervacija(int usputniGradID, int voznjaID)
@@ -106,7 +108,8 @@ namespace CarpoolApp.Areas.Driver.Controllers
                 OpisPrtljaga = mod.OpisPrtljag,
                 DatumRezervacije = DateTime.Now,
                 KorisnikID = mod.KorisnikID,
-                UsputniGradId = mod.UsputniGradID
+                UsputniGradId = mod.UsputniGradID,
+                IsAktivna=true
             };
 
             _db.Rezervacije.Add(rez);
@@ -116,7 +119,29 @@ namespace CarpoolApp.Areas.Driver.Controllers
 
             _db.SaveChanges();
 
-            return RedirectToAction("Detalji");
+            return RedirectToAction("MojaPutovanja");
+        }
+
+        public IActionResult MojaPutovanja()
+        {
+            var model = new MojaPutovanjaVM();
+
+            var vozacID = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            model.putovanja = _db.Rezervacije.Where(r => r.KorisnikID == vozacID).Select(r => new ViewModels.Rezervacije.MojaPutovanjaVM.Row
+            {
+                RezervacijaID=r.RezervacijaID,
+                Cijena=r.Voznja.PunaCijena,
+                UsputniCijena=r.UsputniGrad.CijenaUsputni,
+                DatumVoznje=r.Voznja.DatumPolaska,
+                GradDestinacija=r.Voznja.GradDestinacija.Naziv,
+                GradPolaska=r.Voznja.GradPolaska.Naziv,
+                NazivUsputnog=r.UsputniGrad.Grad.Naziv,
+                DatumRezervacije=r.DatumRezervacije
+            }).ToList();
+
+
+            return View(model);
         }
     }
 }

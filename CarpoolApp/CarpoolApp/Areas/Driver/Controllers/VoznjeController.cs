@@ -384,6 +384,14 @@ namespace CarpoolApp.Areas.Driver.Controllers
             Automobil auto = _db.Autmobili.Where(a => a.AutomobilID == v.AutomobilID).FirstOrDefault();
             auto.IsAktivan = false;
 
+            List<Rezervacija> rezervacije = new List<Rezervacija>();
+            rezervacije = _db.Rezervacije.Where(r => r.VoznjaID == voznjaID).ToList();
+            foreach (var item in rezervacije)
+            {
+                Rezervacija rez = _db.Rezervacije.Find(item.RezervacijaID);
+                rez.IsAktivna = false;
+            }
+
             _db.SaveChanges();
 
             return RedirectToAction("MojeVoznje", new { vozacID= vozacid });

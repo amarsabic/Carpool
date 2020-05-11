@@ -1,0 +1,73 @@
+﻿@model CarpoolApp.Areas.Driver.ViewModels.Rezervacije.MojaPutovanjaVM
+
+@{
+    ViewData["Title"] = "Detalji";
+}
+
+<link href="~/bootstrapTheme/css/freelancer.css" rel="stylesheet" asp-append-version="true">
+
+<!-- About Section -->
+<section class="page-section bg-primary text-white mb-0 portfolio" id="about">
+    <div class="container">
+
+        <!-- About Section Heading -->
+        <h2 class="page-section-heading text-center text-uppercase text-white">Moja putovanja</h2>
+
+        <!-- Icon Divider -->
+        <div class="divider-custom divider-light">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon">
+                <i class="fas fa-luggage-cart"></i>
+            </div>
+            <div class="divider-custom-line"></div>
+        </div>
+
+        <table class="table">
+            <thead class="thead">
+                <tr>
+                    <th>Polazak</th>
+                    <th>Destinacija</th>
+                    <th>Datum vožnje</th>
+                    <th>Datum rezervacije</th>
+                    <th>Cijena</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.putovanja)
+                {
+                    <tr>
+                        <td>@item.GradPolaska</td>
+                        @if (item.NazivUsputnog != null)
+                        {
+                            <td>@item.NazivUsputnog</td>
+                        }
+                        else
+                        {
+                            <td>@item.GradDestinacija</td>
+                        }
+
+                        <td>@item.DatumVoznje.ToString("dd/mm/yyyy")</td>
+                        <td>@item.DatumRezervacije</td>
+                        @if (item.NazivUsputnog != null)
+                        {
+                            <td>@item.UsputniCijena</td>
+                        }
+                        else
+                        {
+                            <td>@item.Cijena</td>
+                        }
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div style="text-align:right;">
+            <a class="btn btn-outline-dark" asp-action="MojaPutovanja" asp-controller="Rezervacije">
+                <i class="fas fa-list mr-2"></i>
+                Završena putovanja
+            </a>
+            <br />
+            <br />
+        </div>
+    </div>
+</section>

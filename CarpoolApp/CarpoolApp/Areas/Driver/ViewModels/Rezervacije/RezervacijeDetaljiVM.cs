@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,6 +12,7 @@ namespace CarpoolApp.Areas.Driver.ViewModels.Rezervacije
         public class Row2
         {
             public int VoznjaID { get; set; }
+            [DataType(DataType.Date)]
             public DateTime DatumVoznje { get; set; }
             public string GradPolaska { get; set; }
             public string GradDestinacija { get; set; }
@@ -21,6 +23,8 @@ namespace CarpoolApp.Areas.Driver.ViewModels.Rezervacije
             public int RezervacijaID { get; set; }
             public string? NazivUsputnog { get; set; }
             public string ImePutnika { get; set; }
+            public string OpisPrtljaga { get; set; }
+            [DataType(DataType.Date)]
             public DateTime DatumRezervacije { get; set; }
             public decimal UsputniCijena { get; set; }
             public decimal PunaCijena { get; set; }

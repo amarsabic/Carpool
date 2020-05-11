@@ -17,5 +17,6 @@ namespace CarpoolApp.Models
         public int? UsputniGradId { get; set; }
         public UsputniGradovi UsputniGrad { get; set; }
         public string OpisPrtljaga { get; set; }
+        public bool IsAktivna { get; set; }
     }
 }
