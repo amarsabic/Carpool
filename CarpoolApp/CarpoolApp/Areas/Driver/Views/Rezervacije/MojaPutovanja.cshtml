@@ -22,52 +22,55 @@
             <div class="divider-custom-line"></div>
         </div>
 
-        <table class="table">
+        <table class="table table-bordered">
             <thead class="thead">
                 <tr>
                     <th>Polazak</th>
                     <th>Destinacija</th>
                     <th>Datum vožnje</th>
                     <th>Datum rezervacije</th>
+                    <th>Vozač</th>
                     <th>Cijena</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model.putovanja)
                 {
-                    <tr>
-                        <td>@item.GradPolaska</td>
-                        @if (item.NazivUsputnog != null)
-                        {
-                            <td>@item.NazivUsputnog</td>
-                        }
-                        else
-                        {
-                            <td>@item.GradDestinacija</td>
-                        }
+                <tr>
+                    <td>@item.GradPolaska</td>
+                    @if (item.NazivUsputnog != null)
+                    {
+                        <td>@item.NazivUsputnog</td>
+                    }
+                    else
+                    {
+                        <td>@item.GradDestinacija</td>
+                    }
 
-                        <td>@item.DatumVoznje.ToString("dd/mm/yyyy")</td>
-                        <td>@item.DatumRezervacije</td>
-                        @if (item.NazivUsputnog != null)
-                        {
-                            <td>@item.UsputniCijena</td>
-                        }
-                        else
-                        {
-                            <td>@item.Cijena</td>
-                        }
+                    <td>@item.DatumVoznje.ToString("dd/mm/yyyy")</td>
+                    <td>@item.DatumRezervacije</td>
+                    <td>@item.ImeVozaca</td>
+                    @if (item.NazivUsputnog != null)
+                    {
+                        <td>@item.UsputniCijena</td>
+                    }
+                    else
+                    {
+                        <td>@item.Cijena</td>
+                    }
+                    @if (item.IsAktivna)
+                    {
+                        <td><a class="btn btn-outline-info">Aktivna</a></td>
+                    }
+                    else
+                    {
+                        <td><a class="btn btn-outline-danger">Završeno</a></td>
+                    }
 
-                    </tr>
+                </tr>
                 }
             </tbody>
         </table>
-        <div style="text-align:right;">
-            <a class="btn btn-outline-dark" asp-action="MojaPutovanja" asp-controller="Rezervacije">
-                <i class="fas fa-list mr-2"></i>
-                Završena putovanja
-            </a>
-            <br />
-            <br />
-        </div>
     </div>
 </section>

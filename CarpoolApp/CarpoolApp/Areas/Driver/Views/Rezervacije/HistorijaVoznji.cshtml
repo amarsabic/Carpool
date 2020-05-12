@@ -13,7 +13,7 @@
 
         <!-- Contact Section Heading -->
         <h5 class="page-section-heading text-center text-uppercase text-secondary mb-0">
-            Rezervacije na moje vožnje
+            Historija rezervacija
         </h5>
 
         <!-- Icon Divider -->
@@ -30,7 +30,10 @@
                 <i class="fas fa-luggage-cart mr-2"></i>
                 Moja putovanja
             </a>
-            @*<a class="btn btn-primary" id="btnDodajVozilo" asp-area="Driver" asp-controller="Voznje" asp-action="Dodaj"><i class="fas fa-plus fa-2x"></i></a>*@
+            <a class="btn btn-outline-dark" asp-action="Detalji" asp-controller="Rezervacije">
+                <i class="fas fa-car-side mr-2"></i>
+               Aktivne rezervacije
+            </a>
             <br />
             <br />
         </div>
@@ -49,7 +52,7 @@
                             <th>Datum rezervacije</th>
                             <th>Cijena</th>
                             <th>Opis prtljaga</th>
-                            <th></th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -83,7 +86,7 @@
                                             <td>@Model.voznje[i].rezervacije[j].PunaCijena</td>
                                         }
                                         <td>@Model.voznje[i].rezervacije[j].OpisPrtljaga</td>
-                                        <td><a class="btn btn-primary" asp-action="MojeVoznje" asp-controller="Voznje" asp-route-vozacID="@Model.VozacID">Vidi vožnju</a></td>
+
                                     </tr>
                                 }
                             }
@@ -91,15 +94,6 @@
                     </tbody>
                 </table>
             </div>
-        </div>
-        <div style="text-align:right;">
-            <a class="btn btn-outline-success" asp-action="HistorijaVoznji" asp-controller="Rezervacije">
-                <i class="fas fa-list mr-2"></i>
-                Prikaži historiju
-            </a>
-            @*<a class="btn btn-primary" id="btnDodajVozilo" asp-area="Driver" asp-controller="Voznje" asp-action="Dodaj"><i class="fas fa-plus fa-2x"></i></a>*@
-            <br />
-            <br />
         </div>
     </div>
 </section>

@@ -8,6 +8,7 @@ namespace CarpoolApp.Areas.Driver.ViewModels.Rezervacije
 {
     public class RezervacijeDetaljiVM
     {
+        public int VozacID { get; set; }
         public List<Row2> voznje { get; set; }
         public class Row2
         {

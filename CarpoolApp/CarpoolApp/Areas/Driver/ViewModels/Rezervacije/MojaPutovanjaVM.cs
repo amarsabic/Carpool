@@ -16,11 +16,14 @@ namespace CarpoolApp.Areas.Driver.ViewModels.Rezervacije
             public DateTime DatumVoznje { get; set; }
             [DataType(DataType.Date)]
             public DateTime DatumRezervacije { get; set; }
+
+            public string ImeVozaca { get; set; }
             public string GradPolaska { get; set; }
             public string GradDestinacija { get; set; }
             public string? NazivUsputnog { get; set; }
             public decimal? UsputniCijena { get; set; }
             public decimal Cijena { get; set; }
+            public bool IsAktivna { get; set; }
         }
     }
 }

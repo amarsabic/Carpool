@@ -22,7 +22,7 @@ namespace CarpoolApp.Areas.Driver.ViewComponents
             NajpoznatijeVoznjeVM model = new NajpoznatijeVoznjeVM();
 
             model.voznje = _db.Voznje
-                
+                .Where(v=>v.IsAktivna)
                 .OrderByDescending(v => v.DatumObjave).Select(v => new NajpoznatijeVoznjeVM.Row
             {
                 GradDestinacijaId=v.GradDestinacijaID,

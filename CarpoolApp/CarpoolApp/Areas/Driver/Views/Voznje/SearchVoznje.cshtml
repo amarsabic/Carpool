@@ -85,46 +85,67 @@
 
                                             @*<h4 class="post-subtitle">*@
                                             <table class="table table-borderless">
-
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col"><i class="fa fa-home"></i></th>
-                                                        <th scope="col">Usputni grad</th>
-                                                        <th scope="col">Cijena</th>
-                                                        <th scope="col"><i class="fa fa-ticket-alt" aria-hidden="true"></i></th>
-                                                    </tr>
-                                                </thead>
-                                                @for (var j = 0; j < @Model.voznje[i].usputni.Count(); j++)
+                                                @if (Model.voznje[i].usputni.Count() > 0)
                                                 {
-
-                                                    <tbody>
+                                                    <thead>
                                                         <tr>
-                                                            @*<td>@Model.voznje[i].GradPolaska</td>
-                                                                <td>@Model.voznje[i].UsputniGradovi[j]</td>
-                                                                <td>@Model.voznje[i].UsputniCijena[j]</td>*@
-
-                                                            <td>@Model.voznje[i].GradPolaska</td>
-                                                            <td>@Model.voznje[i].usputni[j].Naziv</td>
-                                                            <td>@Model.voznje[i].usputni[j].Cijena</td>
-                                                            <td><a asp-action="Rezervisi" asp-controller="Voznje" asp-route-usputniGradId="@Model.voznje[i].usputni[j].UsputniGradId" class="btn btn-info btn-sm" style="color:white; cursor:pointer;">Rezerviši</a></td>
+                                                            <th scope="col"><i class="fa fa-home"></i></th>
+                                                            <th scope="col">Usputni grad</th>
+                                                            <th scope="col">Cijena</th>
+                                                            @if (Model.CurrentUser != Model.voznje[i].KorisnikID)
+                                                            {
+                                                                <th scope="col"><i class="fa fa-ticket-alt" aria-hidden="true"></i></th>
+                                                            }
                                                         </tr>
-                                                    </tbody>
+                                                    </thead>
 
+                                                    for (var j = 0; j < @Model.voznje[i].usputni.Count(); j++)
+                                                    {
+
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>@Model.voznje[i].GradPolaska</td>
+                                                                <td>@Model.voznje[i].usputni[j].Naziv</td>
+                                                                <td>@Model.voznje[i].usputni[j].Cijena</td>
+
+                                                                @if (Model.CurrentUser != Model.voznje[i].KorisnikID)
+                                                                {
+                                                                    <td><a asp-action="UsputniRezervacija" asp-controller="Rezervacije" asp-route-usputniGradID="@Model.voznje[i].usputni[j].UsputniGradId" asp-route-voznjaID="@Model.voznje[i].VoznjaID" class="btn btn-info btn-sm" style="color:white; cursor:pointer;">Rezerviši</a></td>
+                                                                }
+                                                            </tr>
+                                                        </tbody>
+
+                                                    }
                                                 }
+
+
+                                                <tr class="border-bottom border-top">
+                                                    <th>@Model.voznje[i].GradPolaska</th>
+                                                    <th>@Model.voznje[i].GradDestinacija</th>
+                                                    <th>@Model.voznje[i].PunaCijena</th>
+
+                                                    @if (Model.CurrentUser != Model.voznje[i].KorisnikID)
+                                                    {
+                                                        <th><a asp-action="PunaRezervacija" asp-controller="Rezervacije" asp-route-voznjaID="@Model.voznje[i].VoznjaID" class="btn btn-danger btn-sm" style="color:white; cursor:pointer;">Rezerviši</a></th>
+                                                    }
+                                                </tr>
+
                                             </table>
 
                                             <!-- Portfolio Modal - Image -->
                                             <img class="img-fluid rounded mb-5" src="@slikaPath" asp-append-version="true" />
 
-
-                                            <a class="btn btn-secondary" asp-action="Uredi" asp-controller="Automobil" asp-route-automobilID="@Model.voznje[i].VoznjaID">
-                                                <i class="fas fa-edit fa-fw"></i>
-                                                Uredi
-                                            </a>
-                                            <a class="btn btn-danger" asp-action="Obrisi" asp-controller="Automobil" asp-route-automobilID="@Model.voznje[i].VoznjaID">
-                                                <i class="fas fa-trash fa-fw"></i>
-                                                Ukloni
-                                            </a>
+                                            @if (Model.CurrentUser != Model.voznje[i].KorisnikID)
+                                            {
+                                                <a class="btn btn-secondary" asp-action="Uredi" asp-controller="Automobil" asp-route-automobilID="@Model.voznje[i].VoznjaID">
+                                                    <i class="fas fa-edit fa-fw"></i>
+                                                    Uredi
+                                                </a>
+                                                <a class="btn btn-danger" asp-action="Obrisi" asp-controller="Automobil" asp-route-automobilID="@Model.voznje[i].VoznjaID">
+                                                    <i class="fas fa-trash fa-fw"></i>
+                                                    Ukloni
+                                                </a>
+                                            }
                                             <button class="btn btn-primary" href="#" data-dismiss="modal">
                                                 <i class="fas fa-times fa-fw"></i>
                                                 Zatvori
