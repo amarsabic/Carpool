@@ -52,7 +52,7 @@ namespace CarpoolApp.Areas.Driver.Controllers
 
             return RedirectToAction(nameof(Detalji));
         }
-
+        //comment 
         public IActionResult Detalji()
         {
             AutomobilDetaljiVM lista = new AutomobilDetaljiVM();
