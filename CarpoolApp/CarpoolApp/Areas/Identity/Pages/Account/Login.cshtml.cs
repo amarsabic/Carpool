@@ -96,7 +96,7 @@ namespace CarpoolApp.Areas.Identity.Pages.Account
                         }
                         else if (User.IsInRole("Vozac"))
                         {
-                            return RedirectToAction("Index", "Profil", new { area = "Driver" });
+                            return RedirectToAction("Index", "Automobil", new { area = "Driver" });
                         }
                         else
                         {

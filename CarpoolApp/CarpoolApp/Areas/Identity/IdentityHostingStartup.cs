@@ -16,7 +16,8 @@ namespace CarpoolApp.Areas.Identity
         {
 #if DEBUG
 
-            builder.ConfigureServices((context, services) => {
+            builder.ConfigureServices((context, services) =>
+            {
                 services.AddDbContext<CarpoolAppContext>(options =>
                     options.UseSqlServer(
                         context.Configuration.GetConnectionString("CarpoolAppContextConnection")));
@@ -29,7 +30,7 @@ namespace CarpoolApp.Areas.Identity
                             context.Configuration.GetConnectionString("Plesk")));
 #endif
 
-                    services.AddIdentity<Korisnik, IdentityRole<int>>(options => options.SignIn.RequireConfirmedAccount = true)
+                services.AddIdentity<Korisnik, IdentityRole<int>>(options => options.SignIn.RequireConfirmedAccount = true)
                     .AddDefaultTokenProviders()
                     .AddEntityFrameworkStores<CarpoolAppContext>();
             });

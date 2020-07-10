@@ -50,8 +50,11 @@
                                         @Model.voznje[i].GradPolaska <i class="fa fa-arrow-right"></i> @Model.voznje[i].GradDestinacija
                                     </h2>
                                     <h5>@Model.voznje[i].PunaCijena BAM</h5>
+                                    @*<i class="fa fa-clock-o" aria-hidden="true"></i>*@
                                 </a>
-                                @*<h5 style="float:right;">@Model.voznje[i].VrijemePolaska.ToShortTimeString()</h5>*@
+
+                                <h5 style="float:right; padding-right:8px; padding-left:8px;"><i class="far fa-clock" style="padding-right:5px"></i>@Model.voznje[i].VrijemePolaska.ToShortTimeString()</h5>
+                                <h5 style="float:right; padding-right:8px; padding-left:8px;"><i class="far fa-calendar" style="padding-right:5px"></i>@Model.voznje[i].DatumPolaska.ToShortDateString()</h5>
                                 <p style="color:black;" class="post-meta">
                                     Objavio/la @Model.voznje[i].KorisnickoIme
                                 </p>
@@ -81,7 +84,7 @@
                                             <div class="divider-custom">
                                                 <div class="divider-custom-line"></div>
                                                 <div class="divider-custom-icon">
-                                                    <i class="fas fa-car"></i>
+                                                    <h4 style="float:right;"><i class="far fa-clock" style="padding-right:5px"></i>@Model.voznje[i].VrijemePolaska.ToShortTimeString()</h4>
                                                 </div>
                                                 <div class="divider-custom-line"></div>
                                             </div>
